@@ -1,0 +1,1 @@
+<view class="login-box"><view class="video-background"><video class="video" src="https://mp-56351f42-ba58-4baf-bbc7-144b70e6e6eb.cdn.bspapp.com/video/00068.mp4" object-fit="cover" autoplay="{{true}}" controls="{{false}}" loop="{{true}}" id="videoRef" muted="{{true}}"></video></view></view>
