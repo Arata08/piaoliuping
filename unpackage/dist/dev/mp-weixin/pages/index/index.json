@@ -1,4 +1,10 @@
 {
-  "navigationStyle": "custom",
-  "usingComponents": {}
+  "navigationBarTitleText": "星球社交",
+  "usingComponents": {
+    "nut-tabbar": "../../node-modules/nutui-uniapp/components/tabbar/tabbar",
+    "nut-tabbar-item": "../../node-modules/nutui-uniapp/components/tabbaritem/tabbaritem",
+    "nut-button": "../../node-modules/nutui-uniapp/components/button/button",
+    "nut-icon": "../../node-modules/nutui-uniapp/components/icon/icon",
+    "nut-animate": "../../node-modules/nutui-uniapp/components/animate/animate"
+  }
 }

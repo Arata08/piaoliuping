@@ -1,0 +1,23 @@
+{
+    "id": "piaoliuping-wechat",
+    "name": "星球社交-漂流瓶微信小程序版",
+    "displayName": "星球社交-漂流瓶微信小程序版",
+    "version": "v1.0.0",
+    "description": "漂流瓶模式的社交小程序前端页面",
+    "keywords": [
+        "社交,漂流瓶,微信"
+    ],
+    "dcloudext": {
+        "category": [
+            "uni-app前端模板",
+            "uni-app前端项目模板"
+        ]
+    },
+    "dependencies": {
+        "nutui-uniapp": "^1.8.1"
+    },
+    "devDependencies": {
+        "@uni-helper/vite-plugin-uni-components": "^0.2.0",
+        "sass": "^1.83.0"
+    }
+}

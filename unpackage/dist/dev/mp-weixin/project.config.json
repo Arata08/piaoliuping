@@ -6,9 +6,9 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": false,
+    "es6": true,
     "postcss": false,
-    "minified": true,
+    "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
     "babelSetting": {
@@ -18,9 +18,9 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.6.5",
-  "appid": "wx0b926f38b5b31eee",
-  "projectname": "漂流瓶进入",
+  "libVersion": "3.7.3",
+  "appid": "wx6151d7439f571fd2",
+  "projectname": "星球社交-漂流瓶微信小程序版",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",

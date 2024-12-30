@@ -12,6 +12,8 @@
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
 
+@import '@/uni_modules/nutui-uni/styles/variables.scss';
+
 /* 颜色变量 */
 
 /* 行为相关颜色 */
@@ -39,38 +41,38 @@ $uni-border-color:#c8c7cc;
 /* 尺寸变量 */
 
 /* 文字尺寸 */
-$uni-font-size-sm:12px;
-$uni-font-size-base:14px;
-$uni-font-size-lg:16px;
+$uni-font-size-sm:12rpx;
+$uni-font-size-base:14rpx;
+$uni-font-size-lg:16rpx;
 
 /* 图片尺寸 */
-$uni-img-size-sm:20px;
-$uni-img-size-base:26px;
-$uni-img-size-lg:40px;
+$uni-img-size-sm:20rpx;
+$uni-img-size-base:26rpx;
+$uni-img-size-lg:40rpx;
 
 /* Border Radius */
-$uni-border-radius-sm: 2px;
-$uni-border-radius-base: 3px;
-$uni-border-radius-lg: 6px;
+$uni-border-radius-sm: 2rpx;
+$uni-border-radius-base: 3rpx;
+$uni-border-radius-lg: 6rpx;
 $uni-border-radius-circle: 50%;
 
 /* 水平间距 */
-$uni-spacing-row-sm: 5px;
-$uni-spacing-row-base: 10px;
-$uni-spacing-row-lg: 15px;
+$uni-spacing-row-sm: 5rpx;
+$uni-spacing-row-base: 10rpx;
+$uni-spacing-row-lg: 15rpx;
 
 /* 垂直间距 */
-$uni-spacing-col-sm: 4px;
-$uni-spacing-col-base: 8px;
-$uni-spacing-col-lg: 12px;
+$uni-spacing-col-sm: 4rpx;
+$uni-spacing-col-base: 8rpx;
+$uni-spacing-col-lg: 12rpx;
 
 /* 透明度 */
 $uni-opacity-disabled: 0.3; // 组件禁用态的透明度
 
 /* 文章场景相关 */
 $uni-color-title: #2C405A; // 文章标题颜色
-$uni-font-size-title:20px;
+$uni-font-size-title:20rpx;
 $uni-color-subtitle: #555555; // 二级标题颜色
-$uni-font-size-subtitle:26px;
+$uni-font-size-subtitle:26rpx;
 $uni-color-paragraph: #3F536E; // 文章段落颜色
-$uni-font-size-paragraph:15px;
+$uni-font-size-paragraph:15rpx;
