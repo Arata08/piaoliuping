@@ -2,20 +2,22 @@
     "pages": [{
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "星球社交"
+                "navigationBarTitleText": "星球社交",
+				"navigationBarBackgroundColor": "#000000",
+				"navigationBarTextStyle": "white",
 				"app-plus": {
-							"subNVues": [{
-								"id": "concat",
-								"path": "pages/login/subnvue",
-								"style": {
-									"position": "absolute",
-									"top": "0",
-									"bottom": "0",
-									"left": "0",
-									"right": "0",
-									"background": "transparent"
-								}
-							 }]
+					"subNVues": [{
+						"id": "concat",
+						"path": "pages/login/subnvue",
+						"style": {
+							"position": "absolute",
+							"top": "0",
+							"bottom": "0",
+							"left": "0",
+							"right": "0",
+							"background": "transparent"
+						}
+					}]
 				}
             }
         },
@@ -35,6 +37,13 @@
             }
         },
         {
+            "path": "pages/message/meslist",
+            "style": {
+                "navigationBarTitleText": "消息列表",
+                "enablePullDownRefresh": false
+            }
+        },
+        {
             "path": "pages/message/message",
             "style": {
                 "navigationBarTitleText": "消息",
@@ -50,12 +59,22 @@
         }
     ],
     "globalStyle": {
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8"
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "漂流瓶",
+        "backgroundColor": "#000000"
     },
-    "uniIdRouter": {},
+	"tabBar": {
+	    "color": "#ffffff",
+	    "selectedColor": "#2979ff",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/message/meslist",
+	        "text": "消息列表"
+	    }, {
+	        "pagePath": "pages/my/my",
+	        "text": "我的"
+	    }]
+	},
     "easycom": {
         "autoscan": true,
         "custom": {

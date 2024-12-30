@@ -19,10 +19,6 @@ declare module 'vue' {
     NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
     NutRadioGroup: typeof import('nutui-uniapp/components/radiogroup/radiogroup.vue')['default']
     NutSwitch: typeof import('nutui-uniapp/components/switch/switch.vue')['default']
-    NutTabbar: typeof import('nutui-uniapp/components/tabbar/tabbar.vue')['default']
-    NutTabbarItem: typeof import('nutui-uniapp/components/tabbaritem/tabbaritem.vue')['default']
-    NutTabPane: typeof import('nutui-uniapp/components/tabpane/tabpane.vue')['default']
-    NutTabs: typeof import('nutui-uniapp/components/tabs/tabs.vue')['default']
     NutTag: typeof import('nutui-uniapp/components/tag/tag.vue')['default']
     NutTextarea: typeof import('nutui-uniapp/components/textarea/textarea.vue')['default']
   }

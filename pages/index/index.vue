@@ -1,7 +1,7 @@
 <template>
 	<view class="index-box">
 		<view class="video-background">
-			<video src="https://47.106.182.219:29382/down/NGVSgxGFyx5t.mp4"
+			<video src="https://47.106.182.219:29382/down/Zs5bghhKlPS1.mp4"
 				object-fit="cover"
 				:autoplay="true" 
 				:controls="false" 
@@ -45,23 +45,6 @@
 			</nut-button>
 		</view>
     </view>
-    <nut-tabbar bottom v-model="tabbarValue" @tab-switch="tabSwitch">
-        <nut-tabbar-item tab-title="消息">
-            <template #icon>
-                <nut-icon name="message"></nut-icon>
-            </template>
-        </nut-tabbar-item>
-        <nut-tabbar-item tab-title="" class="plus-image">
-            <template #icon>
-                <nut-icon :name="penImage" size="100" />
-            </template>
-        </nut-tabbar-item>
-        <nut-tabbar-item tab-title="我的">
-            <template #icon>
-                <nut-icon name="my2"></nut-icon>
-            </template>
-        </nut-tabbar-item>
-    </nut-tabbar>
 </template>
 
 <script>
@@ -88,7 +71,7 @@
         methods: {
             tabSwitch(item, index) {
                 let s = this
-                const tabUrl = ["/pages/message/message", "/pages/send/send", "/pages/my/my"];
+                const tabUrl = ["/pages/message/meslist", "/pages/send/send", "/pages/my/my"];
                 const url = tabUrl[index];
                 uni.navigateTo({
                     url,
@@ -109,7 +92,7 @@
                 })
             },
             toBox(name) {
-                const url = `/pages/mailbox/mailbox?type=${name}`;
+                const url = "/pages/send/send";
                 uni.navigateTo({
                     url
                 })
