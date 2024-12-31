@@ -16,7 +16,7 @@
 			<view>在这里遇到同频的TA</view>
 			<nut-animate type="ripple" action="click">
 				<nut-animate type="jump" :loop="true">
-					<image class="star" mode="aspectFill" :src="star4" />
+					<image class="star" mode="aspectFill" :src="star1" />
 				</nut-animate>
 			</nut-animate>
 		</view>
@@ -55,7 +55,7 @@
                 tabbarValue: 1,
                 tabValue: 0,
                 penImage: "/static/images/plus.png",
-                star4: "/static/images/star4.png",
+                star1: "/static/images/star2.png",
                 inbox: "/static/images/inbox.png",
                 outbox: "/static/images/outbox.png",
             }
@@ -69,17 +69,6 @@
 			})
 		},
         methods: {
-            tabSwitch(item, index) {
-                let s = this
-                const tabUrl = ["/pages/message/meslist", "/pages/send/send", "/pages/my/my"];
-                const url = tabUrl[index];
-                uni.navigateTo({
-                    url,
-                    complete() {
-                        s.tabbarValue = 1;
-                    },
-                });
-            },
             onSearch() {
                 uni.showToast({
                     title: "搜索中...",

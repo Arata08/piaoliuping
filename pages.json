@@ -2,9 +2,7 @@
     "pages": [{
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "星球社交",
-				"navigationBarBackgroundColor": "#000000",
-				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
 				"app-plus": {
 					"subNVues": [{
 						"id": "concat",
@@ -66,11 +64,15 @@
 	"tabBar": {
 	    "color": "#ffffff",
 	    "selectedColor": "#2979ff",
-	    "backgroundColor": "#ffffff",
+	    "backgroundColor": "#000000",
 	    "list": [{
-	        "pagePath": "pages/message/meslist",
-	        "text": "消息列表"
+	        "pagePath": "pages/index/index",
+	        "text": "首页",
+			"visible": false
 	    }, {
+	        "pagePath": "pages/message/meslist",
+	        "text": "信息"
+	    },{
 	        "pagePath": "pages/my/my",
 	        "text": "我的"
 	    }]
