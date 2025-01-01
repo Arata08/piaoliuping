@@ -30,8 +30,16 @@
                     <view class="name"> 星币 </view>
                 </view>
                 <view class="statitem">
-                    <view class="number"> 200 </view>
+                    <view class="number" style="color: darkorchid;"> 200 </view>
                     <view class="name"> 魅力值 </view>
+                </view>
+                <view class="statitem" style="color: gold">
+                    <view class="number"> 200 </view>
+                    <view class="name"> 剩余会员 </view>
+                </view>
+                <view class="statitem">
+                    <view class="number"> 200 </view>
+                    <view class="name"> 关注 </view>
                 </view>
             </view>
         </view>
@@ -89,7 +97,8 @@
         padding: 0 $containerPadding $containerPadding;
         width: 100%;
         height: 100vh;
-        background: #f7f8fa;
+        background: #000000;
+		color: #ffffff;
     }
 
     .userdata {
@@ -163,7 +172,6 @@
 
         .name {
             font-size: $fontSizeSmall;
-            color: $uni-color-subtitle;
         }
     }
 
