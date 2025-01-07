@@ -1,4 +1,4 @@
-<template>
+<template style="">
 	<view class="page">
 		<view class="list-item" v-for="(item,index) in users" :key="index" @click="connect(item)">
 			<view class="avatar">
@@ -28,16 +28,16 @@
 					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Fa6808c4d-deac-4102-8fcb-0164b258ffe5%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585730&t=fb863f2b64845d0ae49091187f15f452', name: '星星跌入梦境', read: 1},
 					{avatar: 'https://img1.baidu.com/it/u=4103620966,1336257185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '桃奈叶子', read: 0},
 					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F0738d0c4-60bf-477f-a5b9-b78abf994cc9%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585786&t=656a85368566a4b0d2e9f64a6bb3d915', name: '知更鸟的死因', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
-					{avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
-					{avatar: 'https://img1.baidu.com/it/u=4103620966,1336257185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '桃奈叶子', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F0738d0c4-60bf-477f-a5b9-b78abf994cc9%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585786&t=656a85368566a4b0d2e9f64a6bb3d915', name: '知更鸟的死因', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
-					{avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
-					{avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
+					// {avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
+					// {avatar: 'https://img1.baidu.com/it/u=4103620966,1336257185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '桃奈叶子', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F0738d0c4-60bf-477f-a5b9-b78abf994cc9%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585786&t=656a85368566a4b0d2e9f64a6bb3d915', name: '知更鸟的死因', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
+					// {avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
+					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
 				]
 			};
 		},
@@ -55,6 +55,7 @@
 	.page {
 		padding: 0 32rpx;
 		color: #333;
+		background-image: url("https://free4.yunpng.top/2025/01/04/6778f88392b44.jpg");
 	}
 	.list-item {
 		display: flex;

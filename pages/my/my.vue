@@ -45,21 +45,40 @@
         </view>
         <view class="btns">
             <nut-cell-group>
-                <nut-cell title="看广告领奖励" is-link></nut-cell>
-                <nut-cell title="每日签到" is-link></nut-cell>
-                <nut-cell title="星币充值" is-link></nut-cell>
+                <nut-cell title="看广告领奖励" desc="+10猫币" is-link >
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/奖励.png"></image>
+					</template>
+				</nut-cell>
+                <nut-cell title="每日签到" is-link>
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/已签到.png"></image>
+					</template>
+				</nut-cell>
+                <nut-cell title="分享给好友" is-link @click="showShare">
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/分享.png"></image>
+					</template>
+				</nut-cell>
+                <nut-cell title="性别认证" is-link>
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/性别.png"></image>
+					</template>
+				</nut-cell>
             </nut-cell-group>
             <nut-cell-group>
-                <nut-cell title="创作人计划" is-link></nut-cell>
-                <nut-cell title="推广人计划" is-link></nut-cell>
-                <nut-cell title="分享给好友" is-link @click="showShare"></nut-cell>
+                <nut-cell title="实名认证" is-link @click="contactUs">
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/认证.png"></image>
+					</template>
+				</nut-cell>
+                <nut-cell title="设置" is-link @click="toSettings">
+					<template #icon>
+						<image class="nut-icon" src="../../static/my/set-up.png"></image>
+					</template>
+				</nut-cell>
             </nut-cell-group>
-            <nut-cell-group>
-                <nut-cell title="联系我们" is-link @click="contactUs"></nut-cell>
-            </nut-cell-group>
-            <nut-cell-group>
-                <nut-cell title="设置" is-link @click="toSettings"></nut-cell>
-            </nut-cell-group>
+			<button type="default" open-type="contact" style="margin-top: 20rpx;background-color: #0B1430;color: #fff">在线咨询</button>
         </view>
     </view>
 
@@ -91,13 +110,19 @@
     $containerPadding: 25rpx;
     $fontSizeSmall: 25rpx;
     $fontSizeBig: 35rpx;
-
+	
+:root, page {
+	--nut-cell-background: #0e1b41;
+	--nut-cell-padding:18px 20px;
+	--nut-cell-group-title-color: #ffffff;
+}
     .container {
         box-sizing: border-box;
         padding: 0 $containerPadding $containerPadding;
         width: 100%;
         height: 100vh;
-        background: #000000;
+        background-image: url("https://free4.yunpng.top/2025/01/04/6778edaf19792.jpg");
+  background-size: cover; /* 调整背景图像的大小以覆盖整个容器 */
 		color: #ffffff;
     }
 
