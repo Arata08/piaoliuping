@@ -1,5 +1,8 @@
 <template>
     <view class="container">
+		<div class="layer2"></div>
+		<div class="layer3"></div>
+		<div class="meteor"></div>
         <view class="userdata">
             <nut-avatar size="large" class="headimage">
                 <img :src="img" />
@@ -80,6 +83,13 @@
 
 </template>
 
+<style>
+	page {
+		height: 100%;
+		width: 100%;
+		background: linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%); 
+	}
+</style>
 <script>
     export default {
         data() {
@@ -110,27 +120,110 @@
 :root, page {
 	--nut-cell-background: #0e1b41;
 	--nut-cell-padding:18px 20px;
-	--nut-cell-group-title-color: #ffffff;
+	--nut-cell-color: #ffffff;
 }
+//----------------------------------
+	//根据数量来生成shadows
+	@function getShadows($n) {
+		//每一个shadow对应一个小星星
+		$shadows: unquote('#{random(100)}vw #{random(100)}vh #fff');
+
+		@for $i from 2 through $n {
+			$shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
+		}
+
+		//去掉逗号
+		@return unquote($shadows)
+	}
+
+	$duration: 400s; //小星星运动的动画时间
+	$count: 600; //每层星空的小星星数，为保证性能，这里建议设置不超过1000
+
+	//通过for循环来生成5层星空
+	@for $i from 1 through 5 {
+		$duration: $duration / 2; //离屏幕越近，运动越快
+		$count: floor($count / $i); //离屏幕越近，星星数越少
+
+		.layer#{$i} {
+			$size: #{$i}px; //离屏幕越近星星越大
+			position: fixed;
+			width: $size;
+			height: $size;
+			border-radius: 50%;
+			left: 0;
+			top: 0;
+			//通过多个shadow来达到生层本层星空星星
+			box-shadow: getShadows($count);
+			animation: moveUp $duration linear infinite;
+
+			//通过伪类在屏幕下方放置一个一样的星空层，防止循环播放的时候闪屏
+			&::after {
+				content: '';
+				position: fixed;
+				left: 0;
+				top: 100vh;
+				border-radius: inherit;
+				width: inherit;
+				height: inherit;
+				box-shadow: inherit;
+			}
+		}
+	}
+
+	//星星向上运动动画
+	@keyframes moveUp {
+		to {
+			transform: translateY(-100vh);
+		}
+	}
+	$color: orange;
+	//流星拖尾
+	.meteor {
+		width: 3px;
+		height: 36px;
+		background: linear-gradient(0deg, $color 0, transparent 100%);
+		position: absolute;
+		top: 70px;
+		transform: rotate(45deg);
+		right: 70px;
+		opacity: 0;
+		animation: streak 2s linear infinite;
+
+		//伪类实现发光头部
+		&::after {
+			content: "";
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: $color;
+			filter: blur(1.8px);
+			box-shadow: 0px -1px -1px 5px transparent;
+			bottom: -4px;
+			left: 50%;
+			transform: translate(-50%);
+		}
+	}
+	@keyframes streak {
+		0% {
+			transform: rotate(50deg) translateY(-100px) scale(0.5);
+			opacity: 0;
+		}
+
+		70% {
+			opacity: 1;
+			transform: rotate(50deg) translateY(120px) scale(1.1);
+		}
+
+		100% {
+			transform: rotate(50deg) translateY(220px) scale(0.5);
+			opacity: 0;
+		}
+	}
+	//---------------------------
     .container {
         box-sizing: border-box;
         padding: 0 $containerPadding $containerPadding;
-        width: 100%;
-        height: 100vh;
-		/* global 94%+ browsers support */
-		background: linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%); 
-		
-		/* safari 5.1+,chrome 10+ */
-		background: -webkit-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
-		
-		/* ff 3.6+ */
-		background: -moz-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
-		
-		/* opera 11.10+ */ 
-		background: -o-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
-		
-		/* ie 10+ */
-		background: -ms-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
 		color: #ffffff;
     }
 
@@ -234,7 +327,7 @@
     }
 
     .btns {
-		color: #EE9613;
+		color: #ffffff;
 		margin-top: 60rpx;
     }
 
@@ -247,4 +340,5 @@
         background-position: -400% 0;
       }
     }
+	
 </style>

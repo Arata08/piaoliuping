@@ -1,5 +1,12 @@
 <template>
-	<view class="page">
+	<view class="container">
+		<!--由远到近5个层次星空-->
+		<div class="layer1"></div>
+		<div class="layer2"></div>
+		<div class="layer3"></div>
+		<div class="layer4"></div>
+		<div class="layer5"></div>
+		<div class="meteor"></div>
 		<view class="list-item" v-for="(item,index) in users" :key="index" @click="connect(item)">
 			<view class="avatar">
 				<text class="round" v-if="item.read"></text>
@@ -36,7 +43,7 @@
 						read: 1
 					},
 					{
-						avatar: 'https://up.enterdesk.com/edpic_source/30/90/40/309040a0602c672cebc6ab3a1bbbc8cd.jpg',
+						avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
 						name: '月野氿桃',
 						read: 1
 					},
@@ -55,16 +62,56 @@
 						name: '知更鸟的死因',
 						read: 0
 					},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
-					// {avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
-					// {avatar: 'https://img1.baidu.com/it/u=4103620966,1336257185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '桃奈叶子', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F0738d0c4-60bf-477f-a5b9-b78abf994cc9%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585786&t=656a85368566a4b0d2e9f64a6bb3d915', name: '知更鸟的死因', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a', name: '放鹤归舟', read: 0},
-					// {avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', name: '春日樱亭', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018', name: '宇宙热恋期', read: 0},
-					// {avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064', name: '今夜星潮暗涌', read: 0},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a',
+						name: '放鹤归舟',
+						read: 0
+					},
+					{
+						avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+						name: '春日樱亭',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018',
+						name: '宇宙热恋期',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064',
+						name: '今夜星潮暗涌',
+						read: 0
+					},
+					{
+						avatar: 'https://img1.baidu.com/it/u=4103620966,1336257185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+						name: '桃奈叶子',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F0738d0c4-60bf-477f-a5b9-b78abf994cc9%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585786&t=656a85368566a4b0d2e9f64a6bb3d915',
+						name: '知更鸟的死因',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F8075fa62-cf88-420a-88f7-9a4a4d714bb0%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585798&t=057782a24ac68de6a2671084fb40140a',
+						name: '放鹤归舟',
+						read: 0
+					},
+					{
+						avatar: 'https://img0.baidu.com/it/u=3975753653,825915219&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+						name: '春日樱亭',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F034f80eb-432d-4e10-b5d8-c2327334c61b%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585807&t=398154a5d365a390dc5ee294c87cb018',
+						name: '宇宙热恋期',
+						read: 0
+					},
+					{
+						avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F4d69987e-5419-463c-890c-61f819bf4d22%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708585819&t=21d504545be19a98f39f593ce59df064',
+						name: '今夜星潮暗涌',
+						read: 0
+					},
 				]
 			};
 		},
@@ -80,29 +127,120 @@
 
 <style>
 	page {
-		/* global 94%+ browsers support */
-		background: linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
-
-		/* safari 5.1+,chrome 10+ */
-		background: -webkit-linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
-
-		/* ff 3.6+ */
-		background: -moz-linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
-
-		/* opera 11.10+ */
-		background: -o-linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
-
-		/* ie 10+ */
-		background: -ms-linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
+		height: 100%;
+		width: 100%;
+		background: linear-gradient(180deg,#000000 5%,#fcf9fb 50.06%,#000000 95%); 
+		background-attachment: fixed;
 	}
 </style>
 
 <style lang="scss" scoped>
-	.page {
+	.container {
 		padding: 0 32rpx;
 		color: #DCA51D;
 	}
+//背景------------------------------------------------
+	//根据数量来生成shadows
+	@function getShadows($n) {
+		//每一个shadow对应一个小星星
+		$shadows: unquote('#{random(100)}vw #{random(100)}vh #fff');
 
+		@for $i from 2 through $n {
+			$shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
+		}
+
+		//去掉逗号
+		@return unquote($shadows)
+	}
+
+	$duration: 400s; //小星星运动的动画时间
+	$count: 600; //每层星空的小星星数，为保证性能，这里建议设置不超过1000
+
+	//通过for循环来生成5层星空
+	@for $i from 1 through 5 {
+		$duration: $duration / 2; //离屏幕越近，运动越快
+		$count: floor($count / $i); //离屏幕越近，星星数越少
+
+		.layer#{$i} {
+			$size: #{$i}px; //离屏幕越近星星越大
+			position: fixed;
+			width: $size;
+			height: $size;
+			border-radius: 50%;
+			left: 0;
+			top: 0;
+			//通过多个shadow来达到生层本层星空星星
+			box-shadow: getShadows($count);
+			animation: moveUp $duration linear infinite;
+
+			//通过伪类在屏幕下方放置一个一样的星空层，防止循环播放的时候闪屏
+			&::after {
+				content: '';
+				position: fixed;
+				left: 0;
+				top: 100vh;
+				border-radius: inherit;
+				width: inherit;
+				height: inherit;
+				box-shadow: inherit;
+			}
+		}
+	}
+
+	//星星向上运动动画
+	@keyframes moveUp {
+		to {
+			transform: translateY(-100vh);
+		}
+	}
+
+	$color: orange;
+
+	//流星拖尾
+	.meteor {
+		width: 3px;
+		height: 36px;
+		background: linear-gradient(0deg, $color 0, transparent 100%);
+		position: absolute;
+		top: 70px;
+		transform: rotate(45deg);
+		right: 70px;
+		opacity: 0;
+		animation: streak 2s linear infinite;
+
+		//伪类实现发光头部
+		&::after {
+			content: "";
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: $color;
+			filter: blur(1.8px);
+			box-shadow: 0px -1px -1px 5px transparent;
+			bottom: -4px;
+			left: 50%;
+			transform: translate(-50%);
+		}
+	}
+
+	@keyframes streak {
+		0% {
+			transform: rotate(50deg) translateY(-100px) scale(0.5);
+			opacity: 0;
+		}
+
+		70% {
+			opacity: 1;
+			transform: rotate(50deg) translateY(120px) scale(1.1);
+		}
+
+		100% {
+			transform: rotate(50deg) translateY(220px) scale(0.5);
+			opacity: 0;
+		}
+	}
+//----------------------end
 	@keyframes flowCss {
 		0% {
 			background-position: 0 0;
@@ -155,7 +293,7 @@
 				}
 
 				.time {
-					color: #999;
+					color: #55aaff;
 					font-size: 24rpx;
 				}
 			}
