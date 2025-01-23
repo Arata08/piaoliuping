@@ -6,14 +6,10 @@
             </nut-avatar>
             <view class="userinfo">
                 <view class="nicknametags">
-                    <view class="nickname"> 沧海一舟 </view>
-                    <nut-tag type="primary" round>
+                    <view class="nickname"> 我是大帅哥 </view>
+                    <nut-tag type="success" round>
                         <nut-icon :name="male" color="white" />
                         32
-                    </nut-tag>
-                    <nut-tag type="primary" round>
-                        <nut-icon name="star-fill-n" />
-                        11
                     </nut-tag>
                 </view>
                 <view class="userid"> ID 1234567 </view>
@@ -45,7 +41,7 @@
         </view>
         <view class="btns">
             <nut-cell-group>
-                <nut-cell title="看广告领奖励" desc="+10猫币" is-link >
+                <nut-cell title="看广告领奖励" desc="+10猫币" is-link>
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/奖励.png"></image>
 					</template>
@@ -121,8 +117,20 @@
         padding: 0 $containerPadding $containerPadding;
         width: 100%;
         height: 100vh;
-        background-image: url("https://free4.yunpng.top/2025/01/04/6778edaf19792.jpg");
-  background-size: cover; /* 调整背景图像的大小以覆盖整个容器 */
+		/* global 94%+ browsers support */
+		background: linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%); 
+		
+		/* safari 5.1+,chrome 10+ */
+		background: -webkit-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
+		
+		/* ff 3.6+ */
+		background: -moz-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
+		
+		/* opera 11.10+ */ 
+		background: -o-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
+		
+		/* ie 10+ */
+		background: -ms-linear-gradient(180deg,#000000 0%,#ACE0F9 49.98%,#000000 100%);
 		color: #ffffff;
     }
 
@@ -166,7 +174,7 @@
     .leveltext {
         margin-right: 15rpx;
         font-size: $fontSizeSmall;
-        color: $uni-color-subtitle;
+        color: #FFFF66;
     }
 
     .userext {
@@ -196,7 +204,27 @@
         }
 
         .name {
+            background: -webkit-linear-gradient(135deg,
+                    #0eaf6d,
+                    #ff6ac6 25%,
+                    #147b96 50%,
+                    #e6d205 55%,
+                    #2cc4e0 60%,
+                    #8b2ce0 80%,
+                    #ff6384 95%,
+                    #08dfb4);
+            /* 文字颜色填充设置为透明 */
+            -webkit-text-fill-color: transparent;
+            /* 背景裁剪，即让文字使用背景色 */
+            -webkit-background-clip: text;
+            /* 背景图放大一下，看着柔和一些 */
+            -webkit-background-size: 200% 100%;
+            /* 应用动画flowCss 12秒速度 无限循环 线性匀速动画*/
+            -webkit-animation: flowCss 12s infinite linear;
             font-size: $fontSizeSmall;
+        }
+        .name:hover {
+            -webkit-animation: flowCss 4s infinite linear;
         }
     }
 
@@ -206,6 +234,17 @@
     }
 
     .btns {
-        margin-top: 60rpx;
+		color: #EE9613;
+		margin-top: 60rpx;
+    }
+
+
+    @keyframes flowCss {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -400% 0;
+      }
     }
 </style>
