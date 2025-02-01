@@ -1,5 +1,9 @@
 <template>
-	<view class="page">
+		<div class="layer2"></div>
+		<div class="layer3"></div>
+		<div class="layer4"></div>
+		<div class="layer5"></div>
+		<div class="meteor"></div>
 		<scroll-view class="scroll-view" scroll-y scroll-with-animation :scroll-top="top">
 			<view style="padding: 30rpx 30rpx 240rpx;">
 				<view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index"
@@ -18,12 +22,12 @@
 
 		<view class="tool">
 			<block v-if="messageType === 'text'">
-				<image src="../../static/voice.png" mode="widthFix" class="left-icon" @click="messageType='voice'"></image>
+				<image src="../../static/voice.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="messageType='voice'"></image>
 				<input type="text" v-model="content" class="input" @confirm="send" />
-				<image src="../../static/thumb.png" mode="widthFix" class="thumb" @click="chooseImage"></image>
+				<image src="../../static/thumb.png" style="margin-top: 5rpx;margin-left: -10rpx;" mode="widthFix" class="thumb" @click="chooseImage"></image>
 			</block>
 			<block v-else-if="messageType === 'voice'">
-				<image src="../../static/text.png" mode="widthFix" class="left-icon" @click="messageType='text'"></image>
+				<image src="../../static/text.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="messageType='text'"></image>
 				<text class="voice-crl" @touchstart="touchstart" @touchend="touchend">{{ recordStart ? '松开 发送' : '按住 说话' }}</text>
 			</block>
 		</view>
@@ -34,7 +38,6 @@
 				<view class="text">松开 发送</view>
 			</view>
 		</view>
-	</view>
 </template>
 
 <script>
@@ -264,7 +267,117 @@
 	}
 </script>
 
+<style>
+	page {
+		height: 100%;
+		width: 100%;
+		background: linear-gradient(180deg,#000000 5%,#45333B 53%,#000000 95%); 
+		background-attachment: fixed;
+	}
+</style>
 <style lang="scss" scoped>
+	//背景------------------------------------------------
+	//根据数量来生成shadows
+	@function getShadows($n) {
+		//每一个shadow对应一个小星星
+		$shadows: unquote('#{random(100)}vw #{random(100)}vh #fff');
+
+		@for $i from 2 through $n {
+			$shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
+		}
+
+		//去掉逗号
+		@return unquote($shadows)
+	}
+
+	$duration: 400s; //小星星运动的动画时间
+	$count: 600; //每层星空的小星星数，为保证性能，这里建议设置不超过1000
+
+	//通过for循环来生成5层星空
+	@for $i from 1 through 5 {
+		$duration: $duration / 2; //离屏幕越近，运动越快
+		$count: floor($count / $i); //离屏幕越近，星星数越少
+
+		.layer#{$i} {
+			$size: #{$i}px; //离屏幕越近星星越大
+			position: fixed;
+			width: $size;
+			height: $size;
+			border-radius: 50%;
+			left: 0;
+			top: 0;
+			//通过多个shadow来达到生层本层星空星星
+			box-shadow: getShadows($count);
+			animation: moveUp $duration linear infinite;
+
+			//通过伪类在屏幕下方放置一个一样的星空层，防止循环播放的时候闪屏
+			&::after {
+				content: '';
+				position: fixed;
+				left: 0;
+				top: 100vh;
+				border-radius: inherit;
+				width: inherit;
+				height: inherit;
+				box-shadow: inherit;
+			}
+		}
+	}
+
+	//星星向上运动动画
+	@keyframes moveUp {
+		to {
+			transform: translateY(-100vh);
+		}
+	}
+
+	$color: orange;
+
+	//流星拖尾
+	.meteor {
+		width: 3px;
+		height: 36px;
+		background: linear-gradient(0deg, $color 0, transparent 100%);
+		position: absolute;
+		top: 70px;
+		transform: rotate(45deg);
+		right: 70px;
+		opacity: 0;
+		animation: streak 2s linear infinite;
+
+		//伪类实现发光头部
+		&::after {
+			content: "";
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: $color;
+			filter: blur(1.8px);
+			box-shadow: 0px -1px -1px 5px transparent;
+			bottom: -4px;
+			left: 50%;
+			transform: translate(-50%);
+		}
+	}
+
+	@keyframes streak {
+		0% {
+			transform: rotate(50deg) translateY(-100px) scale(0.5);
+			opacity: 0;
+		}
+
+		70% {
+			opacity: 1;
+			transform: rotate(50deg) translateY(120px) scale(1.1);
+		}
+
+		100% {
+			transform: rotate(50deg) translateY(220px) scale(0.5);
+			opacity: 0;
+		}
+	}
+//----------------------end
 	.scroll-view {
 		/* #ifdef H5 */
 		height: calc(100vh - 44px);
@@ -272,7 +385,6 @@
 		/* #ifndef H5 */
 		height: 100vh;
 		/* #endif */
-		background: #eee;
 		box-sizing: border-box;
 	}
 
@@ -350,7 +462,7 @@
 		min-height: 120rpx;
 		left: 0;
 		bottom: 0;
-		background: #fff;
+		background: #000000;
 		display: flex;
 		align-items: flex-start;
 		box-sizing: border-box;

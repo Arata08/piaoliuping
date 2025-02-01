@@ -1,0 +1,17 @@
+{
+    "id": "piaoyi-cityPicker",
+    "name": " data-cityPicker省市区地址选择器",
+    "displayName": " data-cityPicker省市区地址选择器(兼容vue3)",
+    "version": "1.1.5",
+    "description": "常用省市区选择器，可反选，自定义模态框、兼容vue3",
+    "keywords": [
+        "省市区",
+        "选择器",
+        "可反选",
+        "自定义模态框和弹框",
+        "兼容vue3"
+    ],
+    "dcloudext": {
+        "type": "component-vue"
+    }
+}

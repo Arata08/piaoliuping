@@ -14,10 +14,14 @@ declare module 'vue' {
     NutCellGroup: typeof import('nutui-uniapp/components/cellgroup/cellgroup.vue')['default']
     NutCollapse: typeof import('nutui-uniapp/components/collapse/collapse.vue')['default']
     NutCollapseItem: typeof import('nutui-uniapp/components/collapseitem/collapseitem.vue')['default']
+    NutConfigProvider: typeof import('nutui-uniapp/components/configprovider/configprovider.vue')['default']
+    NutDatePicker: typeof import('nutui-uniapp/components/datepicker/datepicker.vue')['default']
+    NutDialog: typeof import('nutui-uniapp/components/dialog/dialog.vue')['default']
     NutDivider: typeof import('nutui-uniapp/components/divider/divider.vue')['default']
     NutForm: typeof import('nutui-uniapp/components/form/form.vue')['default']
     NutFormItem: typeof import('nutui-uniapp/components/formitem/formitem.vue')['default']
     NutIcon: typeof import('nutui-uniapp/components/icon/icon.vue')['default']
+    NutInput: typeof import('nutui-uniapp/components/input/input.vue')['default']
     NutPopup: typeof import('nutui-uniapp/components/popup/popup.vue')['default']
     NutProgress: typeof import('nutui-uniapp/components/progress/progress.vue')['default']
     NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
@@ -27,5 +31,6 @@ declare module 'vue' {
     NutTabs: typeof import('nutui-uniapp/components/tabs/tabs.vue')['default']
     NutTag: typeof import('nutui-uniapp/components/tag/tag.vue')['default']
     NutTextarea: typeof import('nutui-uniapp/components/textarea/textarea.vue')['default']
+    NutUploader: typeof import('nutui-uniapp/components/uploader/uploader.vue')['default']
   }
 }

@@ -1,7 +1,7 @@
 <template>
 	<view class="index-box">
 		<view class="video-background">
-			<video src="https://47.106.182.219:29382/down/Zs5bghhKlPS1.mp4" object-fit="cover" :autoplay="true"
+			<video src="https://lilihouse.oss-cn-hangzhou.aliyuncs.com/%E6%98%9F%E4%BA%911.0.mp4" object-fit="cover" :autoplay="true"
 				:controls="false" :muted="true" :loop="true" id="videoRef" class="video">
 			</video>
 		</view>
