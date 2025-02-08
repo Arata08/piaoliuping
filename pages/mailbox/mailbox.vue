@@ -1,5 +1,5 @@
 <template>
-	<nut-tabs background="#000000" v-model="state.tab2value" :auto-height="true" type="smile">
+	<nut-tabs background="#00s0" v-model="state.tab2value" :auto-height="true" type="smile" swipeable="true">
 		<nut-tab-pane title="收件箱" pane-key="0">
 			<view class="container">
 				<view class="item">
@@ -16,14 +16,16 @@
 								<nut-icon :name="male" color="white" />
 								32
 							</nut-tag>
+							<image src="/static/mailbox/LV1.png" style="height: 23px;width: 47px;margin-left: 2px;">
+							</image>
 						</view>
 						<view class="text datetime">12月5日</view>
 					</view>
-					<nut-icon name="more-s" size="25" style="align-self: flex-end;"
+					<nut-icon name="more-s" size="25" custom-color="#fff" style="align-self: flex-end;"
 						@click="showRound = true"></nut-icon>
 				</view>
 				<view class="text content">
-					蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天蜀道之难难于上青天
+					蜀道之难难于上青天
 				</view>
 			</view>
 		</nut-tab-pane>
@@ -32,9 +34,9 @@
 	<nut-popup position="bottom" round v-model:visible="showRound">
 		<view style="text-align: center;margin-top: 15px;">
 			<text>举报</text>
-			<nut-divider :custom-style="{ color: '#e7e7e7', borderColor: '#e7e7e7'}"/>
+			<nut-divider :custom-style="{ color: '#e7e7e7', borderColor: '#e7e7e7'}" />
 			<text>拉黑</text>
-			<nut-divider :custom-style="{ color: '#e7e7e7', borderColor: '#e7e7e7'}"/>
+			<nut-divider :custom-style="{ color: '#e7e7e7', borderColor: '#e7e7e7'}" />
 			<text>删除</text>
 		</view>
 	</nut-popup>
@@ -65,7 +67,6 @@
 			let s = this
 			uni.getSystemInfo({
 				success(res) {
-					console.log(res);
 					s.scrollHeight = res.windowHeight + "px";
 				},
 			});
@@ -84,12 +85,19 @@
 <style lang="scss">
 	$space: 8rpx;
 	$contentFontSize : 25rpx;
-:root, page {
-	--nut-tabs-titles-item-font-size:25;
-	--nut-tabs-titles-item-color: #ffffff;
-	--nut-tabs-titles-item-active-color: #55aaff;
-}
+
+	:root,
+	page {
+		background-color: #000;
+		--nut-tab-pane-background: #000;
+		--nut-tabs-titles-item-font-size: 25;
+		--nut-tabs-titles-item-color: #ffffff;
+		--nut-tabs-titles-background-color: #000;
+		--nut-tabs-titles-item-active-color: #55aaff;
+	}
+
 	.container {
+		background-color: #000;
 		padding: 10px;
 		box-shadow: 0px 0px 11px #ccc;
 		border-radius: 31px;
@@ -115,6 +123,7 @@
 	}
 
 	.info {
+		color: #ffffff;
 		flex: 1;
 		display: flex;
 		flex-direction: column;

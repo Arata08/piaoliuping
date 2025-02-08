@@ -49,12 +49,12 @@
 						<image class="nut-icon" src="../../static/my/奖励.png"></image>
 					</template>
 				</nut-cell>
-				<nut-cell title="每日签到" is-link>
+				<nut-cell title="每日签到" is-link @click="goToPage('sign')">
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/已签到.png"></image>
 					</template>
 				</nut-cell>
-				<nut-cell title="分享给好友" is-link @click="showShare">
+				<nut-cell title="分享给好友" is-link @click="goToPage('sign')">
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/分享.png"></image>
 					</template>
@@ -125,6 +125,9 @@
 						break;
 					case 'set':
 						url = '/pages/my/set';
+						break;
+					case 'sign':
+						url = '/pages/my/sign';
 						break;
 					default:
 						console.error('未知的页面类型');

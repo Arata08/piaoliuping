@@ -54,7 +54,13 @@
 				outbox: "/static/images/outbox.png",
 			}
 		},
-		onLoad() {},
+		onLoad() {
+			uni.getWindowInfo({
+				success: function (res) {
+					uni.setStorageSync('windowInfo', res)
+				}
+			});
+		},
 		onShow() {
 			// 当app切到后台再切回前台的时候会触发onShow这个时候视频应该继续播放，不这样做视频会暂停的
 			this.$nextTick(() => {

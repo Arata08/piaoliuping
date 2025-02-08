@@ -2,7 +2,7 @@
 	<view>
 		<view class="editaddress">
 			<view class="content">
-				<view style="margin: 0 auto;">
+				<view style="margin: 30px auto;">
 					<nut-avatar size="100">
 						<image
 							src="https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png" />
@@ -24,6 +24,15 @@
 					<view class="nominal">所在地区</view>
 					<view class="input selectcity" @tap="open('selectcity')">
 						<view class="city">{{province}} {{city}} {{area}}</view>
+					</view>
+				</view>
+				<view class="row">
+					<view class="nominal">性别</view>
+					<view style="margin: 5px 0;">
+						<wd-radio-group v-model="value" shape="button" @change="change">
+							<wd-radio :value="1">男</wd-radio>
+							<wd-radio :value="2">女</wd-radio>
+						</wd-radio-group>
 					</view>
 				</view>
 			</view>
@@ -48,18 +57,28 @@
 		ref
 	} from 'vue';
 	import cityPicker from '@/components/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker'
-
 	const minDate = new Date(2020, 0, 1)
 	const maxDate = new Date(2025, 10, 1)
 
 	const currentDate = ref<Date>(new Date(2022, 4, 10))
+
 	export default {
 		components: {
 			cityPicker
 		},
+		setup() {
+			return {
+				minDate,
+				maxDate,
+				currentDate
+			}
+		},
 		data() {
 			return {
-				nickName: "",
+				value: "",
+				sex: "男",
+				nickName: "aa",
+				uploadUrl: "",
 				phone: "",
 				baseBirthday: null,
 				birthday: "",
@@ -101,15 +120,18 @@
 				this.birthday = a.getFullYear() + "年-" + (a.getMonth() + 1) + "月-" + a.getDate() + "日";
 				this.dateshow = false
 			},
+			change(e) {
+				console.log(e)
+				if (e.value === 1) {
+					this.sex = "man"
+				} else {
+					this.sex = "woman"
+				}
+				console.log(this.sex)
+			},
 		}
 	};
 </script>
-
-<style>
-	page {
-		background: linear-gradient(180deg, #000000 0%, #55ffff 49.98%, #000000 100%);
-	}
-</style>
 
 <style lang="scss" scoped>
 	.save {
@@ -158,9 +180,13 @@
 	}
 
 	.content .row {
+		margin-top: 30rpx;
+		padding: 10px;
 		width: 92%;
 		margin: 0 4%;
-		border-bottom: solid 1upx #eee;
+		font-size: 25px;
+		border: solid 1upx #eee;
+		border-radius: 15px;
 	}
 
 	.content .row .nominal {
@@ -178,7 +204,6 @@
 		padding: 20upx 0;
 		align-items: center;
 		font-size: 28upx;
-
 	}
 
 	.content .row .input input {
@@ -191,7 +216,6 @@
 	}
 
 	.content .row .input textarea {
-		margin-top: 30rpx;
 		min-height: 40upx;
 		line-height: 40upx;
 	}

@@ -1,8 +1,13 @@
 <template>
 	<view style="margin-top: 30%;">
+		<view style="margin-left: 43%;font-size: 22px;color: #55ffff;">
+			<text>魅力值</text>
+			<br />
+			<text>&nbsp;&nbsp;&nbsp;{{charm}}</text>
+		</view>
 			<nut-form>
 				<nut-form-item label="魅力值">
-					<nut-input v-model="basicData.meili" class="nut-input-text" type="number" placeholder="请输入要兑换的魅力值"
+					<nut-input v-model="basicData.meili" class="nut-input-text" type="number" placeholder="请输入要兑换的魅力值(50:1)"
 						@update:model-value="handleMeiliChange" />
 				</nut-form-item>
 				<nut-form-item label="可兑换现金">
@@ -56,7 +61,7 @@
 		},
 		data() {
 			return {
-				
+				charm: 10,
 			};
 		}
 	}

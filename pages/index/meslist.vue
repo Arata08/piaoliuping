@@ -7,8 +7,22 @@
 		<div class="layer4"></div>
 		<div class="layer5"></div>
 		<div class="meteor"></div>
+		<view class="icon-con">
+			<view class="icon-item">
+				<image src="/static/meslist/query.png" class="icon"></image>
+				<text style="align-self: center;">精确查找</text>
+			</view>
+			<view class="icon-item">
+				<image src="/static/meslist/留言.png" class="icon"></image>
+				<text style="align-self: center;">留言消息</text>
+			</view>
+			<view class="icon-item">
+				<image src="/static/meslist/通知.png" class="icon"></image>
+				<text style="align-self: center;">系统消息</text>
+			</view>
+		</view>
 		<view class="list-item" v-for="(item,index) in users" :key="index" @click="connect(item)">
-			<view class="avatar">
+			<view class="avatar" @click.stop="showModal(item)">
 				<text class="round" v-if="item.read"></text>
 				<image :src="item.avatar" mode="widthFix"></image>
 			</view>
@@ -20,11 +34,17 @@
 				<view class="txt">这是信息这是信息这是信息</view>
 			</view>
 		</view>
+		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal"
+			:windowWidth="windowWidth" />
 	</view>
 </template>
 
 <script>
+	import UserInfoModal from '@/components/user-detail/user-detail.vue'
 	export default {
+		components: {
+			UserInfoModal
+		},
 		data() {
 			return {
 				users: [{
@@ -112,15 +132,37 @@
 						name: '今夜星潮暗涌',
 						read: 0
 					},
-				]
+				],
+				selectedUser: {},
+				isModalVisible: false,
+				windowWidth: 0
 			};
+		},
+		onLoad() {
+			this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
+			console.log(this.windowWidth)
 		},
 		methods: {
 			connect(item) {
 				uni.navigateTo({
 					url: `/pages/message/message?name=${item.name}&avatar=${item.avatar}`
 				})
+			},
+			showModal(user) {
+				this.selectedUser = user;
+				this.isModalVisible = true;
+			},
+			closeModal() {
+				this.isModalVisible = false;
+			},
+			handleKeydown(event) {
+				if (event.key === 'Escape') {
+					this.closeModal();
+				}
 			}
+		},
+		beforeDestroy() {
+			document.removeEventListener('keydown', this.handleKeydown);
 		}
 	}
 </script>
@@ -129,17 +171,36 @@
 	page {
 		height: 100%;
 		width: 100%;
-		background: linear-gradient(180deg,#000000 5%,#fcf9fb 50.06%,#000000 95%); 
+		background: linear-gradient(180deg, #000000 5%, #fcf9fb 50.06%, #000000 95%);
 		background-attachment: fixed;
 	}
 </style>
 
 <style lang="scss" scoped>
+	.icon-con {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		padding: 5px 10px;
+	}
+
+	.icon {
+		width: 60px;
+		height: 60px;
+	}
+
+	.icon-item {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.container {
 		padding: 0 32rpx;
 		color: #DCA51D;
 	}
-//背景------------------------------------------------
+
+	//背景------------------------------------------------
 	//根据数量来生成shadows
 	@function getShadows($n) {
 		//每一个shadow对应一个小星星
@@ -240,7 +301,8 @@
 			opacity: 0;
 		}
 	}
-//----------------------end
+
+	//----------------------end
 	@keyframes flowCss {
 		0% {
 			background-position: 0 0;

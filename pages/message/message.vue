@@ -68,8 +68,63 @@
 					content: '历史消息',
 					userType: 'self',
 					avatar: this._selfAvatar
-				}
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},{
+					content: '对方历史回复消息',
+					userType: 'friend',
+					avatar: this._friendAvatar
+				},
+				{
+					content: '历史消息',
+					userType: 'self',
+					avatar: this._selfAvatar
+				},
 			]
+			this.scrollToBottom()
 		},
 		onHide() {
 			if (this._innerAudioContext) {
