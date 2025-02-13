@@ -5,7 +5,7 @@
 		<div class="meteor"></div>
 		<view class="userdata">
 			<nut-avatar size="large" class="headimage">
-				<img :src="img" @click="goToPage('set')"/>
+				<img :src="img" @click="goToPage('set')" />
 			</nut-avatar>
 			<view class="userinfo">
 				<view class="nicknametags">
@@ -79,16 +79,14 @@
 			</nut-cell-group>
 			<button type="default" open-type="contact"
 				style="margin-top: 20rpx;background-color: #0B1430;color: #fff">在线咨询</button>
+			<navigator url="../login/login" hover-class="navigator-hover">
+				<button type="default">跳转到新页面</button>
+			</navigator>
 		</view>
 	</view>
 
 </template>
 
-<style>
-	page {
-		background: linear-gradient(180deg, #000000 0%, #ACE0F9 49.98%, #000000 100%);
-	}
-</style>
 <script>
 	export default {
 		data() {
@@ -141,6 +139,12 @@
 	};
 </script>
 
+<style>
+page {
+  background: linear-gradient(180deg, #000000 0%, #2b3977 49.98%, #000000 100%);
+}
+</style>
+
 <style lang="scss">
 	$containerPadding: 25rpx;
 	$fontSizeSmall: 25rpx;
@@ -148,7 +152,7 @@
 
 	:root,
 	page {
-		--nut-cell-background: #0e1b41;
+		--nut-cell-background: #151c39;
 		--nut-cell-padding: 18px 20px;
 		--nut-cell-color: #ffffff;
 	}

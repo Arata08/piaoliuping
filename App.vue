@@ -13,5 +13,6 @@
 </script>
 
 <style lang="scss">
+    @import '@/uni_modules/tuniaoui-vue3/index.css';
     @import '@/uni_modules/nutui-uni/styles/index.scss';
 </style>

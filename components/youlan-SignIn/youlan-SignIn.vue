@@ -7,7 +7,7 @@
 				<p v-else-if="is_day_signin && isIntegral">已经签到过了！再接再厉哦！</p>
 			</view>
 			<view class="rig">
-				<button v-if="supplementary" @click="shift">补签</button>
+				<button v-if="supplementary" @click="shift" style="border-radius: 25px;">补签</button>
 			</view>
 		</view>
 		<view class="miss_box">
@@ -317,15 +317,13 @@
 		width: 100%;
 		flex-direction: column;
 		justify-content: center;
-		
-		
 	}
 	
 	.miss_box {
 		width: 100%;
 		padding: 20rpx 40rpx;
 		box-sizing: border-box;
-		background-color: #FFFFFF;
+		background-color: #ededed;
 		border-radius: 25rpx;
 	}
 	
@@ -425,7 +423,7 @@
 		justify-content: space-between;
 		padding: 30rpx;
 		box-sizing: border-box;
-		background-color: #FFFFFF;
+		background-color: #ededed;
 		border-radius: 20rpx;
 		margin-bottom: 16rpx;
 		align-items: center;
@@ -441,6 +439,7 @@
 		font-size: 32rpx
 	}
 	.top p {
+		background: #999;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 28rpx;

@@ -1,0 +1,89 @@
+.nut-tag {
+  display: inline-flex;
+  align-items: center;
+  height: $tag-height;
+  padding: $tag-padding;
+  font-size: $tag-font-size;
+  color: $tag-default-color;
+  border-style: solid;
+  border-width: $tag-border-width;
+  border-radius: $tag-default-border-radius;
+
+  &--default {
+    background: $tag-default-background-color;
+    border-color: $tag-default-background-color;
+
+    &.nut-tag--plain {
+      color: $tag-default-background-color;
+      background: $tag-plain-background-color;
+    }
+  }
+
+  &--primary {
+    background: $tag-primary-background-color;
+    border-color: $tag-primary-background-color;
+
+    &.nut-tag--plain {
+      color: $tag-primary-background-color;
+      background: $tag-plain-background-color;
+    }
+  }
+
+  &--success {
+    background: $tag-success-background-color;
+    border-color: $tag-success-background-color;
+
+    &.nut-tag--plain {
+      color: $tag-success-background-color;
+      background: $tag-plain-background-color;
+    }
+  }
+
+  &--danger {
+    background: $tag-danger-background-color;
+    border-color: $tag-danger-background-color;
+
+    &.nut-tag--plain {
+      color: $tag-danger-background-color;
+      background: $tag-plain-background-color;
+    }
+  }
+
+  &--warning {
+    background: $tag-warning-background-color;
+    border-color: $tag-warning-background-color;
+
+    &.nut-tag--plain {
+      color: $tag-warning-background-color;
+      background: $tag-plain-background-color;
+    }
+  }
+
+  &--round {
+    border-radius: $tag-round-border-radius;
+  }
+
+  &--mark {
+    border-radius: $tag-mark-border-radius;
+  }
+
+  &--close {
+    margin-left: 4px;
+    cursor: pointer;
+  }
+
+  &--disabled {
+    background: $tag-disabled-background-color !important;
+    border-color: $tag-disabled-background-color !important;
+
+    &.nut-tag--plain {
+      color: $tag-disabled-background-color !important;
+      background: $tag-plain-background-color !important;
+      border-color: $tag-disabled-background-color !important;
+    }
+
+    .nut-tag--close {
+      color: $tag-disabled-close-color;
+    }
+  }
+}

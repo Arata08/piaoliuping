@@ -39,9 +39,15 @@
 			</nut-button>
 		</view>
 	</view>
+	<nut-popup position="bottom" round v-model:visible="showRound" closeable>
+		<view style="text-align: center;margin-top: 60px;margin-bottom: 40px;">
+			<login></login>
+		</view>
+	</nut-popup>
 </template>
 
 <script>
+	import login from '../../components/login/login.vue'
 	export default {
 		data() {
 			return {
@@ -52,6 +58,7 @@
 				star1: "/static/images/star2.png",
 				inbox: "/static/images/inbox.png",
 				outbox: "/static/images/outbox.png",
+				showRound: true
 			}
 		},
 		onLoad() {

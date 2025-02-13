@@ -1,0 +1,42 @@
+@import "../button/index";
+@import "../swipe/index";
+
+.nut-theme-dark {
+  .nut-address-list {
+    &__bottom {
+      background-color: $dark-background2;
+    }
+  }
+}
+
+.nut-address-list {
+  overflow: hidden;
+
+  &:last-child {
+    padding-bottom: 84px;
+  }
+
+  &__bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    bottom: constant(safe-area-inset-bottom);
+    bottom: env(safe-area-inset-bottom);
+    left: 0;
+    z-index: 100000;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 18px 24px;
+    background-color: $addresslist-bg;
+  }
+
+  .nut-address-list__mask-bottom {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    background-color: transparent;
+  }
+}

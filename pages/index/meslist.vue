@@ -8,15 +8,15 @@
 		<div class="layer5"></div>
 		<div class="meteor"></div>
 		<view class="icon-con">
-			<view class="icon-item">
+			<view class="icon-item" @click="goto('query')">
 				<image src="/static/meslist/query.png" class="icon"></image>
 				<text style="align-self: center;">精确查找</text>
 			</view>
-			<view class="icon-item">
+			<view class="icon-item" @click="goto('liuyan')">
 				<image src="/static/meslist/留言.png" class="icon"></image>
 				<text style="align-self: center;">留言消息</text>
 			</view>
-			<view class="icon-item">
+			<view class="icon-item" @click="goto('notic')">
 				<image src="/static/meslist/通知.png" class="icon"></image>
 				<text style="align-self: center;">系统消息</text>
 			</view>
@@ -155,6 +155,26 @@
 			closeModal() {
 				this.isModalVisible = false;
 			},
+			goto(to) {
+				let url = '';
+				switch (to) {
+					case 'query':
+						url = '/pages/index/query';
+						break;
+					case 'liuyan':
+						url = '/pages/message/charm';
+						break;
+					case 'notic':
+						url = '/pages/message/notice';
+						break;
+					default:
+						console.error('未知的页面类型');
+						return;
+				}
+				uni.navigateTo({
+					url: url,
+				});
+			},
 			handleKeydown(event) {
 				if (event.key === 'Escape') {
 					this.closeModal();
@@ -163,7 +183,7 @@
 		},
 		beforeDestroy() {
 			document.removeEventListener('keydown', this.handleKeydown);
-		}
+		},
 	}
 </script>
 
@@ -171,7 +191,7 @@
 	page {
 		height: 100%;
 		width: 100%;
-		background: linear-gradient(180deg, #000000 5%, #fcf9fb 50.06%, #000000 95%);
+		background: linear-gradient(180deg, #000000 5%, #a3a3a3 50.06%, #000000 95%);
 		background-attachment: fixed;
 	}
 </style>

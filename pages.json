@@ -1,135 +1,164 @@
 {
-	"pages": [{
-			"path": "pages/index/index",
-			"style": {
-				"navigationStyle": "custom", // 隐藏系统导航栏
-				"app-plus": {
-					"subNVues": [{
-						"id": "concat",
-						"path": "pages/login/subnvue",
-						"style": {
-							"position": "absolute",
-							"top": "0",
-							"bottom": "0",
-							"left": "0",
-							"right": "0",
-							"background": "transparent"
-						}
-					}]
-				}
-			}
-		},
-		{
-			"path": "pages/index/my",
-			"style": {
-				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/my/xb",
-			"style": {
-				"navigationBarTitleText": "星币"
-			}
-		},
-		{
-			"path": "pages/my/charm",
-			"style": {
-				"navigationBarTitleText": "魅力值"
-			}
-		},
-		{
-			"path": "pages/mailbox/mailbox",
-			"style": {
-				"navigationBarTitleText": "发件箱",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/index/meslist",
-			"style": {
-				"navigationBarTitleText": "消息列表",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/message/message",
-			"style": {
-				"navigationBarTitleText": "消息",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/send/send",
-			"style": {
-				"navigationBarTitleText": "写信",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/my/duihuan",
-			"style": {
-				"navigationBarTitleText": "兑换星币"
-			}
-		},
-		{
-			"path": "pages/my/tixian",
-			"style": {
-				"navigationBarTitleText": "提现"
-			}
-		},
-		{
-			"path": "pages/my/set",
-			"style": {
-				"navigationBarTitleText": "信息修改"
-			}
-		},
-		{
-			"path": "pages/my/vip",
-			"style": {
-				"navigationBarTitleText": "星币充值"
-			}
-		},
-		{
-			"path": "pages/my/sign",
-			"style": {
-				"navigationBarTitleText": "签到"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "漂流瓶",
-		"backgroundColor": "#000000"
-	},
-	"tabBar": {
-		"color": "#ffffff",
-		"selectedColor": "#2979ff",
-		"backgroundColor": "#000000",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath": "/static/tab/index.png",
-			"selectedIconPath": "/static/tab/index-selected.png",
-			"visible": false
-		}, {
-			"pagePath": "pages/index/meslist",
-			"iconPath": "/static/tab/message.png",
-			"selectedIconPath": "/static/tab/message-selected.png",
-			"text": "信息"
-		}, {
-			"pagePath": "pages/index/my",
-			"text": "我的",
-			"iconPath": "/static/tab/center.png",
-			"selectedIconPath": "/static/tab/center-selected.png"
-		}]
-	},
-	"easycom": {
-		"autoscan": true,
-		"custom": {
-			"nut-(.*)?-(.*)": "@/uni_modules/nutui-uni/components/$1$2/$1$2.vue",
-			"nut-(.*)": "@/uni_modules/nutui-uni/components/$1/$1.vue",
-			"^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
-		}
-	}
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationStyle": "custom",
+        // 隐藏系统导航栏
+        "app-plus": {
+          "subNVues": [
+            {
+              "id": "concat",
+              "path": "pages/login/subnvue",
+              "style": {
+                "position": "absolute",
+                "top": "0",
+                "bottom": "0",
+                "left": "0",
+                "right": "0",
+                "background": "transparent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "pages/index/my",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/my/xb",
+      "style": {
+        "navigationBarTitleText": "星币"
+      }
+    },
+    {
+      "path": "pages/my/charm",
+      "style": {
+        "navigationBarTitleText": "魅力值"
+      }
+    },
+    {
+      "path": "pages/mailbox/mailbox",
+      "style": {
+        "navigationBarTitleText": "发件箱",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/index/meslist",
+      "style": {
+        "navigationBarTitleText": "消息列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/message/message",
+      "style": {
+        "navigationBarTitleText": "消息",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/send/send",
+      "style": {
+        "navigationBarTitleText": "写信",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/my/duihuan",
+      "style": {
+        "navigationBarTitleText": "兑换星币"
+      }
+    },
+    {
+      "path": "pages/my/tixian",
+      "style": {
+        "navigationBarTitleText": "提现"
+      }
+    },
+    {
+      "path": "pages/my/set",
+      "style": {
+        "navigationBarTitleText": "信息修改"
+      }
+    },
+    {
+      "path": "pages/my/vip",
+      "style": {
+        "navigationBarTitleText": "星币充值"
+      }
+    },
+    {
+      "path": "pages/my/sign",
+      "style": {
+        "navigationBarTitleText": "签到"
+      }
+    },
+    {
+      "path": "pages/message/notice",
+      "style": {
+        "navigationBarTitleText": "通知"
+      }
+    },
+    {
+      "path": "pages/message/content",
+      "style": {
+        "navigationBarTitleText": "通知详情"
+      }
+    },
+    {
+      "path": "pages/index/query",
+      "style": {
+        "navigationBarTitleText": "看一看",
+        "enablePullDownRefresh": false
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "漂流瓶",
+    "backgroundColor": "#000000"
+  },
+  "tabBar": {
+    "color": "#ffffff",
+    "selectedColor": "#2979ff",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/tab/index.png",
+        "selectedIconPath": "/static/tab/index-selected.png",
+        "visible": false
+      },
+      {
+        "pagePath": "pages/index/meslist",
+        "iconPath": "/static/tab/message.png",
+        "selectedIconPath": "/static/tab/message-selected.png",
+        "text": "信息"
+      },
+      {
+        "pagePath": "pages/index/my",
+        "text": "我的",
+        "iconPath": "/static/tab/center.png",
+        "selectedIconPath": "/static/tab/center-selected.png"
+      }
+    ]
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "nut-(.*)?-(.*)": "@/uni_modules/nutui-uni/components/$1$2/$1$2.vue",
+      "nut-(.*)": "@/uni_modules/nutui-uni/components/$1/$1.vue",
+      "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue",
+      "^tn-(.*)-(item|group)$": "@/uni_modules/tuniaoui-vue3/components/$1/src/$1-$2.vue",
+      "^tn-(.*)": "@/uni_modules/tuniaoui-vue3/components/$1/src/$1.vue"
+    }
+  }
 }

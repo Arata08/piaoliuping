@@ -1,0 +1,112 @@
+@import "../pickercolumn/index";
+
+.nut-theme-dark {
+  .nut-picker {
+    position: relative;
+    background: $dark-background;
+    border-radius: 5px;
+
+    /* #ifndef H5 */
+    &__mask {
+      background: none !important;
+    }
+
+    /* #endif */
+
+    &__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 46px;
+    }
+
+    &__title {
+      color: $dark-color;
+    }
+
+    &-content {
+      color: $dark-color;
+    }
+
+    &-item {
+      color: $dark-color;
+    }
+  }
+}
+
+.nut-picker {
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 46px;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    height: 100%;
+    padding: $picker-bar-button-padding;
+    font-size: $picker-bar-cancel-font-size;
+    color: $picker-cancel-color;
+    cursor: pointer;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    height: 100%;
+    padding: $picker-bar-button-padding;
+    font-size: $picker-bar-ok-font-size;
+    color: $picker-ok-color;
+    cursor: pointer;
+  }
+
+  &__column {
+    position: relative;
+    display: flex;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: var(--line-height);
+      content: "";
+      border: $picker-item-active-line-border;
+      border-right: 0;
+      border-left: 0;
+      transform: scale(0.9);
+      transform: translateY(-50%);
+    }
+  }
+
+  &__columnitem {
+    flex-grow: 1;
+    width: 0;
+    height: 100%;
+    cursor: grab;
+    user-select: none;
+  }
+
+  &__title {
+    flex: 1;
+    font-size: $picker-bar-title-font-size;
+    font-weight: $picker-bar-title-font-weight;
+    color: $picker-bar-title-color;
+    text-align: center;
+
+    @include oneline-ellipsis;
+  }
+
+  &__wrapper {
+    display: block;
+  }
+}

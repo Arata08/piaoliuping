@@ -1,0 +1,14 @@
+.nut-watermark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $watermark-z-index;
+  pointer-events: none;
+  background-repeat: repeat;
+
+  &-full-page {
+    position: fixed;
+  }
+}

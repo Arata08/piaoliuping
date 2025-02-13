@@ -1,0 +1,83 @@
+@import '../rate/index';
+
+.nut-theme-dark {
+  .nut-comment {
+    &__follow {
+      &-title {
+        color: $dark-color;
+      }
+    }
+
+
+    .nut-comment-shop {
+      border-top: 1px solid $dark-color;
+    }
+  }
+}
+
+.nut-comment {
+  width: 100%;
+  font-size: 12px;
+
+
+
+  &__main {
+    display: -webkit-box;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: pre-wrap;
+    -webkit-box-orient: vertical;
+  }
+
+
+
+
+
+  &__follow {
+    &-title {
+      position: relative;
+      padding-left: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: $black;
+
+      svg {
+        position: absolute;
+        top: 13%;
+        left: 0;
+        color: $primary-color;
+        opacity: 0.4;
+        transform: rotate(90deg);
+      }
+    }
+
+    &-com {
+      margin: 8px 0 8px 8px;
+
+      @include moreline-ellipsis(6);
+    }
+
+    &-img {
+      display: flex;
+      align-items: center;
+      margin: 0 0 8px 8px;
+    }
+  }
+
+
+
+
+
+  .nut-comment-shop {
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 20px;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+
+    @include moreline-ellipsis(6);
+
+    text {
+      color: $comment-shop-color;
+    }
+  }
+}

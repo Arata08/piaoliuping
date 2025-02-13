@@ -1,0 +1,139 @@
+.nut-theme-dark {
+  .nut-searchbar {
+    background: $dark-background;
+
+    &__search-input {
+      background: $dark-background4;
+    }
+
+    &__right-search-icon,
+    &__left-search-icon {
+      color: $dark-color;
+    }
+  }
+}
+
+.nut-searchbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: $searchbar-width;
+  padding: $searchbar-padding;
+  color: $searchbar-input-bar-color;
+  background: $searchbar-background;
+
+  &.safe-area-inset-bottom {
+    position: relative;
+    margin-bottom: constant(safe-area-inset-bottom);
+    margin-bottom: env(safe-area-inset-bottom);
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: constant(safe-area-inset-bottom);
+      height: env(safe-area-inset-bottom);
+      content: "";
+      background: $searchbar-background;
+    }
+  }
+
+  &::placeholder {
+    color: $searchbar-input-bar-placeholder-color;
+  }
+
+  &__search-input {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    height: $searchbar-input-height;
+    padding: $searchbar-input-padding;
+    background: $searchbar-input-background;
+    border-radius: $searchbar-input-border-radius;
+    box-shadow: $searchbar-input-box-shadow;
+
+    &.square {
+      border-radius: 0;
+    }
+
+    .nut-searchbar__input-inner {
+      position: relative;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      overflow: hidden;
+
+      .nut-searchbar__input-form {
+        flex: 1;
+        overflow: hidden;
+      }
+    }
+
+    .nut-searchbar__input-inner-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 7px;
+    }
+
+    .nut-searchbar__input-clear {
+      position: relative;
+      z-index: 10;
+      padding: 0 5px;
+    }
+
+    .nut-searchbar__input-inner-icon-absolute {
+      .nut-searchbar__input-clear {
+        position: absolute;
+        left: -20px;
+      }
+    }
+
+    .nut-searchbar__iptleft-search-icon {
+      width: 14px;
+      height: 14px;
+      margin-right: 6px;
+    }
+
+    .nut-searchbar__iptright-search-icon {
+      margin-left: 5px;
+    }
+
+    .nut-searchbar__input-bar {
+      flex: 1;
+      height: $searchbar-input-height;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      line-height: $searchbar-input-height;
+      background-color: transparent;
+      border-color: transparent;
+      outline: none;
+    }
+
+    .nut-searchbar__input-inner-absolute {
+      .nut-searchbar__input-bar {
+        box-sizing: border-box;
+        padding-right: 20px;
+      }
+    }
+  }
+
+  &__left-search-icon {
+    margin-right: 8px;
+  }
+
+  &__search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__right-search-icon {
+    margin-left: 16px;
+    font-size: 14px;
+    color: $searchbar-right-out-color;
+  }
+}

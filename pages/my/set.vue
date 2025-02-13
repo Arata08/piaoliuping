@@ -132,7 +132,14 @@
 		}
 	};
 </script>
-
+<style>
+page {
+       height: 100%;
+       width: 100%;
+       background: linear-gradient(180deg, #dcdcdc 5%, #fff 50.06%, #dcdcdc 95%);
+       background-attachment: fixed;
+     }
+</style>
 <style lang="scss" scoped>
 	.save {
 		position: fixed;

@@ -1,0 +1,110 @@
+.nut-theme-dark {
+  .nut-cell {
+    color: $dark-color;
+    background: $dark-background2;
+    box-shadow: none;
+  }
+}
+
+.nut-cell {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: $cell-padding;
+  margin: 10px 0;
+  font-size: $cell-title-font;
+  line-height: $cell-line-height;
+  color: $cell-color;
+  background: $cell-background;
+  border-radius: $cell-border-radius;
+  box-shadow: $cell-box-shadow;
+
+  &--center {
+    align-items: center;
+  }
+
+  &--large {
+    padding: $cell-large-padding;
+    font-size: $cell-large-title-font;
+
+    .nut-cell__title-desc {
+      font-size: $cell-large-title-desc-font;
+    }
+  }
+
+  &:last-child {
+    &::after {
+      border: 0 !important;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    right: $cell-after-right;
+    bottom: 0;
+    left: 16px;
+    box-sizing: border-box;
+    pointer-events: none;
+    content: "";
+    transform: scaleY(0.5);
+  }
+
+  &:active::before {
+    opacity: 0.1;
+  }
+
+  &--clickable {
+    cursor: pointer;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background-color: $black;
+      border: inherit;
+      border-color: $black;
+      border-radius: inherit;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: $cell-default-icon-margin;
+  }
+
+  &__title {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 80px;
+
+    &-desc {
+      font-size: $cell-title-desc-font;
+    }
+  }
+
+  &__value {
+    display: inline-block;
+    flex: 1;
+    font-size: $cell-desc-font;
+    color: $cell-desc-color;
+    text-align: right;
+
+    &--alone {
+      color: $cell-color;
+    }
+  }
+
+  &__link {
+    align-self: center;
+    color: #979797;
+  }
+}

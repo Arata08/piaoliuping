@@ -1,0 +1,158 @@
+@import '../overlay/index';
+
+.nut-theme-dark {
+  .nut-fixed-nav {
+    &__list {
+      background: $dark-background7;
+    }
+  }
+}
+
+.nut-fixed-nav {
+  position: fixed;
+  right: 0;
+  z-index: $fixednav-index;
+  display: inline-block;
+  height: 50px;
+
+  &.active {
+    .nut-icon {
+      transform: rotate(180deg);
+    }
+
+    .nut-fixed-nav__list {
+      transform: translateX(0%) !important;
+    }
+
+    &.left {
+      .nut-icon {
+        transform: rotate(0deg) !important;
+      }
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    right: 0;
+    z-index: calc($fixednav-index + 1);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 100%;
+    padding-left: 12px;
+    background: $fixednav-btn-bg;
+    border-radius: 45px 0 0 45px;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+
+    > .text {
+      flex-shrink: 0;
+      width: 24px;
+      font-size: 10px;
+      line-height: 13px;
+      color: $fixednav-bg-color;
+    }
+
+    .nut-icon {
+      margin-right: 5px;
+      transition: all 0.3s;
+      transform: rotate(0deg);
+    }
+  }
+
+  &__list {
+    position: absolute;
+    right: 0;
+    z-index: $fixednav-index;
+    box-sizing: border-box;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: $fixednav-bg-color;
+    border-radius: 25px 0 0 25px;
+    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 20%);
+    transition: all 0.5s;
+    transform: translateX(100%);
+    padding: {
+      right: 80px;
+      left: 20px;
+    }
+
+    &-item {
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+
+      &.active {
+        > .span {
+          color: $fixednav-item-active-color;
+        }
+      }
+
+      > image {
+        width: 20px;
+        height: 20px;
+        margin-bottom: 2px;
+      }
+
+      > .span {
+        font-size: 10px;
+        color: $fixednav-font-color;
+      }
+
+      > .b {
+        position: absolute;
+        top: 1px;
+        right: 0;
+        min-width: 12px;
+        height: 14px;
+        padding: 0 3px;
+        font-size: 10px;
+        line-height: 14px;
+        color: white;
+        text-align: center;
+        background: $primary-color;
+        border-radius: 7px;
+      }
+    }
+  }
+
+  &.left {
+    right: auto;
+    left: 0;
+
+    .nut-fixed-nav__btn {
+      right: auto;
+      left: 0;
+      flex-direction: row-reverse;
+      border-radius: 0 45px 45px 0;
+
+      .nut-icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    .nut-fixed-nav__list {
+      right: auto;
+      border-radius: 0 25px 25px 0;
+      transform: translateX(-100%);
+      padding: {
+        right: 20px;
+        left: 80px;
+      }
+    }
+  }
+}

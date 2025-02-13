@@ -1,0 +1,1600 @@
+{
+  "nut-button": {
+    "attributes": [
+      "type",
+      "form-type",
+      "size",
+      "shape",
+      "custom-color",
+      "plain",
+      "disabled",
+      "block",
+      "loading",
+      "open-type`v1.1.5`",
+      "lang`v1.1.5`",
+      "session-from`v1.1.5`",
+      "send-message-title`v1.1.5`",
+      "send-message-path`v1.1.5`",
+      "send-message-img`v1.1.5`",
+      "show-message-card`v1.1.5`",
+      "hover-class`v1.6.7`",
+      "hover-start-time`v1.6.7`",
+      "hover-stay-time`v1.6.7`",
+      "click",
+      "getphonenumber",
+      "getuserinfo",
+      "error",
+      "opensetting",
+      "launchapp",
+      "contact",
+      "chooseavatar",
+      "agreeprivacyauthorization",
+      "addgroupapp",
+      "chooseaddress",
+      "chooseinvoicetitle",
+      "subscribe",
+      "login",
+      "im"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/button.html#button-按钮)"
+  },
+  "nut-cell-group": {
+    "attributes": [
+      "title",
+      "desc"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/cell.html#cellgroup)"
+  },
+  "nut-cell": {
+    "attributes": [
+      "title",
+      "sub-title",
+      "desc",
+      "desc-text-align",
+      "is-link",
+      "to",
+      "round-radius",
+      "center",
+      "size",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/cell.html#cell)"
+  },
+  "nut-config-provider": {
+    "attributes": [
+      "theme",
+      "theme-vars",
+      "z-index"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/configprovider.html#configprovider-全局配置)"
+  },
+  "nut-icon": {
+    "attributes": [
+      "name",
+      "custom-color",
+      "size",
+      "font-class-name",
+      "class-prefix",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/icon.html#icon-图标)"
+  },
+  "nut-overlay": {
+    "attributes": [
+      "v-model:visible",
+      "z-index",
+      "duration",
+      "overlay-class",
+      "overlay-style",
+      "lock-scroll",
+      "close-on-click-overlay",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/overlay.html#overlay-遮罩层)"
+  },
+  "nut-popup": {
+    "attributes": [
+      "v-model:visible",
+      "z-index",
+      "duration",
+      "lock-scroll",
+      "overlay",
+      "close-on-click-overlay",
+      "position",
+      "transition",
+      "custom-style",
+      "pop-class",
+      "closeable",
+      "close-icon-position",
+      "close-icon",
+      "destroy-on-close",
+      "round",
+      "overlay-class",
+      "overlay-style",
+      "safe-area-inset-bottom",
+      "click-pop",
+      "click-close-icon",
+      "open",
+      "close",
+      "opened",
+      "closed",
+      "click-overlay"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/popup.html#popup-弹出层)"
+  },
+  "nut-transition": {
+    "attributes": [
+      "name",
+      "show",
+      "duration",
+      "timingFunction",
+      "customClass",
+      "customStyle",
+      "before-enter",
+      "enter",
+      "after-enter",
+      "before-leave",
+      "leave",
+      "after-leave"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/basic/transition.html#transition-过渡动画)"
+  },
+  "nut-doll-machine": {
+    "attributes": [
+      "prize-list",
+      "default-claw",
+      "active-claw",
+      "prize-index",
+      "init",
+      "start-turns",
+      "end-turns"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/dollmachine.html#dollmachine-抓娃娃)"
+  },
+  "nut-gift-box": {
+    "attributes": [
+      "init",
+      "start-turns",
+      "end-turns"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/giftbox.html#giftbox-神秘大礼盒)"
+  },
+  "nut-hiteggs": {
+    "attributes": [
+      "num",
+      "intact-img",
+      "hammer",
+      "width",
+      "height",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/hiteggs.html#hiteggs-组件)"
+  },
+  "nut-marquee": {
+    "attributes": [
+      "prize-list",
+      "prize-index",
+      "speed",
+      "circle",
+      "disabled",
+      "style-opt",
+      "start-turns",
+      "end-turns"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/marquee.html#marquee-跑马灯)"
+  },
+  "nut-shake-dice": {
+    "attributes": [
+      "time",
+      "speed",
+      "id",
+      "shake",
+      "end"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/shakedice.html#shakedice-组件)"
+  },
+  "nut-turntable": {
+    "attributes": [
+      "width",
+      "height",
+      "prize-list",
+      "turns-number",
+      "turns-time",
+      "prize-index",
+      "lock-time",
+      "style-opt",
+      "pointer-style",
+      "rotate-turns",
+      "start-turns",
+      "end-turns",
+      "lock-turns"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/bingo/turntable.html#turntable-转盘抽奖-<badge-type=\"warning\">h5</badge>)"
+  },
+  "nut-address": {
+    "attributes": [
+      "v-model:visible",
+      "v-model:value",
+      "type",
+      "province",
+      "city",
+      "country",
+      "town",
+      "height",
+      "exist-address",
+      "is-show-custom-address",
+      "custom-address-title",
+      "exist-address-title",
+      "custom-and-exist-title",
+      "columns-placeholder",
+      "change",
+      "selected",
+      "close",
+      "close-mask",
+      "switch-module"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/address.html#address-地址)"
+  },
+  "nut-address-list": {
+    "attributes": [
+      "data",
+      "long-press",
+      "swipe-edition",
+      "show-bottom-button",
+      "options",
+      "del-icon",
+      "edit-icon",
+      "click-item",
+      "add",
+      "long-copy",
+      "long-set",
+      "long-del",
+      "swipe-del"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/addresslist.html#addresslist-地址列表)"
+  },
+  "nut-barrage": {
+    "attributes": [
+      "danmu",
+      "frequency",
+      "speeds",
+      "rows",
+      "top",
+      "loop",
+      "add"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/barrage.html#barrage-弹幕)"
+  },
+  "nut-card": {
+    "attributes": [
+      "img-url",
+      "title",
+      "price",
+      "vip-price",
+      "shop-desc",
+      "delivery",
+      "shop-name",
+      "is-need-price",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/card.html#card-商品卡片)"
+  },
+  "nut-category": {
+    "attributes": [
+      "type",
+      "category",
+      "change",
+      "change-text",
+      "change-custom"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/category.html#category)"
+  },
+  "nut-category-pane": {
+    "attributes": [
+      "category-child",
+      "custom-category",
+      "on-change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/category.html#categorypane)"
+  },
+  "nut-comment": {
+    "attributes": [
+      "header-type",
+      "images-rows",
+      "ellipsis",
+      "videos",
+      "images",
+      "info",
+      "follow",
+      "operation",
+      "click-operate",
+      "click",
+      "click-images"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/comment.html#comment-商品评论)"
+  },
+  "nut-ecard": {
+    "attributes": [
+      "model-value",
+      "list",
+      "choose-text",
+      "show-other",
+      "other-value-text",
+      "placeholder",
+      "suffix",
+      "card-amount-min",
+      "card-amount-max",
+      "show-step",
+      "card-buy-min",
+      "card-buy-max",
+      "update",
+      "change",
+      "input-change",
+      "change-step",
+      "input-click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/ecard.html#ecard-电子卡)"
+  },
+  "nut-invoice": {
+    "attributes": [
+      "data",
+      "form-value",
+      "submit",
+      "on-submit"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/invoice.html#invoice-发票)"
+  },
+  "nut-signature": {
+    "attributes": [
+      "custom-class",
+      "line-width",
+      "stroke-style",
+      "type",
+      "un-support-tpl",
+      "start",
+      "signing",
+      "end",
+      "confirm",
+      "clear"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/signature.html#signature-签名)"
+  },
+  "nut-sku": {
+    "attributes": [
+      "v-model:visible",
+      "sku",
+      "goods",
+      "stepper-max",
+      "stepper-min",
+      "btn-options",
+      "btn-extra-text",
+      "stepper-title",
+      "stepper-extra-text",
+      "buy-text",
+      "add-cart-text",
+      "confirm-text",
+      "select-sku",
+      "add",
+      "reduce",
+      "overLimit",
+      "change-stepper",
+      "click-btn-operate",
+      "click-close-icon",
+      "click-overlay",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/sku.html#sku-商品规格选择)"
+  },
+  "nut-time-select": {
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/timeselect.html#timeselect-配送时间)"
+  },
+  "nut-time-pannel": {
+    "attributes": [
+      "name",
+      "pannel-key"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/timeselect.html#timepannel)"
+  },
+  "nut-time-detail": {
+    "attributes": [
+      "times"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/business/timeselect.html#timedetail)"
+  },
+  "nut-calendar": {
+    "attributes": [
+      "v-model:visible",
+      "type",
+      "poppable",
+      "is-auto-back-fill",
+      "title",
+      "default-value",
+      "start-date",
+      "end-date",
+      "show-today",
+      "start-text",
+      "end-text",
+      "confirm-text",
+      "show-title",
+      "show-sub-title",
+      "to-date-animation",
+      "first-day-of-week",
+      "disabled-date",
+      "footer-slot",
+      "btn-slot",
+      "choose",
+      "close",
+      "select",
+      "click-close-icon",
+      "click-overlay"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/calendar.html#calendar-日历)"
+  },
+  "nut-cascader": {
+    "attributes": [
+      "model-value",
+      "v-model:visible",
+      "options",
+      "lazy",
+      "lazy-load",
+      "value-key",
+      "text-key",
+      "children-key",
+      "convert-config",
+      "title",
+      "close-icon-position",
+      "closeable",
+      "poppable",
+      "title-gutter",
+      "title-size",
+      "title-ellipsis",
+      "title-type",
+      "change",
+      "path-change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/cascader.html#cascader-级联选择)"
+  },
+  "nut-checkbox": {
+    "attributes": [
+      "model-value",
+      "disabled",
+      "text-position",
+      "icon-size",
+      "label",
+      "indeterminate",
+      "shape",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/checkbox.html#checkbox)"
+  },
+  "nut-checkbox-group": {
+    "attributes": [
+      "model-value",
+      "disabled",
+      "max",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/checkbox.html#checkboxgroup)"
+  },
+  "nut-code-input": {
+    "attributes": [
+      "model-value",
+      "adjustPosition",
+      "maxlength",
+      "dot",
+      "mode",
+      "hairline",
+      "space",
+      "focus",
+      "custom-color",
+      "font-size",
+      "size",
+      "disabledKeyboard",
+      "border-color",
+      "disabledDot",
+      "change",
+      "finish"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/codeinput.html#codeinput-验证码输入框)"
+  },
+  "nut-date-picker": {
+    "attributes": [
+      "model-value",
+      "type",
+      "show-toolbar",
+      "title",
+      "ok-text",
+      "cancel-text",
+      "is-show-chinese",
+      "minute-step",
+      "min-date",
+      "max-date",
+      "formatter",
+      "filter",
+      "three-dimensional",
+      "swipe-duration",
+      "visible-option-num",
+      "option-height",
+      "change",
+      "confirm",
+      "cancel"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/datepicker.html#datepicker-日期选择器)"
+  },
+  "nut-form": {
+    "attributes": [
+      "model-value",
+      "rules",
+      "disabled",
+      "label-position`v1.5.7`",
+      "star-position`v1.5.7`",
+      "validate"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/form.html#form)"
+  },
+  "nut-form-item": {
+    "attributes": [
+      "required",
+      "prop",
+      "rules",
+      "label-width",
+      "label-align",
+      "body-align",
+      "error-message-align",
+      "show-error-line",
+      "show-error-message",
+      "label-position`v1.5.7`",
+      "star-position`v1.5.7`"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/form.html#formitem)"
+  },
+  "nut-input": {
+    "attributes": [
+      "model-value",
+      "type",
+      "input-mode",
+      "input-style",
+      "input-class",
+      "placeholder",
+      "placeholder-style",
+      "placeholder-class",
+      "input-align",
+      "required",
+      "border",
+      "disabled",
+      "readonly",
+      "autofocus",
+      "max-length",
+      "clearable",
+      "show-clear-icon",
+      "clear-size",
+      "show-word-limit",
+      "error",
+      "formatter",
+      "format-trigger",
+      "confirm-type",
+      "adjust-position",
+      "always-system",
+      "cursor-spacing",
+      "always-embed",
+      "confirm-hold",
+      "cursor",
+      "selection-start",
+      "selection-end",
+      "hold-keyboard",
+      "update:model-value",
+      "focus",
+      "blur",
+      "clear",
+      "click",
+      "click-input",
+      "confirm",
+      "input"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/input.html#input-输入框)"
+  },
+  "nut-input-number": {
+    "attributes": [
+      "model-value",
+      "input-width",
+      "button-size",
+      "min",
+      "max",
+      "step",
+      "decimal-places",
+      "disabled",
+      "readonly",
+      "add",
+      "reduce",
+      "overlimit",
+      "change",
+      "blur",
+      "focus"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/inputnumber.html#inputnumber-数字输入框)"
+  },
+  "nut-number-keyboard": {
+    "attributes": [
+      "v-model:visible",
+      "model-value",
+      "title",
+      "type",
+      "random-keys",
+      "custom-key",
+      "overlay",
+      "maxlength",
+      "confirm-text",
+      "pop-class",
+      "input",
+      "delete",
+      "close",
+      "confirm"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/numberkeyboard.html#numberkeyboard-数字键盘)"
+  },
+  "nut-picker": {
+    "attributes": [
+      "model-value",
+      "columns",
+      "show-toolbar",
+      "title",
+      "ok-text",
+      "cancel-text",
+      "three-dimensional",
+      "swipe-duration",
+      "visible-option-num",
+      "option-height",
+      "field-names",
+      "change",
+      "confirm",
+      "cancel"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/picker.html#picker)"
+  },
+  "nut-radio": {
+    "attributes": [
+      "disabled",
+      "icon-size",
+      "label",
+      "shape",
+      "size"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/radio.html#radio)"
+  },
+  "nut-radio-group": {
+    "attributes": [
+      "model-value",
+      "text-position",
+      "direction",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/radio.html#radiogroup)"
+  },
+  "nut-range": {
+    "attributes": [
+      "change",
+      "drag-start",
+      "drag-end"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/range.html#range-区间选择器)"
+  },
+  "nut-rate": {
+    "attributes": [
+      "model-value",
+      "count",
+      "active-color",
+      "void-color",
+      "allow-half",
+      "readonly",
+      "disabled",
+      "spacing",
+      "size",
+      "custom-icon",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/rate.html#rate-评分)"
+  },
+  "nut-searchbar": {
+    "attributes": [
+      "model-value",
+      "shape",
+      "max-length",
+      "input-type",
+      "placeholder",
+      "clearable",
+      "clear-icon",
+      "background",
+      "input-background",
+      "confirm-type",
+      "autofocus",
+      "focus-style",
+      "disabled",
+      "readonly",
+      "input-align",
+      "safe-area-inset-bottom",
+      "cursor-spacing",
+      "change",
+      "focus",
+      "blur",
+      "clear",
+      "search",
+      "click-input",
+      "click-left-icon",
+      "click-right-icon"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/searchbar.html#searchbar-搜索栏)"
+  },
+  "nut-short-password": {
+    "attributes": [
+      "model-value",
+      "v-model:visible",
+      "title",
+      "desc",
+      "tips",
+      "close-on-click-overlay",
+      "length",
+      "error-msg",
+      "close",
+      "complete",
+      "focus"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/shortpassword.html#shortpassword-短密码)"
+  },
+  "nut-textarea": {
+    "attributes": [
+      "model-value",
+      "textarea-style",
+      "textarea-class",
+      "placeholder",
+      "placeholder-style",
+      "placeholder-class",
+      "max-length",
+      "rows",
+      "limit-show",
+      "autosize",
+      "text-align",
+      "readonly",
+      "disabled",
+      "autofocus",
+      "cursor-spacing",
+      "cursor",
+      "show-confirm-bar",
+      "selection-start",
+      "selection-end",
+      "adjust-position",
+      "hold-keyboard",
+      "disable-default-padding",
+      "confirm-type",
+      "confirm-hold",
+      "adjust-keyboard-to",
+      "change",
+      "focus",
+      "blur",
+      "confirm",
+      "input"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/textarea.html#textarea-文本域)"
+  },
+  "nut-uploader": {
+    "attributes": [
+      "auto-upload",
+      "name",
+      "url",
+      "v-model:file-list",
+      "is-preview",
+      "is-deletable",
+      "method",
+      "list-type",
+      "maximize",
+      "maximum",
+      "source-type",
+      "camera`仅支持WEAPP`",
+      "size-type",
+      "media-type`仅支持WEAPP`",
+      "max-duration`仅支持WEAPP`",
+      "accept",
+      "headers",
+      "data",
+      "xhr-state",
+      "disabled",
+      "multiple",
+      "timeout",
+      "before-upload",
+      "before-delete",
+      "mode",
+      "start",
+      "progress",
+      "oversize",
+      "success",
+      "failure",
+      "change",
+      "delete",
+      "file-item-click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/dentry/uploader.html#uploader-上传)"
+  },
+  "nut-animate": {
+    "attributes": [
+      "show",
+      "type",
+      "loop",
+      "duration",
+      "action",
+      "animate",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/animate.html#animate)"
+  },
+  "nut-avatar": {
+    "attributes": [
+      "size",
+      "shape",
+      "custom-color",
+      "bg-color"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/avatar.html#avatar)"
+  },
+  "nut-avatar-group": {
+    "attributes": [
+      "max-count",
+      "max-content",
+      "size",
+      "shape",
+      "max-color",
+      "max-bg-color",
+      "span",
+      "z-index"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/avatar.html#avatargroup)"
+  },
+  "nut-badge": {
+    "attributes": [
+      "value",
+      "max",
+      "z-index",
+      "dot",
+      "bubble(`>v4.0.0`)",
+      "hidden",
+      "top",
+      "right",
+      "custom-color"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/badge.html#badge-徽标)"
+  },
+  "nut-circle-progress": {
+    "attributes": [
+      "progress",
+      "stroke-width",
+      "radius",
+      "custom-color",
+      "path-color",
+      "stroke-linecap",
+      "clockwise"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/circleprogress.html#circleprogress-环形进度条)"
+  },
+  "nut-collapse": {
+    "attributes": [
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/collapse.html#collapse-折叠面板)"
+  },
+  "nut-collapse-item": {
+    "attributes": [
+      "name",
+      "title",
+      "value",
+      "icon",
+      "label",
+      "rotate",
+      "disabled",
+      "border"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/collapse.html#collapseitem)"
+  },
+  "nut-countdown": {
+    "attributes": [
+      "model-value",
+      "start-time",
+      "end-time",
+      "format",
+      "millisecond",
+      "auto-start",
+      "time",
+      "paused",
+      "on-end",
+      "on-paused",
+      "on-restart"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/countdown.html#countdown-倒计时)"
+  },
+  "nut-countup": {
+    "attributes": [
+      "init-num",
+      "end-num",
+      "speed",
+      "to-fixed",
+      "start-flag",
+      "during",
+      "num-width",
+      "num-height",
+      "custom-change-num",
+      "custom-bg-img",
+      "custom-spac-num",
+      "type",
+      "machine-prize-num",
+      "machine-num",
+      "machine-prize-level",
+      "machine-turn-more",
+      "scroll-end"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/countup.html#countup-数字滚动)"
+  },
+  "nut-ellipsis": {
+    "attributes": [
+      "content",
+      "direction",
+      "rows",
+      "expand-text",
+      "collapse-text",
+      "symbol",
+      "line-height",
+      "click",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/ellipsis.html#ellipsis)"
+  },
+  "nut-empty": {
+    "attributes": [
+      "image",
+      "image-size",
+      "description"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/empty.html#empty-空状态)"
+  },
+  "nut-image-preview": {
+    "attributes": [
+      "show",
+      "images",
+      "autoplay",
+      "init-no",
+      "pagination-visible",
+      "pagination-color",
+      "content-close",
+      "show-index",
+      "closeable",
+      "close-icon-position",
+      "before-close",
+      "is-Loop",
+      "scale",
+      "close",
+      "change",
+      "long-press"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/imagepreview.html#imagepreview-图片预览)"
+  },
+  "nut-list": {
+    "attributes": [
+      "height",
+      "list-data",
+      "container-height",
+      "scroll"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/list.html#list-虚拟列表)"
+  },
+  "nut-loading-page": {
+    "attributes": [
+      "loading",
+      "loadingText",
+      "image",
+      "bgColor",
+      "custom-color",
+      "font-size",
+      "iconSize",
+      "loadingColor"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/loadingpage.html#loadingpage-加载页)"
+  },
+  "nut-（direction=vertical）": {
+    "attributes": [
+      "list",
+      "speed",
+      "stand-time",
+      "complex-am",
+      "height",
+      "close-mode",
+      "field-name"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/noticebar.html#（direction=vertical）)"
+  },
+  "nut-noticebar": {
+    "attributes": [
+      "click",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/noticebar.html#noticebar-通告栏)"
+  },
+  "nut-popover": {
+    "attributes": [
+      "list",
+      "visible",
+      "theme",
+      "location",
+      "offset",
+      "show-arrow",
+      "custom-class",
+      "duration",
+      "overlay",
+      "overlay-class",
+      "overlay-style",
+      "close-on-click-overlay",
+      "close-on-click-action",
+      "close-on-click-outside",
+      "bg-color",
+      "arrow-offset",
+      "choose",
+      "open",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/popover.html#popover-气泡弹出框-<badge-type=\"tip\">1.6.8</badge>)"
+  },
+  "nut-price": {
+    "attributes": [
+      "price",
+      "need-symbol",
+      "symbol",
+      "decimal-digits",
+      "thousands",
+      "position",
+      "size",
+      "strike-through"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/price.html#price-商品价格)"
+  },
+  "nut-progress": {
+    "attributes": [
+      "percentage",
+      "is-show-percentage",
+      "stroke-color",
+      "stroke-width",
+      "size",
+      "show-text",
+      "text-inside",
+      "text-color",
+      "text-background",
+      "status"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/progress.html#progress-进度条)"
+  },
+  "nut-skeleton": {
+    "attributes": [
+      "loading",
+      "width",
+      "height",
+      "animated",
+      "avatar",
+      "avatar-shape",
+      "avatar-size",
+      "round",
+      "row",
+      "title"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/skeleton.html#skeleton-骨架屏)"
+  },
+  "nut-steps": {
+    "attributes": [
+      "direction",
+      "current",
+      "progress-dot",
+      "click-step"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/steps.html#steps)"
+  },
+  "nut-step": {
+    "attributes": [
+      "title",
+      "content"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/steps.html#step)"
+  },
+  "nut-swiper": {
+    "attributes": [
+      "width",
+      "height",
+      "direction",
+      "pagination-visible",
+      "pagination-color",
+      "pagination-unselected-color",
+      "loop",
+      "duration",
+      "auto-play",
+      "init-page",
+      "touchable",
+      "is-prevent-default",
+      "is-stop-propagation",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/swiper.html#swiper-轮播)"
+  },
+  "nut-table-column": {
+    "attributes": [
+      "key",
+      "title",
+      "stylehead",
+      "stylecolumn",
+      "align",
+      "sorter",
+      "render"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/table.html#tablecolumn)"
+  },
+  "nut-table": {
+    "attributes": [
+      "bordered",
+      "columns",
+      "data",
+      "summary",
+      "striped",
+      "sorter"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/table.html#table-表格)"
+  },
+  "nut-tag": {
+    "attributes": [
+      "type",
+      "custom-color",
+      "text-color",
+      "plain",
+      "round",
+      "mark",
+      "closeable",
+      "close-icon-size",
+      "disabled",
+      "click",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/tag.html#tag-标签)"
+  },
+  "nut-tour": {
+    "attributes": [
+      "model-value",
+      "type",
+      "steps",
+      "offset",
+      "current",
+      "custom-class",
+      "location",
+      "next-step-Txt",
+      "prev-step-Txt",
+      "complete-txt",
+      "mask",
+      "bg-color",
+      "theme",
+      "mask-width",
+      "mask-height",
+      "close-on-click-overlay",
+      "show-prev-step",
+      "show-title-bar",
+      "change",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/tour.html#tour-引导-<badge-type=\"warning\">h5</badge>)"
+  },
+  "nut-trendarrow": {
+    "attributes": [
+      "rate",
+      "digits",
+      "show-sign",
+      "show-zero",
+      "arrow-left",
+      "sync-text-color",
+      "text-color",
+      "rise-color",
+      "drop-color"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/trendarrow.html#trendarrow)"
+  },
+  "nut-watermark": {
+    "attributes": [
+      "width",
+      "height",
+      "rotate",
+      "image",
+      "image-width",
+      "image-height",
+      "z-index",
+      "content",
+      "font-color",
+      "font-size",
+      "gap-x",
+      "gap-y",
+      "full-page",
+      "font-family"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/exhibition/watermark.html#watermark-水印)"
+  },
+  "nut-action-sheet": {
+    "attributes": [
+      "v-model:visible",
+      "menu-items",
+      "option-tag",
+      "option-sub-tag",
+      "choose-tag-value",
+      "custom-color",
+      "title",
+      "description",
+      "cancel-txt",
+      "close-abled",
+      "round",
+      "overlay",
+      "pop-class",
+      "pop-style",
+      "overlay-class",
+      "overlay-style",
+      "lock-scroll",
+      "safe-area-inset-bottom",
+      "choose",
+      "cancel",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/actionsheet.html#actionsheet-动作面板)"
+  },
+  "nut-backtop": {
+    "attributes": [
+      "height",
+      "bottom",
+      "right",
+      "distance",
+      "z-index",
+      "custom-color",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/backtop.html#backtop-返回顶部)"
+  },
+  "nut-dialog": {
+    "attributes": [
+      "title",
+      "content",
+      "close-on-click-overlay",
+      "no-footer",
+      "no-ok-btn",
+      "no-cancel-btn",
+      "cancel-text",
+      "ok-text",
+      "cancel-auto-close",
+      "text-align",
+      "close-on-popstate",
+      "lock-scroll",
+      "footer-direction",
+      "overlay-class",
+      "overlay-style",
+      "pop-class",
+      "pop-style",
+      "custom-class",
+      "before-close",
+      "ok-auto-close",
+      "ok",
+      "cancel",
+      "closed",
+      "opened"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/dialog.html#dialog-对话框)"
+  },
+  "nut-drag": {
+    "attributes": [
+      "attract",
+      "direction",
+      "boundary"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/drag.html#drag-拖拽)"
+  },
+  "nut-notify": {
+    "attributes": [
+      "type",
+      "visible",
+      "msg",
+      "duration",
+      "custom-color",
+      "background",
+      "class-name",
+      "position",
+      "safe-area-inset-top",
+      "safe-height",
+      "click",
+      "closed"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/notify.html#notify-消息通知)"
+  },
+  "nut-swipe": {
+    "attributes": [
+      "lock",
+      "open",
+      "close"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/swipe.html#swipe-滑动手势)"
+  },
+  "nut-switch": {
+    "attributes": [
+      "model-value",
+      "disabled",
+      "loading",
+      "active-color",
+      "inactive-color",
+      "active-text",
+      "inactive-text",
+      "active-value",
+      "inactive-value",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/switch.html#switch-开关)"
+  },
+  "nut-toast": {
+    "attributes": [
+      "visible",
+      "selector",
+      "type",
+      "title",
+      "msg",
+      "duration",
+      "size",
+      "z-index",
+      "icon",
+      "icon-size",
+      "bg-color",
+      "cover",
+      "cover-color",
+      "center",
+      "bottom",
+      "text-align-center",
+      "loading-rotate",
+      "close-on-click-overlay",
+      "on-close",
+      "on-closed",
+      "close",
+      "closed"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/feedback/toast.html#toast-吐司)"
+  },
+  "nut-divider": {
+    "attributes": [
+      "dashed",
+      "hairline",
+      "content-position",
+      "direction"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/divider.html#divider-分割线)"
+  },
+  "nut-grid": {
+    "attributes": [
+      "column-num",
+      "border",
+      "gutter",
+      "center",
+      "square",
+      "reverse",
+      "direction",
+      "clickable"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/grid.html#grid)"
+  },
+  "nut-grid-item": {
+    "attributes": [
+      "text",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/grid.html#griditem)"
+  },
+  "nut-row": {
+    "attributes": [
+      "type",
+      "gutter",
+      "justify",
+      "align",
+      "flex-wrap",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/layout.html#row)"
+  },
+  "nut-col": {
+    "attributes": [
+      "span",
+      "offset",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/layout.html#col)"
+  },
+  "nut-safe-area": {
+    "attributes": [
+      "position"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/safearea.html#safearea-安全区-<badge>v1.5.8</badge>)"
+  },
+  "nut-sticky": {
+    "attributes": [
+      "offset-top",
+      "z-index",
+      "customNavHeight",
+      "disabled",
+      "bg-color",
+      "index"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/layout/sticky.html#sticky-粘性布局)"
+  },
+  "nut-elevator": {
+    "attributes": [
+      "height",
+      "accept-key",
+      "index-list",
+      "is-sticky",
+      "space-height",
+      "title-height",
+      "click-item",
+      "click-index",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/elevator.html#elevator-电梯楼层)"
+  },
+  "nut-fixed-nav": {
+    "attributes": [
+      "visible",
+      "nav-list",
+      "active-color",
+      "active-text",
+      "un-active-text",
+      "type",
+      "overlay",
+      "position",
+      "selected"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/fixednav.html#fixednav-悬浮导航)"
+  },
+  "nut-indicator": {
+    "attributes": [
+      "current",
+      "size",
+      "block",
+      "align",
+      "fill-zero"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/indicator.html#indicator-指示器)"
+  },
+  "nut-menu": {
+    "attributes": [
+      "active-color",
+      "close-on-click-overlay",
+      "scroll-fixed",
+      "scroll-top",
+      "title-class",
+      "lock-scroll",
+      "title-icon",
+      "direction",
+      "up-icon",
+      "down-icon"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/menu.html#menu)"
+  },
+  "nut-menu-item": {
+    "attributes": [
+      "title",
+      "options",
+      "disabled",
+      "cols",
+      "direction",
+      "active-title-class",
+      "inactive-title-class",
+      "change",
+      "open",
+      "close",
+      "item-click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/menu.html#menuitem)"
+  },
+  "nut-navbar": {
+    "attributes": [
+      "title",
+      "left-text",
+      "desc",
+      "left-show",
+      "title-icon",
+      "border",
+      "fixed",
+      "placeholder",
+      "safe-area-inset-top",
+      "z-index",
+      "size",
+      "custom-color",
+      "on-click-title",
+      "on-click-icon",
+      "on-click-right",
+      "on-click-back"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/navbar.html#navbar-头部导航)"
+  },
+  "nut-pagination": {
+    "attributes": [
+      "model-value",
+      "mode",
+      "prev-text",
+      "next-text",
+      "page-count",
+      "total-items",
+      "items-per-page",
+      "show-page-size",
+      "force-ellipses",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/pagination.html#pagination-分页)"
+  },
+  "nut-side-navbar": {
+    "attributes": [
+      "offset"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/sidenavbar.html#sidenavbar)"
+  },
+  "nut-sub-side-navbar": {
+    "attributes": [
+      "title",
+      "ikey",
+      "open",
+      "title-click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/sidenavbar.html#subsidenavbar)"
+  },
+  "nut-side-navbar-item": {
+    "attributes": [
+      "title",
+      "ikey",
+      "click"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/sidenavbar.html#sidenavbaritem)"
+  },
+  "nut-tabbar": {
+    "attributes": [
+      "model-value",
+      "bottom",
+      "unactive-color",
+      "active-color",
+      "safe-area-inset-bottom",
+      "placeholder",
+      "tab-switch"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/tabbar.html#tabbar)"
+  },
+  "nut-tabbar-item": {
+    "attributes": [
+      "tab-title",
+      "name",
+      "icon"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/tabbar.html#tabbaritem)"
+  },
+  "nut-tabs": {
+    "attributes": [
+      "model-value",
+      "custom-color",
+      "background",
+      "direction",
+      "type",
+      "swipeable",
+      "title-scroll",
+      "ellipsis",
+      "animated-time",
+      "title-gutter",
+      "size",
+      "auto-height",
+      "name",
+      "align",
+      "click",
+      "change"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/tabs.html#tabs)"
+  },
+  "nut-tab-pane": {
+    "attributes": [
+      "title",
+      "pane-key",
+      "disabled"
+    ],
+    "description": "[Docs](https://nutui-uniapp.pages.dev/components/nav/tabs.html#tabpane)"
+  }
+}

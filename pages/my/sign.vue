@@ -1,5 +1,5 @@
 <template>
-	<view style="margin-top: 30px;">
+	<view style="margin-top: 30px;background-color: black;">
 		<nut-steps :current="checkinDays+1">
 			<nut-step title="+10">
 				1
@@ -201,4 +201,11 @@
 </script>
 
 <style>
+	:root,
+	page{
+		background-color: #000000;
+		--nut-steps-base-line-color: #ffffff;
+		--nut-steps-base-title-color: #55aa00;
+		--nut-steps-wait-icon-bg-color: #000000;
+	}
 </style>

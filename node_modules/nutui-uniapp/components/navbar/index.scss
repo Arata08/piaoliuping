@@ -1,0 +1,119 @@
+.nut-theme-dark {
+  .nut-navbar {
+    color: $dark-color;
+    background: $dark-background;
+    box-shadow: $dark-background2;
+
+    .title {
+      color: $dark-color;
+    }
+  }
+}
+
+.nut-navbar {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: $navbar-height;
+  padding: $navbar-padding;
+  overflow: hidden;
+  font-size: $navbar-title-base-font;
+  line-height: $navbar-height;
+  color: $navbar-color;
+  background: $navbar-background;
+  box-shadow: $navbar-box-shadow;
+
+  $block: &;
+
+  &#{$block}--border {
+    border-bottom: 1px solid #eee;
+  }
+
+  &#{$block}--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &#{$block}--placeholder {
+    display: block;
+    width: 100%;
+  }
+
+  &#{$block}--safe-area-inset-top {
+    height: calc($navbar-height + var(--status-bar-height));
+    height: calc($navbar-height + constant(safe-area-inset-top));
+    height: calc($navbar-height + env(safe-area-inset-top));
+    padding-top: var(--status-bar-height);
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+    .text {
+      display: -webkit-box;
+      min-width: $navbar-title-width;
+      overflow: hidden;
+      font-size: $navbar-title-font;
+      font-weight: $navbar-title-font-weight;
+      color: $navbar-title-font-color;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+    }
+
+    .icon {
+      margin: $navbar-title-icon-margin;
+    }
+
+    :deep(.nut-icon) {
+      display: inline !important;
+    }
+
+    :deep(.nut-tabs__titles) {
+      background: transparent !important;
+    }
+
+    :deep(.nut-tab-pane) {
+      display: none !important;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__left,
+  &__right {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: $cell-desc-font;
+    color: $cell-desc-color;
+    cursor: pointer;
+  }
+
+  &__left {
+    left: 0;
+
+    :deep(.nut-icon) {
+      &.nut-icon-left {
+        text-align: left !important;
+      }
+    }
+  }
+
+  &__right {
+    right: 0;
+  }
+}
