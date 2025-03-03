@@ -1,145 +1,272 @@
 <template>
 	<view>
 		<view class="editaddress">
+			<nut-toast></nut-toast>
 			<view class="content">
 				<view style="margin: 30px auto;">
 					<nut-avatar size="100">
-						<image
-							src="https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png" />
+						<image :src="User.avatar" />
 					</nut-avatar>
-					<nut-uploader :url="uploadUrl"></nut-uploader>
+					<nut-uploader @delete="handleUploadDelete" @success="handleUploadSuccess" is-preview="false"
+						@failure="handleUploadFailure" :url="uploadUrl" :headers="headers" maximum="1"></nut-uploader>
 				</view>
 				<view class="row">
 					<view class="nominal">昵称</view>
-					<view class="input"><input placeholder="请输入昵称" v-model="nickName" type="text" />
-					</view>
+					<view class="input"><input placeholder="请输入昵称" v-model="User.nickName" type="text" /></view>
 				</view>
 				<view class="row">
 					<view class="nominal">生日</view>
 					<view class="input selectcity" @tap="open('birthday')">
-						<view class="city">{{birthday}}</view>
+						<view class="city">{{ localBirth }}</view>
 					</view>
 				</view>
 				<view class="row">
 					<view class="nominal">所在地区</view>
 					<view class="input selectcity" @tap="open('selectcity')">
-						<view class="city">{{province}} {{city}} {{area}}</view>
+						<view class="city">{{ User.province }} {{ User.city }} {{ User.area }}</view>
 					</view>
 				</view>
 				<view class="row">
 					<view class="nominal">性别</view>
-					<view style="margin: 5px 0;">
+					<view style="margin: 5px 0;" v-if="User.newUser">
 						<wd-radio-group v-model="value" shape="button" @change="change">
 							<wd-radio :value="1">男</wd-radio>
 							<wd-radio :value="2">女</wd-radio>
 						</wd-radio-group>
 					</view>
+					<view style="margin: 5px 0;" v-else>
+						<view class="input">{{ User.sex == 'male' ? '男' : '女' }}</view>
+					</view>
 				</view>
 			</view>
 			<view class="save">
-				<view class="btn" :style="'background:' + colors">保存</view>
+				<view class="btn" :style="'background:' + colors" @click="save">保存</view>
 			</view>
 
 			<nut-popup v-model:visible="dateshow" position="bottom" safe-area-inset-bottom>
 				<nut-date-picker v-model="currentDate" :min-date="minDate" :max-date="maxDate" is-show-chinese
-					@confirm="onConfirm" @cancel="dateshow = false">
-				</nut-date-picker>
+					@confirm="onConfirm" @cancel="dateshow = false"></nut-date-picker>
 			</nut-popup>
 			<cityPicker :column="column" :default-value="defaultValue" :mask-close-able="maskCloseAble"
 				@confirm="confirm" @cancel="cancel" :visible="visible" />
+			<nut-dialog no-cancel-btn title="温馨提示" content="保存后性别就不可以更改了哦!" v-model:visible="visible3"/>
 		</view>
-
 	</view>
 </template>
 
 <script lang="ts">
-	import {
-		ref
-	} from 'vue';
-	import cityPicker from '@/components/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker'
-	const minDate = new Date(2020, 0, 1)
-	const maxDate = new Date(2025, 10, 1)
+	import { defineComponent, ref, reactive } from 'vue';
+	import { DialogInst } from 'nutui-uniapp'
+	import { useToast } from "nutui-uniapp/composables";
+	import config from "@/common/config.js"; // 全局配置文件
+	import cityPicker from '@/components/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker';
+	import { editUser } from "@/common/api/piaoliupingApi"; // 全局配置文件
 
-	const currentDate = ref<Date>(new Date(2022, 4, 10))
+	const minDate = new Date(1900, 0, 1);
+	const maxDate = new Date(2100, 11, 31);
+	const currentDate = ref<Date>(new Date(2000, 1, 1));
 
-	export default {
+	export default defineComponent({
 		components: {
 			cityPicker
 		},
 		setup() {
+			const toast = useToast();
+
+			const headers = {
+				'Content-Type': 'multipart/form-data',
+				'token': ''
+			};
+
+			let User = reactive({
+				avatar: 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg',
+				birthday: null,
+				id: 11,
+				nickName: "微信用户Y2kk",
+				sex: "0",
+				newUser: true,
+			});
+
+			const value = ref("");
+			const uploadUrl = ref("http://127.0.0.1:8091/common/upload");
+			const visible = ref(false);
+			const dateshow = ref(false);
+			const column = ref(3);
+			const maskCloseAble = ref(true);
+			const defaultValue = ref(['广东省', '广州市', '天河区']);
+			const colors = ref("#f23a3a");
+			const localBirth = ref(null);
+			const imgPath = ref('');
+			const province = ref("江苏省");
+			const city = ref("南京市");
+			const area = ref("玄武区");
+			const visible3 = ref(false);
+
+			const setUpload = () => {
+				uploadUrl.value = config.staticUrl + "/common/upload";
+				headers.token = uni.getStorageSync('token');
+				setData();
+				visible3.value = User.newUser;
+			};
+
+			const open = (v : string) => {
+				if (v === 'selectcity') {
+					visible.value = true;
+				} else if (v === 'birthday') {
+					dateshow.value = true;
+				}
+			};
+
+			const confirm = (val : any) => {
+				console.log(val);
+				province.value = val.provinceName;
+				city.value = val.cityName;
+				area.value = val.areaName;
+				User.province = province.value;
+				User.city = city.value;
+				User.area = area.value;
+				visible.value = false;
+			};
+
+			const cancel = () => {
+				visible.value = false;
+			};
+
+			const onConfirm = (date : any) => {
+				localBirth.value = date.date.toLocaleDateString();
+				User.birthday = new Date(date.date)
+				console.log(User.birthday);
+				dateshow.value = false;
+			};
+
+			const change = (e : any) => {
+				console.log(e);
+				if (e.value === 1) {
+					User.sex = "male";
+				} else {
+					User.sex = "female";
+				}
+				console.log(User.sex);
+			};
+
+			const handleUploadSuccess = (data : any) => {
+				console.log(data.data.data);
+				const res = JSON.parse(data.data.data);
+				console.log('上传成功，文件url:', res.data.url);
+				console.log('上传成功，文件路径:', res.data.fileName);
+				imgPath.value = res.data.fileName;
+				User.avatar = res.data.url + '?t=' + new Date().getTime();
+				console.log(User.avatar);
+			};
+
+			const handleUploadFailure = () => {
+				toast.error("上传失败");
+			};
+
+			const handleUploadDelete = (data : any) => {
+				imgPath.value = '';
+			};
+
+			const save = () => {
+				if (User.newUser) {
+					if (!imgPath.value) {
+						toast.error("请上传头像");
+						return;
+					}
+					if (!User.province) {
+						toast.error("请选择地区");
+						return;
+					}
+				}
+				//如果/开头就说明改变上传过头像
+				if (imgPath.value.startsWith('/')) {
+					User.avatar = imgPath.value;
+				}
+
+				editUser(User).then((res) => {
+					if (res.code === 200) {
+						toast.success("修改成功！");
+						let u =User.newUser
+						User.newUser = false;
+						if (User.avatar.startsWith('/')) {
+							User.avatar = config.staticUrl + User.avatar;;
+						}
+						uni.setStorageSync('User', User);
+						if (u) {
+							setTimeout(() => {
+								uni.switchTab({
+									url: '/pages/index/my',
+									});
+								},2000
+							);
+						}
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1
+							});
+						}, 2000);
+					} else {
+						toast.error("修改失败！" + res.message);
+					}
+				});
+			};
+
+			const setData = () => {
+				let BaseUser = uni.getStorageSync('User');
+				Object.assign(User, BaseUser); // 使用 Object.assign 更新属性而不是直接赋值
+				if (User.avatar.startsWith('/')) {
+					User.avatar = config.staticUrl + User.avatar;
+				}
+				localBirth.value = new Date(User.birthday).toLocaleDateString();
+				value.value = User.sex === 'male' ? 1 : 2;
+				console.log(User);
+			}
+
+			setUpload();
+
 			return {
 				minDate,
 				maxDate,
-				currentDate
-			}
-		},
-		data() {
-			return {
-				value: "",
-				sex: "男",
-				nickName: "aa",
-				uploadUrl: "",
-				phone: "",
-				baseBirthday: null,
-				birthday: "",
-				visible: false,
-				dateshow: false,
-				column: 3,
-				province: "江苏省",
-				city: "南京市",
-				area: "玄武区",
-				maskCloseAble: true,
-				defaultValue: ['广东省', '广州市', '天河区'],
-				colors: "#f23a3a",
+				currentDate,
+				headers,
+				User,
+				value,
+				uploadUrl,
+				visible,
+				visible3,
+				dateshow,
+				column,
+				maskCloseAble,
+				defaultValue,
+				colors,
+				localBirth,
+				imgPath,
+				province,
+				city,
+				area,
+				open,
+				confirm,
+				cancel,
+				onConfirm,
+				change,
+				handleUploadSuccess,
+				handleUploadFailure,
+				handleUploadDelete,
+				save
 			};
-		},
-		methods: {
-			updateAvatar() {
-				this.$u.route('/pages/my/avatar')
-			},
-			open(v : string) {
-				if (v == 'selectcity') {
-					this.visible = true
-				} else if (v == 'birthday') {
-					this.dateshow = true
-				}
-			},
-			confirm(val) {
-				console.log(val)
-				this.province = val.provinceName;
-				this.city = val.cityName;
-				this.area = val.areaName;
-				this.visible = false
-			},
-			cancel() {
-				this.visible = false
-			},
-			onConfirm(date) {
-				let a = new Date(date.date)
-				this.baseBirthday = a;
-				this.birthday = a.getFullYear() + "年-" + (a.getMonth() + 1) + "月-" + a.getDate() + "日";
-				this.dateshow = false
-			},
-			change(e) {
-				console.log(e)
-				if (e.value === 1) {
-					this.sex = "man"
-				} else {
-					this.sex = "woman"
-				}
-				console.log(this.sex)
-			},
 		}
-	};
+	});
 </script>
+
 <style>
-page {
-       height: 100%;
-       width: 100%;
-       background: linear-gradient(180deg, #dcdcdc 5%, #fff 50.06%, #dcdcdc 95%);
-       background-attachment: fixed;
-     }
+	page {
+		height: 100%;
+		width: 100%;
+		background: linear-gradient(180deg, #dcdcdc 5%, #fff 50.06%, #dcdcdc 95%);
+		background-attachment: fixed;
+	}
 </style>
+
 <style lang="scss" scoped>
 	.save {
 		position: fixed;
@@ -191,8 +318,7 @@ page {
 		padding: 10px;
 		width: 92%;
 		margin: 0 4%;
-		font-size: 25px;
-		border: solid 1upx #eee;
+		border: solid 1upx #d5d5d5;
 		border-radius: 15px;
 	}
 

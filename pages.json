@@ -118,6 +118,13 @@
         "navigationBarTitleText": "看一看",
         "enablePullDownRefresh": false
       }
+    },
+    {
+    	"path" : "pages/my/identity",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "性别认证"
+    	}
     }
   ],
   "globalStyle": {

@@ -1,8 +1,7 @@
 <template>
 	<view class="page">
 		<view class="user">
-			<image
-				src="https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png" />
+			<image :src="User.avatar" />
 			<view class="user-info">
 				<view class="u-font-18 u-tips-color">星币余额：{{xingbi}}</view>
 				<text v-if="membershipInfo" style="color:lightcoral;">会员到期时间: {{membershipInfo}}</text>
@@ -65,6 +64,20 @@
 	export default {
 		data() {
 			return {
+				User: {
+					"age": 18,
+					"id": 11,
+					"userName": "19515861232",
+					"nickName": "微信用户1",
+					"sex": "female",
+					"avatar": "http://localhost:8091/image/2025/02/23/OFxwu2zKeX.png",
+					"balance": 50,
+					"meili": 0,
+					"vip": 100,
+					"level": 2,
+					"experience": 5,
+					"flower": 10
+				},
 				showWebview: false, // 初始时不显示web-view
 				total_fee: 1, // 支付金额，单位分 100 = 1元
 				order_no: "", // 业务系统订单号（即你自己业务系统的订单表的订单号）
@@ -149,18 +162,20 @@
 					},
 				],
 				current: 0, // 当前选中套餐下标
-				avatar: '',
 			}
 		},
 		// 监听 - 页面每次【加载时】执行(如：前进)
 		onLoad(options = {}) {
-			//this.updateAvatar();
+			this.setData();
 		},
 		// 监听 - 页面每次【显示时】执行(如：前进和返回) (页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面)
 		onShow() {
-			this.fetchMembershipInfo();
+			//this.fetchMembershipInfo();
 		},
 		methods: {
+			setData() {
+				this.User = uni.getStorageSync('User');
+			},
 			updateAvatar() {
 				const lifeData = uni.getStorageSync('lifeData').vuex_user.user;
 				this.avatar = lifeData.avatar

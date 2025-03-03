@@ -5,22 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27067413-540f-492f-8291-4fb0d7c19073" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/pages/index/query.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hbuilderx/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hbuilderx/launch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/api/piaoliupingApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/youlan-SignIn/youlan-SignIn.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/youlan-SignIn/youlan-SignIn.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/login/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/meslist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/meslist.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/my.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/my.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/my/set.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/set.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/sign.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/sign.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/female.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/female.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni.scss" beforeDir="false" afterPath="$PROJECT_DIR$/uni.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/my/vip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/vip.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/send/send.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/send/send.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +43,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Documents/GitHub/piaoliuping&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2024.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Documents/GitHub/house-life/house-life",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm 2024.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documents\GitHub\piaoliuping\pages\index" />
@@ -101,10 +99,25 @@
       <workItem from="1739407889844" duration="989000" />
       <workItem from="1739408936470" duration="1388000" />
       <workItem from="1739410349629" duration="2579000" />
+      <workItem from="1739757429921" duration="9398000" />
+      <workItem from="1739861264306" duration="9446000" />
+      <workItem from="1739926434002" duration="1993000" />
+      <workItem from="1739950116326" duration="11000" />
+      <workItem from="1740013760269" duration="4748000" />
+      <workItem from="1740031999802" duration="8701000" />
+      <workItem from="1740098481511" duration="12664000" />
+      <workItem from="1740119969970" duration="11652000" />
+      <workItem from="1740288802411" duration="902000" />
+      <workItem from="1740289719901" duration="1930000" />
+      <workItem from="1740450511048" duration="2957000" />
+      <workItem from="1740726428673" duration="3307000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VueSettings">
+    <option name="innerServiceType" value="TS_SERVICE" />
   </component>
 </project>

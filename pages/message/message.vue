@@ -12,9 +12,14 @@
 					<view class="content" v-if="item.messageType === 'image'">
 						<image :src="item.content" mode="widthFix"></image>
 					</view>
-					<view class="content" v-else>
-						{{ item.content }}
-					</view>
+          <view v-else>
+            <view v-show="!item.read && item.userType === 'self'">
+              <text style="color: #dcdcdc;font-size: 10px">未读</text>
+            </view>
+            <view class="content">
+              {{ item.content }}
+            </view>
+          </view>
 					<image :src="item.avatar" v-if="item.userType === 'self'" class="avatar" mode="widthFix"></image>
 				</view>
 			</view>
@@ -55,7 +60,7 @@
 		},
 		onLoad(options) {
 			uni.setNavigationBarTitle({
-				title: options.name
+				title: options.nickName
 			})
 			this._friendAvatar = options.avatar
 			this._selfAvatar = 'https://ask.dcloud.net.cn/uploads/avatar/001/43/07/62_avatar_max.jpg?=1705916918'
@@ -67,6 +72,7 @@
 				{
 					content: '历史消息',
 					userType: 'self',
+          read: true,
 					avatar: this._selfAvatar
 				},{
 					content: '对方历史回复消息',
@@ -76,53 +82,21 @@
 				{
 					content: '历史消息',
 					userType: 'self',
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
+          read: true,
 					avatar: this._selfAvatar
 				},
+        {
+          content: '历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息',
+          userType: 'self',
+          read: false,
+          avatar: this._selfAvatar
+        },
+        {
+          content: '历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息',
+          userType: 'self',
+          read: false,
+          avatar: this._selfAvatar
+        }
 			]
 			this.scrollToBottom()
 		},

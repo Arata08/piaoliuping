@@ -58,10 +58,14 @@
 				star1: "/static/images/star2.png",
 				inbox: "/static/images/inbox.png",
 				outbox: "/static/images/outbox.png",
-				showRound: true
+				showRound: false
 			}
 		},
 		onLoad() {
+      //检查登录
+      if (!uni.getStorageSync('token')) {
+        this.showRound = true
+      }
 			uni.getWindowInfo({
 				success: function (res) {
 					uni.setStorageSync('windowInfo', res)

@@ -5,39 +5,39 @@
 		<div class="meteor"></div>
 		<view class="userdata">
 			<nut-avatar size="large" class="headimage">
-				<img :src="img" @click="goToPage('set')" />
+				<img :src="User.avatar" @click="goToPage('set')" />
 			</nut-avatar>
 			<view class="userinfo">
 				<view class="nicknametags">
-					<view class="nickname"> 我是大帅哥 </view>
-					<nut-tag type="success" round>
-						<nut-icon :name="male" color="white" />
-						32
+					<view class="nickname">{{User.nickName}}</view>
+					<nut-tag :type="User.sex==='man'?'primary':'danger'" round>
+						<nut-icon :name="'/static/images/'+ User.sex +'.png'" color="white" />
+						{{User.age}}
 					</nut-tag>
 				</view>
-				<view class="userid"> ID 1234567 </view>
+				<view class="userid"> ID {{User.id}} </view>
 				<view class="progress">
-					<view class="leveltext"> Lv1 </view>
-					<nut-progress percentage="30" :show-text="false" />
+					<view class="leveltext"> Lv{{User.level}} </view>
+					<nut-progress :percentage="User.experience" :show-text="false" />
 				</view>
 			</view>
 		</view>
 		<view class="userext">
 			<view class="statics">
 				<view class="statitem" @click="goToPage('xb')">
-					<view class="number"> 100 </view>
+					<view class="number">{{User.balance}}</view>
 					<view class="name"> 星币 </view>
 				</view>
 				<view class="statitem" @click="goToPage('charm')">
-					<view class="number" style="color: darkorchid;"> 200 </view>
+					<view class="number" style="color: darkorchid;"> {{User.meili}} </view>
 					<view class="name"> 魅力值 </view>
 				</view>
 				<view class="statitem" @click="goToPage('vip')" style="color: gold">
-					<view class="number"> 200 </view>
+					<view class="number"> {{User.vip}} </view>
 					<view class="name"> 剩余会员 </view>
 				</view>
 				<view class="statitem" @click="goToPage('follow')">
-					<view class="number"> 200 </view>
+					<view class="number"> {{User.flower}}</view>
 					<view class="name"> 关注 </view>
 				</view>
 			</view>
@@ -59,18 +59,13 @@
 						<image class="nut-icon" src="../../static/my/分享.png"></image>
 					</template>
 				</nut-cell>
-				<nut-cell title="性别认证" is-link>
+				<nut-cell title="性别认证" is-link @click="goToPage('identity')">
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/性别.png"></image>
 					</template>
 				</nut-cell>
 			</nut-cell-group>
 			<nut-cell-group>
-				<nut-cell title="实名认证" is-link @click="contactUs">
-					<template #icon>
-						<image class="nut-icon" src="../../static/my/认证.png"></image>
-					</template>
-				</nut-cell>
 				<nut-cell title="设置" is-link @click="toSettings">
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/set-up.png"></image>
@@ -79,9 +74,6 @@
 			</nut-cell-group>
 			<button type="default" open-type="contact"
 				style="margin-top: 20rpx;background-color: #0B1430;color: #fff">在线咨询</button>
-			<navigator url="../login/login" hover-class="navigator-hover">
-				<button type="default">跳转到新页面</button>
-			</navigator>
 		</view>
 	</view>
 
@@ -91,11 +83,37 @@
 	export default {
 		data() {
 			return {
-				male: "/static/images/male.png",
-				img: 'https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png',
+				User: {
+					"age": 18,
+					"id": 11,
+					"userName": "19515861232",
+					"nickName": "微信用户1",
+					"sex": "female",
+					"avatar": "http://localhost:8091/image/2025/02/23/OFxwu2zKeX.png",
+					"balance": 50,
+					"meili": 0,
+					"vip": 100,
+					"level": 2,
+					"experience": 5,
+					"flower": 10
+				}
 			};
 		},
+		onShow() {
+			this.setData();
+		},
 		methods: {
+			setData() {
+				let user = uni.getStorageSync('User');
+				if (user) {
+					Object.assign(this.User, user); // 使用 Object.assign 更新属性而不是直接赋值
+				}else{
+					//返回主页
+					uni.switchTab({
+						url: '/pages/index/index',
+					});
+				}
+			},
 			showShare() {},
 			contactUs() {
 				uni.previewImage({
@@ -127,6 +145,9 @@
 					case 'sign':
 						url = '/pages/my/sign';
 						break;
+					case 'identity':
+						url = '/pages/my/identity';
+						break;
 					default:
 						console.error('未知的页面类型');
 						return;
@@ -140,9 +161,9 @@
 </script>
 
 <style>
-page {
-  background: linear-gradient(180deg, #000000 0%, #2b3977 49.98%, #000000 100%);
-}
+	page {
+		background: linear-gradient(180deg, #000000 0%, #2b3977 49.98%, #000000 100%);
+	}
 </style>
 
 <style lang="scss">

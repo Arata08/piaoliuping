@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-
+    <nut-notify></nut-notify>
 		<nut-form>
 			<nut-form-item label="">
 				<nut-textarea v-model="value" placeholder="在这里分享你的思绪,心情和秘密"  limit-show max-length="50"/>
@@ -23,7 +23,7 @@
 		</nut-form>
 			<nut-cell>
 				<nut-button size="large" type="primary">
-					发布
+          发布
 				</nut-button>
 			</nut-cell>
 	</view>
@@ -35,13 +35,14 @@
 		ref,
 		toRefs
 	} from 'vue';
-	const selectValue = ref('')
-	export default {
+  import {useNotify} from "nutui-uniapp/composables";
+  export default {
 		setup() {
 			const value = ref('');
 			const checked = ref(true);
 			const activeNames = ref([1, 2]);
 			const radioVal = ref('1');
+      const notify = useNotify();
 			const title = reactive({
 				title1: '选择圈子',
 			})
@@ -50,7 +51,11 @@
 				// status: true 打开 false 关闭
 				console.log(modelValue, currName, status);
 			}
+      function showPrimary() {
+        notify.primary("写一封吗？");
+      }
 			return {
+        showPrimary,
 				value,
 				onChange,
 				checked,
@@ -62,11 +67,17 @@
 		data() {
 		},
 		onLoad() {
+      this.showPrimary();
 			console.log(this.checked);
 		}
 	}
 </script>
-
+<style>
+.nut-icon{
+  --animate-duration: 2s ;
+  --animate-delay: 3s;
+}
+</style>
 <style lang="scss">
 	.index {
 /* global 94%+ browsers support */
