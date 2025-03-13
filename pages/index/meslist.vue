@@ -7,17 +7,17 @@
 		<div class="layer4"></div>
 		<div class="layer5"></div>
 		<div class="meteor"></div>
-		<view class="list-item" v-for="(item,index) in users" :key="index" @click="connect(item)">
+		<view class="list-item" v-for="(item,index) in msgList" :key="index" @click="connect(item,index)">
 			<view class="avatar" @click.stop="showModal(item)">
-				<text class="round" v-if="item.read"></text>
+				<view class="round" v-if="item.read"></view>
 				<image :src="item.avatar" mode="widthFix"></image>
 			</view>
 			<view class="content">
 				<view class="title">
 					<text class="name">{{ item.nickName }}</text>
-					<text class="time">24/01/25</text>
+					<text class="time">{{ item.saveTime }}</text>
 				</view>
-				<view class="txt">这是信息这是信息这是信息</view>
+				<view class="txt">{{ item.lastMsg }}</view>
 			</view>
 		</view>
 		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal"
@@ -27,39 +27,108 @@
 
 <script>
 	import UserInfoModal from '@/components/user-detail/user-detail.vue'
+	import webSocketManager from '../../common/websocketManager.js'
+	import config from "../../common/config";
+	import {
+		getOfflineMessageList,
+		getUserInfo,
+    delOfflineMessage
+	} from "../../common/api/piaoliupingApi";
+
 	export default {
 		components: {
 			UserInfoModal
 		},
 		data() {
 			return {
-				users: [{
-						avatar: 'https://ww1.sinaimg.cn/mw690/a1a9fb72gy1hl1cd1znplj20j60j6n0h.jpg',
-						nickName: '云端遗梦录',
-						read: 1
-					},
-					{
-						avatar: 'https://wx1.sinaimg.cn/mw690/006zUvE2gy1hlzne8puvvj30p40p4mz0.jpg',
-						nickName: '我要月亮奔我而来',
-						read: 0
-					}
-				],
+				msgList: [],
 				selectedUser: {},
 				isModalVisible: false,
-				windowWidth: 0
+				windowWidth: 0,
+				socket: null
 			};
 		},
 		onLoad() {
-			this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
-			console.log(this.windowWidth)
+			webSocketManager.connectWebSocket();
+		},
+		onShow() {
+			if (!uni.getStorageSync('User')) {
+				//返回主页
+				uni.switchTab({
+					url: '/pages/index/index',
+				});
+			} else {
+				this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
+				this.loadMsgList();
+				this.initWebSocket();
+				//获取离线消息列表
+        this.getOfflineMessage();
+			}
 		},
 		methods: {
-			connect(item) {
+			loadMsgList() {
+				this.msgList = uni.getStorageSync("msgList") || [];
+			},
+			initWebSocket() {
+				this.socket = webSocketManager.socketTask;
+				this.socket.onMessage((res) => {
+					this.updateMsgList(res.data);
+				});
+			},
+			updateMsgList(data) {
+				let res = JSON.parse(data);
+				let id = res.senderId;
+				let msgList = this.msgList
+				// 遍历判断消息中是否已经有该用户的聊天记录
+				let found = false;
+        let saveTime = this.getSaveTime(new Date());
+				for (let i = 0; i < msgList.length; i++) {
+					if (msgList[i].id === id) {
+						//如果有就直接更新新消息和未读状态
+						msgList[i].read = 1;
+						msgList[i].lastMsg = res.content;
+						msgList[i].saveTime = saveTime;
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					// 如果没有找到该用户的聊天记录，则获取用户信息
+					getUserInfo(id).then(data => {
+						if (data.code !== 200) {
+							uni.showToast({
+								title: data.msg,
+								icon: 'none',
+								duration: 2000,
+							});
+							return;
+						}
+						let user = data.data;
+						msgList.unshift({
+							id: id,
+							nickName: user.nickName,
+							avatar: config.staticUrl + user.avatar,
+							lastMsg: res.content,
+							saveTime: saveTime,
+							read: 1,
+						});
+					}).catch(error => {
+						console.error('Failed to get user info:', error);
+					});
+				}
+				uni.setStorageSync('msgList', msgList);
+				this.msgList = msgList;
+			},
+			connect(item, index) {
+				this.msgList[index].read = 0;
+				uni.setStorageSync("msgList", this.msgList);
 				uni.navigateTo({
 					url: `/pages/message/message?name=${item.nickName}&avatar=${item.avatar}`
-				})
+				});
 			},
 			showModal(user) {
+        console.log(user);
 				this.selectedUser = user;
 				this.isModalVisible = true;
 			},
@@ -70,13 +139,93 @@
 				if (event.key === 'Escape') {
 					this.closeModal();
 				}
-			}
+			},
+			getSaveTime(data) {
+				let date = new Date(data);
+				return (date.getMonth() + 1) + '月' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() +
+					':' + date.getSeconds();
+			},
+      getOfflineMessage() {
+        getOfflineMessageList().then(data => {
+          let jsonData = JSON.parse(data.data);
+          if(data.code!==200){
+            uni.showToast({
+              title: data.msg,
+              icon: 'error',
+              duration: 2000,
+            });
+          }
+          let map = new Map(Object.entries(jsonData));
+          // 遍历 map 更新或添加聊天记录
+          map.forEach((value, key) => {
+            let saveTime = this.getSaveTime(value.createdAt);
+            // 查找 msgList 中是否存在该用户的聊天记录
+            let index = this.msgList.findIndex(item => item.id === key);
+            if (index !== -1) {
+              // 如果存在，则更新新消息和未读状态
+              this.msgList[index].read = 1;
+              this.msgList[index].lastMsg = value.content;
+              this.msgList[index].saveTime = saveTime;
+              uni.setStorageSync('msgList', this.msgList);
+              delOfflineMessage();
+            } else {
+              // 如果不存在，则获取用户信息并添加新的聊天记录
+              getUserInfo(key).then(data => {
+                if (data.code !== 200) {
+                  uni.showToast({
+                    title: data.msg,
+                    icon: 'none',
+                    duration: 2000,
+                  });
+                  return;
+                }
+                let user = data.data;
+                let offline;
+                if (user.offlineTime===0){
+                  offline = "在线"
+                }else{
+                  //根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
+                  let offlineTime = new Date().getTime() - user.offlineTime;
+                  if (offlineTime < 60 * 1000) {
+                    offline = "刚刚在线";
+                  } else if (offlineTime < 60 * 60 * 1000) {
+                    offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
+                  } else if (offlineTime < 24 * 60 * 60 * 1000) {
+                    offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
+                  }
+                }
+                //user.createTime：2025-02-25 10:51:13只保留年月日
+                let createTime = user.createTime.substring(0, 10);
+                this.msgList.unshift({
+                  id: key,
+                  nickName: user.nickName,
+                  avatar: config.staticUrl + user.avatar,
+                  lastMsg: value.content,
+                  saveTime: saveTime,
+                  read: 1,
+                  createTime: createTime,
+                  offlineTime: offline
+                });
+                //删除redis中的离线记录
+                uni.setStorageSync('msgList', this.msgList);
+                delOfflineMessage();
+              }).catch(error => {
+                console.error('Failed to get user info:', error);
+              });
+            }
+          });
+        });
+      }
 		},
 		beforeDestroy() {
+			if (this.socket) {
+				this.socket.close();
+			}
 			document.removeEventListener('keydown', this.handleKeydown);
 		},
-	}
+  }
 </script>
+
 
 <style>
 	page {

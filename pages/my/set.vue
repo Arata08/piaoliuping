@@ -88,7 +88,7 @@
 			});
 
 			const value = ref("");
-			const uploadUrl = ref("http://127.0.0.1:8091/common/upload");
+			const uploadUrl = ref(config.uploadUrl);
 			const visible = ref(false);
 			const dateshow = ref(false);
 			const column = ref(3);
@@ -167,60 +167,86 @@
 				imgPath.value = '';
 			};
 
-			const save = () => {
-				if (User.newUser) {
-					if (!imgPath.value) {
-						toast.error("请上传头像");
-						return;
-					}
-					if (!User.province) {
-						toast.error("请选择地区");
-						return;
-					}
-				}
-				//如果/开头就说明改变上传过头像
-				if (imgPath.value.startsWith('/')) {
-					User.avatar = imgPath.value;
-				}
+      const save = () => {
+        if (User.newUser) {
+          if (!imgPath.value) {
+            toast.error("请上传头像");
+            return;
+          }
+          if (!User.province) {
+            toast.error("请选择地区");
+            return;
+          }
+        }
+        // 如果/开头就说明改变上传过头像
+        if (imgPath.value.startsWith('/')) {
+          User.avatar = imgPath.value;
+        }else{
+          //去除url前面的baseUrl
+          User.avatar = User.avatar.replace(config.staticUrl, '');
+        }
 
-				editUser(User).then((res) => {
-					if (res.code === 200) {
-						toast.success("修改成功！");
-						let u =User.newUser
-						User.newUser = false;
-						if (User.avatar.startsWith('/')) {
-							User.avatar = config.staticUrl + User.avatar;;
-						}
-						uni.setStorageSync('User', User);
-						if (u) {
-							setTimeout(() => {
-								uni.switchTab({
-									url: '/pages/index/my',
-									});
-								},2000
-							);
-						}
-						setTimeout(() => {
-							uni.navigateBack({
-								delta: 1
-							});
-						}, 2000);
-					} else {
-						toast.error("修改失败！" + res.message);
-					}
-				});
-			};
+        // 比较当前用户信息和原始用户信息
+        let hasChanged = false;
+        for (let key in User) {
+          if (User[key] !== originalUser[key]) {
+            hasChanged = true;
+            break;
+          }
+        }
 
-			const setData = () => {
-				let BaseUser = uni.getStorageSync('User');
-				Object.assign(User, BaseUser); // 使用 Object.assign 更新属性而不是直接赋值
-				if (User.avatar.startsWith('/')) {
-					User.avatar = config.staticUrl + User.avatar;
-				}
-				localBirth.value = new Date(User.birthday).toLocaleDateString();
-				value.value = User.sex === 'male' ? 1 : 2;
-				console.log(User);
-			}
+        if (!hasChanged) {
+          toast.error("没有修改任何信息");
+          return;
+        }
+
+        editUser(User).then((res) => {
+          if (res.code === 200) {
+            toast.success("修改成功！");
+            let u = User.newUser;
+            User.newUser = false;
+            if (User.avatar.startsWith('/')) {
+              User.avatar = config.staticUrl + User.avatar;
+            }
+            uni.setStorageSync('User', User);
+            if (u) {
+              setTimeout(() => {
+                uni.switchTab({
+                  url: '/pages/index/my',
+                });
+              }, 2000);
+            }
+            setTimeout(() => {
+              uni.navigateBack({
+                delta: 1
+              });
+            }, 2000);
+          } else {
+            toast.error("修改失败！" + res.message);
+          }
+        });
+      };
+
+      const originalUser = reactive({
+        avatar: '',
+        birthday: null,
+        id: 0,
+        nickName: '',
+        sex: '',
+        newUser: false,
+      });
+
+      const setData = () => {
+        let BaseUser = uni.getStorageSync('User');
+        Object.assign(User, BaseUser); // 使用 Object.assign 更新属性而不是直接赋值
+        Object.assign(originalUser, BaseUser); // 保存原始用户信息
+        if (User.avatar.startsWith('/')) {
+          User.avatar = config.staticUrl + User.avatar;
+        }
+        localBirth.value = new Date(User.birthday).toLocaleDateString();
+        value.value = User.sex === 'male' ? 1 : 2;
+        console.log(User);
+      }
 
 			setUpload();
 

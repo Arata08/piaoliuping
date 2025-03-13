@@ -5,8 +5,8 @@
 			<view class="user-info" :style="{width:windowWidth+'px'}">
 				<image :src="userInfo.avatar" class="avatar"></image>
 				<view class="info">
-					<text class="time-reg">注册时间：2025-01-01</text>
-					<text class="time-login">最近登录：一天前</text>
+					<text class="time-reg">注册时间：{{userInfo.createTime}}</text>
+					<text class="time-login">最近登录：{{userInfo.offlineTime}}</text>
 				</view>
 			</view>
 			<view class="actions">
@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import {
+  getUserInfo
+} from "../../common/api/piaoliupingApi";
 	export default {
 		props: {
 			userInfo: {
@@ -38,14 +41,23 @@
 			return {}
 		},
 		onLoad() {},
+    onShow(){
+      this.getUser();
+      console.log('show');
+    },
 		methods: {
+      getUser(){
+        getUserInfo(this.userInfo.id).then(res => {
+          console.log(res.data);
+        })
+      },
 			blockUser() {
-				console.log('拉黑用户:', this.userInfo.name);
+				console.log('拉黑用户:', this.userInfo.id);
 				// 实现拉黑逻辑
 				this.$emit('close');
 			},
 			reportUser() {
-				console.log('举报用户:', this.userInfo.name);
+				console.log('举报用户:', this.userInfo.id);
 				// 实现举报逻辑
 				this.$emit('close');
 			},

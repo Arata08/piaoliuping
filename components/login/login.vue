@@ -23,7 +23,7 @@
 
 <script>
 	import config from "@/common/config.js"; // 全局配置文件
-  import {
+	import {
 		ref
 	} from 'vue';
 	import {
@@ -31,7 +31,9 @@
 	} from "nutui-uniapp/composables";
 	import {
 		registerUser
-	} from "@/common/api/piaoliupingApi"; // 全局配置文件
+	} from "@/common/api/piaoliupingApi";
+	import webSocketManager from '@/common/websocketManager';
+  import {baseUrl} from "../../common/config";
 
 	export default {
 		setup() {
@@ -44,91 +46,80 @@
 				isChecked.value = e.detail.value.includes('cb');
 			}
 
+			function showAgreement1() {
+				showWebview1.value = true; // 点击按钮后允许显示web-view
+			}
+
+			function showAgreement2() {
+				showWebview2.value = true; // 点击按钮后允许显示web-view
+			}
+
+			function getPhoneNumber(e) {
+				// 检查是否同意用户协议
+				if (!isChecked.value) {
+					notify.warning("请先同意用户协议");
+				} else {
+					let code = e.detail.code;
+					if (code) {
+						handleRegister(code);
+					} else {
+						notify.warning("登陆失败");
+					}
+				}
+			}
+
+			async function handleRegister(code) {
+				const Data = {
+					code: code,
+				};
+
+				try {
+					const response = await registerUser(Data);
+					if (response.code === 200) {
+						// 登录成功初始化token与用户信息
+						const User = response.data.User;
+						//用户第一次登录没有头像，默认头像
+						if (!User.avatar) {
+							User.avatar = 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg'
+						} else if (!User.avatar.startsWith('http')) {
+							User.avatar = config.baseUrl + User.avatar
+						}
+						//根据生日计算年龄
+						const birthday = new Date(User.birthday);
+						const today = new Date();
+						const age = today.getFullYear() - birthday.getFullYear();
+						//存入User
+						User.age = age;
+						uni.setStorageSync('token', response.data.token);
+						uni.setStorageSync('User', User);
+						notify.success("登录成功!");
+						//1秒后跳转
+						if (User.newUser) {
+							setTimeout(() => {
+								uni.redirectTo({
+									url: '/pages/my/set'
+								})
+							}, 1000);
+						}
+					} else {
+						notify.warning(response.message);
+					}
+				} catch (error) {
+					console.error(error);
+				}
+			}
+
 			return {
 				isChecked,
 				showWebview1,
 				showWebview2,
 				checkboxChange,
-				showAgreement1() {
-					showWebview1.value = true; // 点击按钮后允许显示web-view
-				},
-				showAgreement2() {
-					showWebview2.value = true; // 点击按钮后允许显示web-view
-				},
-
-				getPhoneNumber(e) {
-					console.log(e.detail.code) // 动态令牌
-
-					// 检查是否同意用户协议
-					if (!isChecked.value) {
-						notify.warning("请先同意用户协议");
-					} else {
-						let code = e.detail.code;
-						if (code) {
-							console.log(code);
-							this.handleRegister(code);
-						} else {
-							notify.warning("登陆失败");
-						}
-					}
-				},
-				async handleRegister(code) {
-					const Data = {
-						code: code,
-					};
-
-					try {
-						const response = await registerUser(Data);
-						if (response.code === 200) {
-							// 登录成功初始化token与用户信息
-							const User = response.data.User;
-							//用户第一次登录没有头像，默认头像
-							if (!User.avatar) {
-								User.avatar = 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg'
-							}else if(!User.avatar.startsWith('http')){
-								User.avatar = config.baseURL + User.avatar
-							}
-							//根据生日计算年龄
-							const birthday = new Date(User.birthday);
-							const today = new Date();
-							const age = today.getFullYear() - birthday.getFullYear();
-							//存入User
-							User.age = age;
-							uni.setStorageSync('token', response.data.token);
-							uni.setStorageSync('User', User);
-							notify.success("登录成功!");
-							//1秒后跳转
-							if (User.newUser) {
-								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/my/set'
-									})
-								}, 1000);
-							}
-						} else {
-							notify.warning(response.message);
-						}
-					} catch (error) {
-						console.error(error);
-					}
-				}
+				showAgreement1,
+				showAgreement2,
+				getPhoneNumber,
+				handleRegister
 			};
-		},
-		methods: {
-			async handleRegister() {
-				const userData = {
-					userName: '123456',
-					password: '123456',
-				};
-
-				try {
-					const response = await registerUser(userData);
-					console.log(response); // 这里可以获取到后端返回的数据
-				} catch (error) {
-					console.error(error); // 处理错误（即使你不需要处理错误，保留这个块是个好习惯）
-				}
-			}
-		},
+		}
 	};
 </script>
 
