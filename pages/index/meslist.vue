@@ -124,7 +124,7 @@
 				this.msgList[index].read = 0;
 				uni.setStorageSync("msgList", this.msgList);
 				uni.navigateTo({
-					url: `/pages/message/message?name=${item.nickName}&avatar=${item.avatar}`
+					url: `/pages/message/message?nickName=${item.nickName}&avatar=${item.avatar}&friendId=${item.id}`
 				});
 			},
 			showModal(user) {

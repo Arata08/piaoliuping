@@ -8,7 +8,7 @@
 			<view style="padding: 30rpx 30rpx 240rpx;">
 				<view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index"
 					@click="msgClick(item)">
-					<image :src="item.avatar" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
+					<image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
 					<view class="content" v-if="item.messageType === 'image'">
 						<image :src="item.content" mode="widthFix"></image>
 					</view>
@@ -20,7 +20,7 @@
               {{ item.content }}
             </view>
           </view>
-					<image :src="item.avatar" v-if="item.userType === 'self'" class="avatar" mode="widthFix"></image>
+					<image :src="this[item.userType]" v-if="item.userType === 'self'" class="avatar" mode="widthFix"></image>
 				</view>
 			</view>
 		</scroll-view>
@@ -47,6 +47,10 @@
 
 <script>
 	const recorderManager = wx.getRecorderManager()
+  import webSocketManager from '../../common/websocketManager.js'
+  import {
+    sendChatMessage
+  } from "../../common/api/piaoliupingApi";
 
 	export default {
 		data() {
@@ -55,48 +59,30 @@
 				list: [],
 				top: 0,
 				messageType: 'voice', // text 发送文本；voice 发送语音
-				recordStart: false
+				recordStart: false,
+        friend: '',
+        friendId: '',
+        self: '',
 			};
 		},
 		onLoad(options) {
 			uni.setNavigationBarTitle({
 				title: options.nickName
 			})
-			this._friendAvatar = options.avatar
-			this._selfAvatar = 'https://ask.dcloud.net.cn/uploads/avatar/001/43/07/62_avatar_max.jpg?=1705916918'
+      console.log(options)
+      this.friendId = options.friendId
+			this.friend = options.avatar
+			this.self = 'https://ask.dcloud.net.cn/uploads/avatar/001/43/07/62_avatar_max.jpg?=1705916918'
 			this.list = [{
 					content: '对方历史回复消息',
 					userType: 'friend',
-					avatar: this._friendAvatar
+          read: true,
 				},
 				{
 					content: '历史消息',
 					userType: 'self',
-          read: true,
-					avatar: this._selfAvatar
-				},{
-					content: '对方历史回复消息',
-					userType: 'friend',
-					avatar: this._friendAvatar
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-          read: true,
-					avatar: this._selfAvatar
-				},
-        {
-          content: '历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息',
-          userType: 'self',
           read: false,
-          avatar: this._selfAvatar
-        },
-        {
-          content: '历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息历史消息',
-          userType: 'self',
-          read: false,
-          avatar: this._selfAvatar
-        }
+				}
 			]
 			this.scrollToBottom()
 		},
@@ -107,11 +93,21 @@
 		},
 		methods: {
 			send() {
+        let data = {
+          websocketType:"chatList",
+          content: this.content,
+          receiverId: this.friendId,
+          senderId: uni.getStorageSync("User").id,
+          type: 'text',
+        }
 				this.list.push({
 					content: this.content,
 					userType: 'self',
-					avatar: this._selfAvatar
+          type: 'text',
+          read: false,
 				})
+        webSocketManager.sendChatMessage(data);
+        uni.setStorageSync('chatList'+this.friendId, this.list)
 				this.content = ''
 				this.scrollToBottom()
 				// 模拟对方回复

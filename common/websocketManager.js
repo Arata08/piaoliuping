@@ -36,6 +36,7 @@ class WebSocketManager {
 		if (this.socketTask && this.socketTask.readyState === 1) {
 			this.socketTask.send({
 				data: JSON.stringify({
+					websocketType: 'userStatus',
 					userId: uni.getStorageSync("User").id,
 					status: status
 				}),
@@ -64,7 +65,7 @@ class WebSocketManager {
 		}
 	}
 
-	sendMessage(message) {
+	sendChatMessage(message) {
 		if (this.socketTask && this.socketTask.readyState === 1) {
 			this.socketTask.send({
 				data: JSON.stringify(message),
