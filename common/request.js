@@ -57,7 +57,7 @@ http.interceptors.response.use(
 			// 显示错误信息（可根据需要自定义）  
 			uni.showToast({
 				title: response.data.msg || '请求失败，请稍后再试',
-				icon: 'none',
+				icon: 'error',
 			});
 			return Promise.reject(response.data);
 		}
@@ -69,7 +69,7 @@ http.interceptors.response.use(
 		// 显示通用错误信息（可根据需要自定义）  
 		uni.showToast({
 			title: '网络请求出错，请检查您的网络连接',
-			icon: 'none',
+			icon: 'error',
 		});
 		return Promise.reject(error);
 	}

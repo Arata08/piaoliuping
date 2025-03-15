@@ -103,7 +103,7 @@
 			const visible3 = ref(false);
 
 			const setUpload = () => {
-				uploadUrl.value = config.staticUrl + "/common/upload";
+				uploadUrl.value = config.uploadUr;
 				headers.token = uni.getStorageSync('token');
 				setData();
 				visible3.value = User.newUser;

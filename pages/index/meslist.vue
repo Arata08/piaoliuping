@@ -26,14 +26,16 @@
 </template>
 
 <script>
-	import UserInfoModal from '@/components/user-detail/user-detail.vue'
-	import webSocketManager from '../../common/websocketManager.js'
-	import config from "../../common/config";
+	import UserInfoModal from '@/components/user-detail/user-detail'
+	import webSocketManager from '@/common/websocketManager'
+	import config from "@/common/config";
 	import {
 		getOfflineMessageList,
 		getUserInfo,
-    delOfflineMessage
-	} from "../../common/api/piaoliupingApi";
+    delOfflineMessage,
+    getOffChatList
+	} from "@/common/api/piaoliupingApi";
+  import EventBus from '@/common/utils/eventBus';//事件总线
 
 	export default {
 		components: {
@@ -45,12 +47,21 @@
 				selectedUser: {},
 				isModalVisible: false,
 				windowWidth: 0,
-				socket: null
+				socket: null,
 			};
 		},
-		onLoad() {
-			webSocketManager.connectWebSocket();
-		},
+    onLoad() {
+        this.msgList = uni.getStorageSync("msgList") || [];
+        webSocketManager.connectWebSocket();
+        EventBus.on('updateMsgList', this.updateMsgList); // 在组件创建时监听消息更新事件
+        EventBus.on('updateReadStatus', this.updateReadStatus); // 监听 read 状态更新事件
+    },
+    onUnload() {
+        webSocketManager.closeWebSocket(); // 使用 WebSocketManager 的方法关闭连接
+        document.removeEventListener('keydown', this.handleKeydown);
+        EventBus.off('updateMsgList', this.updateMsgList); // 在组件销毁时移除事件监听
+        EventBus.off('updateReadStatus', this.updateReadStatus); // 移除 read 状态更新事件监听
+    },
 		onShow() {
 			if (!uni.getStorageSync('User')) {
 				//返回主页
@@ -59,21 +70,20 @@
 				});
 			} else {
 				this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
-				this.loadMsgList();
-				this.initWebSocket();
-				//获取离线消息列表
+        //获取离线消息列表
         this.getOfflineMessage();
+				this.getOffChatList();
 			}
 		},
 		methods: {
-			loadMsgList() {
-				this.msgList = uni.getStorageSync("msgList") || [];
-			},
-			initWebSocket() {
-				this.socket = webSocketManager.socketTask;
-				this.socket.onMessage((res) => {
-					this.updateMsgList(res.data);
-				});
+      //获取更新聊天记录
+      getOffChatList() {
+        getOffChatList().then(res => {
+          let data = JSON.parse(res.data);
+          // 遍历消息列表data:"data":"{\"28\":[{\"content\":\"1\",\"createdAt\":1742040288069,\"type\":\"text\"},{\"content\":\"2\",\"createdAt\":1742040953982,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742040957991,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742041440075,\"type\":\"text\"},{\"content\":\"5\",\"createdAt\":1742041507898,\"type\":\"text\"},{\"content\":\"0\",\"createdAt\":1742041839319,\"type\":\"text\"}]}放入本地缓存
+          for (let key in data) {
+          }
+        })
 			},
 			updateMsgList(data) {
 				let res = JSON.parse(data);
@@ -82,11 +92,17 @@
 				// 遍历判断消息中是否已经有该用户的聊天记录
 				let found = false;
         let saveTime = this.getSaveTime(new Date());
+        let lastMsg;
+        if (res.type === 'image'){
+          lastMsg = '[图片]';
+        }else{
+          lastMsg = res.content;
+        }
 				for (let i = 0; i < msgList.length; i++) {
 					if (msgList[i].id === id) {
 						//如果有就直接更新新消息和未读状态
 						msgList[i].read = 1;
-						msgList[i].lastMsg = res.content;
+						msgList[i].lastMsg = lastMsg;
 						msgList[i].saveTime = saveTime;
 						found = true;
 						break;
@@ -109,7 +125,7 @@
 							id: id,
 							nickName: user.nickName,
 							avatar: config.staticUrl + user.avatar,
-							lastMsg: res.content,
+							lastMsg: lastMsg,
 							saveTime: saveTime,
 							read: 1,
 						});
@@ -119,7 +135,29 @@
 				}
 				uni.setStorageSync('msgList', msgList);
 				this.msgList = msgList;
+        let chatList = uni.getStorageSync('chatList'+id) || [];
+        chatList.push({
+          content: res.content,
+          type: res.type,
+          userType: 'friend',
+          read: 0
+        });
+        uni.setStorageSync('chatList'+id, chatList);
+        // 发布事件通知 message.vue 刷新聊天记录
+        EventBus.emit('refreshChatList', id);
 			},
+			updateReadStatus(friendId) {
+        console.log('updateReadStatus', friendId);
+            let msgList = this.msgList;
+            for (let i = 0; i < msgList.length; i++) {
+                if (msgList[i].id === friendId) {
+                    msgList[i].read = 0;
+                    break;
+                }
+            }
+            uni.setStorageSync('msgList', msgList);
+            this.msgList = msgList;
+        },
 			connect(item, index) {
 				this.msgList[index].read = 0;
 				uni.setStorageSync("msgList", this.msgList);
@@ -146,25 +184,35 @@
 					':' + date.getSeconds();
 			},
       getOfflineMessage() {
+        console.log('getOfflineMessage');
         getOfflineMessageList().then(data => {
           let jsonData = JSON.parse(data.data);
-          if(data.code!==200){
-            uni.showToast({
-              title: data.msg,
-              icon: 'error',
-              duration: 2000,
+          let map = new Map(Object.entries(jsonData));
+          if (this.msgList.length===0){
+            this.msgList.unshift({
+              id: 1,
+              nickName: '漂流瓶',
+              avatar: 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg',
+              lastMsg: '欢迎使用小程序！',
+              saveTime: 'forever',
+              read: 1,
             });
           }
-          let map = new Map(Object.entries(jsonData));
           // 遍历 map 更新或添加聊天记录
           map.forEach((value, key) => {
             let saveTime = this.getSaveTime(value.createdAt);
+            let lastMsg;
+            if (value.type === 'image') {
+              lastMsg = '[图片]';
+            }else{
+              lastMsg = value.content;
+            }
             // 查找 msgList 中是否存在该用户的聊天记录
             let index = this.msgList.findIndex(item => item.id === key);
             if (index !== -1) {
               // 如果存在，则更新新消息和未读状态
               this.msgList[index].read = 1;
-              this.msgList[index].lastMsg = value.content;
+              this.msgList[index].lastMsg = lastMsg;
               this.msgList[index].saveTime = saveTime;
               uni.setStorageSync('msgList', this.msgList);
               delOfflineMessage();
@@ -200,7 +248,7 @@
                   id: key,
                   nickName: user.nickName,
                   avatar: config.staticUrl + user.avatar,
-                  lastMsg: value.content,
+                  lastMsg: lastMsg,
                   saveTime: saveTime,
                   read: 1,
                   createTime: createTime,
@@ -216,12 +264,6 @@
           });
         });
       }
-		},
-		beforeDestroy() {
-			if (this.socket) {
-				this.socket.close();
-			}
-			document.removeEventListener('keydown', this.handleKeydown);
 		},
   }
 </script>

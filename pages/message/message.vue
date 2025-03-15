@@ -9,10 +9,11 @@
 				<view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index"
 					@click="msgClick(item)">
 					<image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
-					<view class="content" v-if="item.messageType === 'image'">
+					<view class="content" v-if="item.type === 'image'">
 						<image :src="item.content" mode="widthFix"></image>
 					</view>
           <view v-else>
+            <!--未读状态-->
             <view v-show="!item.read && item.userType === 'self'">
               <text style="color: #dcdcdc;font-size: 10px">未读</text>
             </view>
@@ -26,13 +27,13 @@
 		</scroll-view>
 
 		<view class="tool">
-			<block v-if="messageType === 'text'">
-				<image src="../../static/voice.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="messageType='voice'"></image>
+			<block v-if="type === 'text'">
+				<image src="../../static/voice.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='voice'"></image>
 				<input type="text" v-model="content" class="input" @confirm="send" />
 				<image src="../../static/thumb.png" style="margin-top: 5rpx;margin-left: -10rpx;" mode="widthFix" class="thumb" @click="chooseImage"></image>
 			</block>
-			<block v-else-if="messageType === 'voice'">
-				<image src="../../static/text.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="messageType='text'"></image>
+			<block v-else-if="type === 'voice'">
+				<image src="../../static/text.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='text'"></image>
 				<text class="voice-crl" @touchstart="touchstart" @touchend="touchend">{{ recordStart ? '松开 发送' : '按住 说话' }}</text>
 			</block>
 		</view>
@@ -47,10 +48,11 @@
 
 <script>
 	const recorderManager = wx.getRecorderManager()
-  import webSocketManager from '../../common/websocketManager.js'
+  import webSocketManager from '@/common/websocketManager'
   import {
-    sendChatMessage
-  } from "../../common/api/piaoliupingApi";
+    uploadFile
+  } from "@/common/api/uploadApi";
+  import EventBus from '@/common/utils/eventBus';//事件总线
 
 	export default {
 		data() {
@@ -58,7 +60,7 @@
 				content: '',
 				list: [],
 				top: 0,
-				messageType: 'voice', // text 发送文本；voice 发送语音
+				type: 'voice', // text 发送文本；voice 发送语音
 				recordStart: false,
         friend: '',
         friendId: '',
@@ -69,29 +71,33 @@
 			uni.setNavigationBarTitle({
 				title: options.nickName
 			})
-      console.log(options)
       this.friendId = options.friendId
 			this.friend = options.avatar
 			this.self = 'https://ask.dcloud.net.cn/uploads/avatar/001/43/07/62_avatar_max.jpg?=1705916918'
-			this.list = [{
-					content: '对方历史回复消息',
-					userType: 'friend',
-          read: true,
-				},
-				{
-					content: '历史消息',
-					userType: 'self',
-          read: false,
-				}
-			]
+			this.list = uni.getStorageSync('chatList'+this.friendId)
 			this.scrollToBottom()
 		},
-		onHide() {
-			if (this._innerAudioContext) {
-				this._innerAudioContext.stop()
-			}
-		},
+    created () {
+      // 订阅事件
+      EventBus.on('refreshChatList', this.refreshChatList);
+    },
+    beforeUnmount () {
+      // 移除事件监听器
+      EventBus.off('refreshChatList', this.refreshChatList);
+      if (this._innerAudioContext) {
+        this._innerAudioContext.stop()
+      }
+      // 发送事件通知 meslist.vue 更新 read 状态
+      EventBus.emit('updateReadStatus', this.friendId);
+    },
 		methods: {
+      refreshChatList(senderId) {
+        console.log('refreshChatList', senderId);
+        if (senderId === this.friendId) {
+          this.list = uni.getStorageSync('chatList' + this.friendId);
+          this.scrollToBottom();
+        }
+      },
 			send() {
         let data = {
           websocketType:"chatList",
@@ -115,7 +121,7 @@
 					this.list.push({
 						content: '好的',
 						userType: 'friend',
-						avatar: this._friendAvatar
+						avatar: this.friend
 					})
 					this.scrollToBottom()
 				}, 1500)
@@ -123,21 +129,41 @@
 
 			chooseImage() {
 				uni.chooseImage({
-					// sourceType: 'album',
 					success: (res) => {
+            console.log(res)
 						this.list.push({
 							content: res.tempFilePaths[0],
 							userType: 'self',
-							messageType: 'image',
-							avatar: this._selfAvatar
+							type: 'image',
+							avatar: this.self
 						})
+            //把图片上传至服务器
+            uploadFile(res.tempFilePaths[0])
+                .then(response => {
+                  let data = {
+                    websocketType:"chatList",
+                    content: response.data.url,
+                    receiverId: this.friendId,
+                    senderId: uni.getStorageSync("User").id,
+                    type: 'image',
+                  }
+                  webSocketManager.sendChatMessage(data);
+                  console.log('上传成功:', response);
+              })
+                .catch(error => {
+                  uni.showToast({
+                    title: error.data.msg || '发送失败，请稍后再试',
+                    icon: 'error',
+                  });
+                console.error('上传失败:', error);
+              });
 						this.scrollToBottom()
 						// 模拟对方回复
 						setTimeout(() => {
 							this.list.push({
 								content: '风景好漂亮啊~',
 								userType: 'friend',
-								avatar: this._friendAvatar
+								avatar: this.friend
 							})
 							this.scrollToBottom()
 						}, 1500)
@@ -150,7 +176,7 @@
 			},
 
 			msgClick(data) {
-				if (data.messageType === 'voice') {
+				if (data.type === 'voice') {
 					if (this._innerAudioContext) {
 						this._innerAudioContext.stop()
 						this._innerAudioContext.src = data.audioSrc
@@ -265,8 +291,8 @@
 						content: `语音 ${Math.round(duration/1000)}''`,
 						audioSrc: tempFilePath,
 						userType: 'self',
-						avatar: this._selfAvatar,
-						messageType: 'voice'
+						avatar: this.self,
+						type: 'voice'
 					})
 					this.scrollToBottom()
 				})
@@ -288,7 +314,7 @@
 					console.log('audio play error', res)
 				})
 			},
-		}
+		},
 	}
 </script>
 

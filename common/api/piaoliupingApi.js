@@ -68,6 +68,23 @@ export function getOfflineMessageList() {
 	}
 }
 
+//获取离线聊天消息
+export function getOffChatList() {
+	try {
+		return request({
+			url: 'chat/getChatMsgList/' + uni.getStorageSync('User').id,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
 //删除redis中的离线记录
 export function delOfflineMessage() {
 	try {
@@ -77,6 +94,26 @@ export function delOfflineMessage() {
 			custom: {
 				showError: false,
 				showLoading: false,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+//上传文件
+export function uploadFile(filePath) {
+	try {
+		return request({
+			url: 'file/upload',
+			method: 'POST',
+			data: {
+				file: filePath,
+			},
+			custom: {
+				showError: false,
+				showLoading: true,
 			},
 		});
 	} catch (error) {
