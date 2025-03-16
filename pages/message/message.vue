@@ -73,8 +73,8 @@
 			})
       this.friendId = options.friendId
 			this.friend = options.avatar
-			this.self = 'https://ask.dcloud.net.cn/uploads/avatar/001/43/07/62_avatar_max.jpg?=1705916918'
-			this.list = uni.getStorageSync('chatList'+this.friendId)
+			this.self = uni.getStorageSync("User").avatar
+      this.list = uni.getStorageSync('chatList'+this.friendId) || [];
 			this.scrollToBottom()
 		},
     created () {
@@ -150,13 +150,13 @@
                   webSocketManager.sendChatMessage(data);
                   console.log('上传成功:', response);
               })
-                .catch(error => {
-                  uni.showToast({
-                    title: error.data.msg || '发送失败，请稍后再试',
-                    icon: 'error',
-                  });
-                console.error('上传失败:', error);
-              });
+              .catch(error => {
+                uni.showToast({
+                  title: error.data.msg || '发送失败，请稍后再试',
+                  icon: 'error',
+                });
+              console.error('上传失败:', error);
+            });
 						this.scrollToBottom()
 						// 模拟对方回复
 						setTimeout(() => {
@@ -170,6 +170,47 @@
 					}
 				})
 			},
+
+      touchend() {
+        if (!this._recordAuth || !this.recordStart) return
+        //停止录音
+        recorderManager.stop();
+        recorderManager.onStop((res) => {
+          console.log('结束录音', res)
+          const { duration, tempFilePath } = res
+          this.recordStart = false
+
+          this.list.push({
+            content: tempFilePath,
+            userType: 'self',
+            avatar: this.self,
+            type: 'voice'
+          });
+
+          //把语音上传至服务器
+          uploadFile(tempFilePath)
+              .then(response => {
+                let data = {
+                  websocketType:"chatList",
+                  content: response.data.url,
+                  receiverId: this.friendId,
+                  senderId: uni.getStorageSync("User").id,
+                  duration: Math.round(duration/1000),
+                  type: 'voice',
+                }
+                webSocketManager.sendChatMessage(data);
+                uni.setStorageSync('chatList'+this.friendId, this.list)
+              })
+              .catch(error => {
+                uni.showToast({
+                  title: error.data.msg || '发送失败，请稍后再试',
+                  icon: 'error',
+                });
+                console.error('上传失败:', error);
+              });
+          this.scrollToBottom();
+        });
+      },
 
 			scrollToBottom() {
 				this.top = this.list.length * 1000
@@ -259,7 +300,7 @@
 									 * 用户可能拒绝官方隐私授权弹窗，为了避免过度弹窗打扰用户，开发者再次调用隐私相关接口时，
 									 * 若距上次用户拒绝不足10秒，将不再触发弹窗，直接给到开发者用户拒绝隐私授权弹窗的报错
 									 */
-									if (res.errno == 104) {
+									if (res.errno === 104) {
 										uni.showModal({
 											title: '温馨提示',
 											content: '您拒绝了隐私协议，请稍后再试',
@@ -278,25 +319,6 @@
 				})
 			},
 
-			touchend() {
-				if (!this._recordAuth || !this.recordStart) return
-				//停止录音
-				recorderManager.stop();
-				recorderManager.onStop((res) => {
-					console.log('结束录音', res)
-					const { duration, tempFilePath } = res
-					this.recordStart = false
-
-					this.list.push({
-						content: `语音 ${Math.round(duration/1000)}''`,
-						audioSrc: tempFilePath,
-						userType: 'self',
-						avatar: this.self,
-						type: 'voice'
-					})
-					this.scrollToBottom()
-				})
-			},
 
 			//播放声音
 			play(src) {
@@ -315,7 +337,7 @@
 				})
 			},
 		},
-	}
+  }
 </script>
 
 <style>

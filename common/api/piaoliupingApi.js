@@ -34,7 +34,7 @@ export function editUser(data) {
 	}
 }
 
-//查询用户昵称和头像
+//查询用户
 export function getUserInfo(id) {
 	try {
 		return request({
@@ -101,7 +101,21 @@ export function delOfflineMessage() {
 		throw error;
 	}
 }
-
+export function delOffChatList(){
+	try {
+		return request({
+			url: 'chat/delChatMsg/' + uni.getStorageSync('User').id,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: false,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
 //上传文件
 export function uploadFile(filePath) {
 	try {

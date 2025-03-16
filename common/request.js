@@ -53,7 +53,7 @@ http.interceptors.response.use(
 		// 隐藏loading  
 		uni.hideLoading()
 		// 假设服务器返回的数据格式包含{code, data, msg}  
-		if (response.data.code !== 200 || response.data.code === 500) {
+		if (response.data.code && response.data.code !== 200) {
 			// 显示错误信息（可根据需要自定义）  
 			uni.showToast({
 				title: response.data.msg || '请求失败，请稍后再试',

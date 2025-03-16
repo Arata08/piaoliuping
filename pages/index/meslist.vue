@@ -33,7 +33,8 @@
 		getOfflineMessageList,
 		getUserInfo,
     delOfflineMessage,
-    getOffChatList
+    getOffChatList,
+    delOffChatList
 	} from "@/common/api/piaoliupingApi";
   import EventBus from '@/common/utils/eventBus';//事件总线
 
@@ -80,8 +81,19 @@
       getOffChatList() {
         getOffChatList().then(res => {
           let data = JSON.parse(res.data);
-          // 遍历消息列表data:"data":"{\"28\":[{\"content\":\"1\",\"createdAt\":1742040288069,\"type\":\"text\"},{\"content\":\"2\",\"createdAt\":1742040953982,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742040957991,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742041440075,\"type\":\"text\"},{\"content\":\"5\",\"createdAt\":1742041507898,\"type\":\"text\"},{\"content\":\"0\",\"createdAt\":1742041839319,\"type\":\"text\"}]}放入本地缓存
+          // 遍历消息列表:"data":"{\"28\":[{\"content\":\"1\",\"createdAt\":1742040288069,\"type\":\"text\"},{\"content\":\"2\",\"createdAt\":1742040953982,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742040957991,\"type\":\"text\"},{\"content\":\"32\",\"createdAt\":1742041440075,\"type\":\"text\"},{\"content\":\"5\",\"createdAt\":1742041507898,\"type\":\"text\"},{\"content\":\"0\",\"createdAt\":1742041839319,\"type\":\"text\"}]}放入本地缓存
           for (let key in data) {
+            let chatList = uni.getStorageSync('chatList'+key) || [];
+            for (let i = 0; i < data[key].length; i++){
+              chatList.push({
+                content: data[key][i].content,
+                type: data[key][i].type,
+                userType: 'friend',
+                read: 0
+              });
+              uni.setStorageSync('chatList'+key, chatList);
+              delOffChatList();
+            }
           }
         })
 			},
@@ -89,12 +101,24 @@
 				let res = JSON.parse(data);
 				let id = res.senderId;
 				let msgList = this.msgList
+        let chatList = uni.getStorageSync('chatList'+id) || [];
+        let chatData = {
+          content: res.content,
+          type: res.type,
+          userType: 'friend',
+          read: 0
+        };
 				// 遍历判断消息中是否已经有该用户的聊天记录
 				let found = false;
         let saveTime = this.getSaveTime(new Date());
         let lastMsg;
         if (res.type === 'image'){
           lastMsg = '[图片]';
+        }else if(res.type === 'voice'){
+          lastMsg = '[语音 '+res.duration+']';
+          chatData.duration = res.duration;
+          chatData.audioSrc = chatData.content
+          chatData.content = '语音 '+chatData.duration+"''"
         }else{
           lastMsg = res.content;
         }
@@ -111,37 +135,10 @@
 
 				if (!found) {
 					// 如果没有找到该用户的聊天记录，则获取用户信息
-					getUserInfo(id).then(data => {
-						if (data.code !== 200) {
-							uni.showToast({
-								title: data.msg,
-								icon: 'none',
-								duration: 2000,
-							});
-							return;
-						}
-						let user = data.data;
-						msgList.unshift({
-							id: id,
-							nickName: user.nickName,
-							avatar: config.staticUrl + user.avatar,
-							lastMsg: lastMsg,
-							saveTime: saveTime,
-							read: 1,
-						});
-					}).catch(error => {
-						console.error('Failed to get user info:', error);
-					});
+          this.setUserInfoMsgList(id, saveTime, lastMsg);
 				}
-				uni.setStorageSync('msgList', msgList);
-				this.msgList = msgList;
-        let chatList = uni.getStorageSync('chatList'+id) || [];
-        chatList.push({
-          content: res.content,
-          type: res.type,
-          userType: 'friend',
-          read: 0
-        });
+        this.msgList = msgList;
+        chatList.push(chatData);
         uni.setStorageSync('chatList'+id, chatList);
         // 发布事件通知 message.vue 刷新聊天记录
         EventBus.emit('refreshChatList', id);
@@ -166,7 +163,35 @@
 				});
 			},
 			showModal(user) {
-        console.log(user);
+        getUserInfo(user.id).then(data => {
+          if (data.code !== 200) {
+            uni.showToast({
+              title: data.msg,
+              icon: 'none',
+              duration: 2000,
+            });
+            return;
+          }
+          let user1 = data.data;
+          let offline;
+          if (user1.offlineTime===0){
+            offline = "在线"
+          }else{
+            //根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
+            let offlineTime = new Date().getTime() - user1.offlineTime;
+            if (offlineTime < 60 * 1000) {
+              offline = "刚刚在线";
+            } else if (offlineTime < 60 * 60 * 1000) {
+              offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
+            } else if (offlineTime < 24 * 60 * 60 * 1000) {
+              offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
+            }
+          }
+          //user.createTime：2025-02-25 10:51:13只保留年月日
+          let createTime = user.createTime.substring(0, 10);
+          user.offline = offline;
+          user.createTime = createTime;
+        });
 				this.selectedUser = user;
 				this.isModalVisible = true;
 			},
@@ -204,6 +229,8 @@
             let lastMsg;
             if (value.type === 'image') {
               lastMsg = '[图片]';
+            }else if(value.type === 'voice'){
+              lastMsg = '[语音 '+value.duration+'秒]';
             }else{
               lastMsg = value.content;
             }
@@ -218,53 +245,36 @@
               delOfflineMessage();
             } else {
               // 如果不存在，则获取用户信息并添加新的聊天记录
-              getUserInfo(key).then(data => {
-                if (data.code !== 200) {
-                  uni.showToast({
-                    title: data.msg,
-                    icon: 'none',
-                    duration: 2000,
-                  });
-                  return;
-                }
-                let user = data.data;
-                let offline;
-                if (user.offlineTime===0){
-                  offline = "在线"
-                }else{
-                  //根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
-                  let offlineTime = new Date().getTime() - user.offlineTime;
-                  if (offlineTime < 60 * 1000) {
-                    offline = "刚刚在线";
-                  } else if (offlineTime < 60 * 60 * 1000) {
-                    offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
-                  } else if (offlineTime < 24 * 60 * 60 * 1000) {
-                    offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
-                  }
-                }
-                //user.createTime：2025-02-25 10:51:13只保留年月日
-                let createTime = user.createTime.substring(0, 10);
-                this.msgList.unshift({
-                  id: key,
-                  nickName: user.nickName,
-                  avatar: config.staticUrl + user.avatar,
-                  lastMsg: lastMsg,
-                  saveTime: saveTime,
-                  read: 1,
-                  createTime: createTime,
-                  offlineTime: offline
-                });
-                //删除redis中的离线记录
-                uni.setStorageSync('msgList', this.msgList);
-                delOfflineMessage();
-              }).catch(error => {
-                console.error('Failed to get user info:', error);
-              });
+              this.setUserInfoMsgList(key, saveTime, lastMsg);
+              //删除redis中的离线记录
+              delOfflineMessage();
             }
           });
         });
-      }
-		},
+      },
+      setUserInfoMsgList(id, saveTime, lastMsg){
+        getUserInfo(id).then(data => {
+          if (data.code !== 200) {
+            uni.showToast({
+              title: data.msg,
+              icon: 'none',
+              duration: 2000,
+            });
+            return;
+          }
+          let user = data.data;
+          this.msgList.unshift({
+            id: id,
+            nickName: user.nickName,
+            avatar: config.staticUrl + user.avatar,
+            lastMsg: lastMsg,
+            saveTime: saveTime,
+            read: 1
+          });
+          uni.setStorageSync('msgList', this.msgList);
+        });
+		  },
+    }
   }
 </script>
 
