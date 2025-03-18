@@ -8,36 +8,16 @@
 		<view class="index">
 			<view>缘分天注定,七分靠打拼</view>
 			<view>在这里遇到同频的TA</view>
-			<nut-animate type="ripple" action="click">
-				<nut-animate type="jump" :loop="true">
-					<image class="star" mode="aspectFill" :src="star1" />
-				</nut-animate>
-			</nut-animate>
 		</view>
-		<view class="btns">
-			<nut-button type="info" size="mini" class="mail" @click="toBox()">
-				<template #icon>
-					<nut-icon :name="inbox"></nut-icon>
-				</template>
-				收件箱
-			</nut-button>
-			<nut-animate type="ripple" action="click">
-				<nut-animate type="flicker" :loop="true">
-					<nut-button type="primary" @click="onSearch">
-						<template #icon>
-							<nut-icon name="search"></nut-icon>
-						</template>
-						发现星球故事
-					</nut-button>
-				</nut-animate>
-			</nut-animate>
-			<nut-button type="info" size="mini" class="mail" @click="toSend()">
-				<template #icon>
-					<nut-icon :name="outbox"></nut-icon>
-				</template>
-				发件
-			</nut-button>
-		</view>
+    <view class="btns">
+      <nut-animate type="jump" :loop="true">
+        <image src="/static/index/in.png" style="height: 80px;width: 80px;" @click="toBox()"/>
+      </nut-animate>
+      <image src="/static/index/see.png" style="height: 100px;width: 114px;margin-top: -80px" @click="onSearch()"/>
+      <nut-animate type="ripple" :loop="true">
+        <image src="/static/index/out.png" style="height: 80px;width: 80px;" @click="toSend()"/>
+      </nut-animate>
+    </view>
 	</view>
 	<nut-popup position="bottom" round v-model:visible="showRound" closeable>
 		<view style="text-align: center;margin-top: 60px;margin-bottom: 40px;">
@@ -91,7 +71,7 @@
 					},
 				})
 			},
-			toBox(name) {
+			toBox() {
 				const url = "/pages/mailbox/mailbox";
 				uni.navigateTo({
 					url
@@ -151,6 +131,8 @@
 		height: 70vh;
 		width: 100%;
 		overflow: hidden;
+    margin-top: -100px;
+    color: #c497f3;
 	}
 
 	.tab {
@@ -172,7 +154,7 @@
 		width: 100%;
 		text-align: center;
 		position: fixed;
-		bottom: 180rpx;
+		bottom: 100rpx;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;

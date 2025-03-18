@@ -85,12 +85,18 @@
           for (let key in data) {
             let chatList = uni.getStorageSync('chatList'+key) || [];
             for (let i = 0; i < data[key].length; i++){
-              chatList.push({
+              let chatData = {
                 content: data[key][i].content,
                 type: data[key][i].type,
                 userType: 'friend',
                 read: 0
-              });
+              };
+              if(data[key][i].type === 'voice'){
+                chatData.duration = data[key][i].duration;
+                chatData.audioSrc = chatData.content
+                chatData.content = '语音 '+chatData.duration+"''"
+              }
+              chatList.push(chatData);
               uni.setStorageSync('chatList'+key, chatList);
               delOffChatList();
             }
@@ -132,7 +138,6 @@
 						break;
 					}
 				}
-
 				if (!found) {
 					// 如果没有找到该用户的聊天记录，则获取用户信息
           this.setUserInfoMsgList(id, saveTime, lastMsg);
@@ -143,6 +148,50 @@
         // 发布事件通知 message.vue 刷新聊天记录
         EventBus.emit('refreshChatList', id);
 			},
+      getOfflineMessage() {
+        console.log('getOfflineMessage');
+        getOfflineMessageList().then(data => {
+          let jsonData = JSON.parse(data.data);
+          let map = new Map(Object.entries(jsonData));
+          if (this.msgList.length===0){
+            this.msgList.unshift({
+              id: 1,
+              nickName: '漂流瓶',
+              avatar: 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg',
+              lastMsg: '欢迎使用小程序！',
+              saveTime: 'forever',
+              read: 1,
+            });
+          }
+          // 遍历 map 更新或添加聊天记录
+          map.forEach((value, key) => {
+            let saveTime = this.getSaveTime(value.createdAt);
+            let lastMsg;
+            if (value.type === 'image') {
+              lastMsg = '[图片]';
+            }else if(value.type === 'voice'){
+              lastMsg = '[语音 '+value.duration+'秒]';
+            }else{
+              lastMsg = value.content;
+            }
+            // 查找 msgList 中是否存在该用户的聊天记录
+            let index = this.msgList.findIndex(item => item.id === key);
+            if (index !== -1) {
+              // 如果存在，则更新新消息和未读状态
+              this.msgList[index].read = 1;
+              this.msgList[index].lastMsg = lastMsg;
+              this.msgList[index].saveTime = saveTime;
+              uni.setStorageSync('msgList', this.msgList);
+              delOfflineMessage();
+            } else {
+              // 如果不存在，则获取用户信息并添加新的聊天记录
+              this.setUserInfoMsgList(key, saveTime, lastMsg);
+              //删除redis中的离线记录
+              delOfflineMessage();
+            }
+          });
+        });
+      },
 			updateReadStatus(friendId) {
         console.log('updateReadStatus', friendId);
             let msgList = this.msgList;
@@ -208,50 +257,6 @@
 				return (date.getMonth() + 1) + '月' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() +
 					':' + date.getSeconds();
 			},
-      getOfflineMessage() {
-        console.log('getOfflineMessage');
-        getOfflineMessageList().then(data => {
-          let jsonData = JSON.parse(data.data);
-          let map = new Map(Object.entries(jsonData));
-          if (this.msgList.length===0){
-            this.msgList.unshift({
-              id: 1,
-              nickName: '漂流瓶',
-              avatar: 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg',
-              lastMsg: '欢迎使用小程序！',
-              saveTime: 'forever',
-              read: 1,
-            });
-          }
-          // 遍历 map 更新或添加聊天记录
-          map.forEach((value, key) => {
-            let saveTime = this.getSaveTime(value.createdAt);
-            let lastMsg;
-            if (value.type === 'image') {
-              lastMsg = '[图片]';
-            }else if(value.type === 'voice'){
-              lastMsg = '[语音 '+value.duration+'秒]';
-            }else{
-              lastMsg = value.content;
-            }
-            // 查找 msgList 中是否存在该用户的聊天记录
-            let index = this.msgList.findIndex(item => item.id === key);
-            if (index !== -1) {
-              // 如果存在，则更新新消息和未读状态
-              this.msgList[index].read = 1;
-              this.msgList[index].lastMsg = lastMsg;
-              this.msgList[index].saveTime = saveTime;
-              uni.setStorageSync('msgList', this.msgList);
-              delOfflineMessage();
-            } else {
-              // 如果不存在，则获取用户信息并添加新的聊天记录
-              this.setUserInfoMsgList(key, saveTime, lastMsg);
-              //删除redis中的离线记录
-              delOfflineMessage();
-            }
-          });
-        });
-      },
       setUserInfoMsgList(id, saveTime, lastMsg){
         getUserInfo(id).then(data => {
           if (data.code !== 200) {

@@ -4,7 +4,6 @@
       "path": "pages/index/index",
       "style": {
         "navigationStyle": "custom",
-        // 隐藏系统导航栏
         "app-plus": {
           "subNVues": [
             {
@@ -135,26 +134,29 @@
   "tabBar": {
     "color": "#ffffff",
     "selectedColor": "#2979ff",
-    "backgroundColor": "#000000",
+    "backgroundColor": "#0B1430",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "/static/tab/index.png",
-        "selectedIconPath": "/static/tab/index-selected.png",
+        "iconPath": "/static/tab/home.png",
+        "selectedIconPath": "/static/tab/home-selected.png",
         "visible": false
-      },
-      {
+      },{
+        "pagePath": "pages/index/query",
+        "text": "查找",
+        "iconPath": "/static/tab/query.png",
+        "selectedIconPath": "/static/tab/query-selected.png"
+      },{
         "pagePath": "pages/index/meslist",
         "iconPath": "/static/tab/message.png",
         "selectedIconPath": "/static/tab/message-selected.png",
         "text": "信息"
-      },
-      {
+      },{
         "pagePath": "pages/index/my",
         "text": "我的",
-        "iconPath": "/static/tab/center.png",
-        "selectedIconPath": "/static/tab/center-selected.png"
+        "iconPath": "/static/tab/my.png",
+        "selectedIconPath": "/static/tab/my-selected.png"
       }
     ]
   },
