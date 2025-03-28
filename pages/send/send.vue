@@ -1,29 +1,31 @@
 <template>
 	<view class="index">
     <nut-notify></nut-notify>
-		<nut-form>
-			<nut-form-item label="">
-				<nut-textarea v-model="value" placeholder="在这里分享你的思绪,心情和秘密"  limit-show max-length="50"/>
-			</nut-form-item>
-			<nut-form-item label="显示所在城市">
-				<nut-switch v-model="checked"></nut-switch>
-			</nut-form-item>
-			<nut-collapse v-model="activeNames" @change="onChange">
-				<nut-collapse-item :name="1">
-					<template v-slot:title style="margin-left: -10px;">
-						{{title1}}
-					</template>
-					<nut-radio-group v-model="radioVal" direction="horizontal">
-						<nut-radio shape="button" label="1">选项1</nut-radio>
-						<nut-radio shape="button" label="2">选项2</nut-radio>
-						<nut-radio shape="button" label="3">选项3</nut-radio>
-					</nut-radio-group>
-				</nut-collapse-item>
-			</nut-collapse>
-		</nut-form>
+    <view style="margin-top: 50px">
+      <nut-form>
+        <nut-form-item label="">
+          <nut-textarea v-model="value" placeholder="在这里分享你的思绪,心情和秘密"  limit-show max-length="50"/>
+        </nut-form-item>
+        <nut-form-item label="显示所在城市">
+          <nut-switch v-model="checked"></nut-switch>
+        </nut-form-item>
+        <nut-collapse v-model="activeNames" @change="onChange">
+          <nut-collapse-item :name="1">
+            <template v-slot:title style="margin-left: -10px;">
+              {{title1}}
+            </template>
+            <nut-radio-group v-model="radioVal" direction="horizontal">
+              <nut-radio shape="button" label="1">选项1</nut-radio>
+              <nut-radio shape="button" label="2">选项2</nut-radio>
+              <nut-radio shape="button" label="3">选项3</nut-radio>
+            </nut-radio-group>
+          </nut-collapse-item>
+        </nut-collapse>
+      </nut-form>
+    </view>
 			<nut-cell>
 				<nut-button size="large" type="primary">
-          发布
+          投信
 				</nut-button>
 			</nut-cell>
 	</view>

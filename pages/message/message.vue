@@ -1,49 +1,83 @@
 <template>
-		<div class="layer2"></div>
-		<div class="layer3"></div>
-		<div class="layer4"></div>
-		<div class="layer5"></div>
-		<div class="meteor"></div>
-		<scroll-view class="scroll-view" scroll-y scroll-with-animation :scroll-top="top">
-			<view style="padding: 30rpx 30rpx 240rpx;">
-				<view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index"
-					@click="msgClick(item)">
-					<image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
-					<view class="content" v-if="item.type === 'image'">
-						<image :src="item.content" mode="widthFix"></image>
-					</view>
-          <view v-else>
-            <!--未读状态-->
-            <view v-show="!item.read && item.userType === 'self'">
-              <text style="color: #dcdcdc;font-size: 10px">未读</text>
-            </view>
-            <view class="content">
-              {{ item.content }}
+  <div class="layer2"></div>
+  <div class="layer3"></div>
+  <div class="layer4"></div>
+  <div class="layer5"></div>
+  <div class="meteor"></div>
+  <view id="msglist">
+    <view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index" @click="msgClick(item)">
+      <image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
+      <view class="content" v-if="item.type === 'image'">
+        <image :src="item.content" mode="widthFix"></image>
+      </view>
+      <view v-else>
+        <view v-show="!item.read && item.userType === 'self'">
+          <text style="color: #dcdcdc;font-size: 10px">未读</text>
+        </view>
+        <view class="content">
+          {{ item.content }}
+        </view>
+      </view>
+      <image :src="this[item.userType]" v-if="item.userType === 'self'" class="avatar" mode="widthFix"></image>
+    </view>
+    <view :style="{height: paddingBottom+'px'}"></view>
+    <view id="scrollBottom" style="height: 60px;" :style="{'margin-bottom': paddingBottom+'px'}"></view>
+  </view>
+
+  <view>
+    <view class="tool" :style="{bottom: paddingBottom+'px'}">
+      <block v-if="type === 'text'">
+        <image src="../../static/meslist/voice.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='voice';this.showEmoji = false;this.showMorePanel = false;paddingBottom=0;"></image>
+        <textarea placeholder="说点啥？" style="margin-top: 10px;margin-right: 15rpx" v-model="content" :focus="isFocus" class="input" @blur="inputBlur" confirm-type="send" @confirm="send" maxlength="-1" auto-height="true"></textarea>
+        <!--				<image src="../../static/thumb.png" style="margin-top: 5rpx;margin-left: -10rpx;" mode="widthFix" class="thumb" @click="chooseImage"></image>-->
+        <image style="margin-top: 5rpx;margin-left: -10rpx;" src="../../static/meslist/emoji.png" class="thumb" mode="widthFix"
+               @touchstart.prevent="changeEmoji">
+        </image>
+        <image src="../../static/meslist/add.png" mode="widthFix" class="thumb" @click="MorePanel"></image>
+      </block>
+      <block v-else-if="type === 'voice'">
+        <image src="../../static/text.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='text'"></image>
+        <text class="voice-crl" @touchstart="touchstart" @touchend="touchend">{{ recordStart ? '松开 发送' : '按住 说话' }}</text>
+        <image src="../../static/meslist/add.png" mode="widthFix" class="thumb" @click="MorePanel"></image>
+      </block>
+    </view>
+    <scroll-view class="emoji-scroll" scroll-y="true" v-show="showEmoji">
+      <view class="emoji-panel">
+        <view class="emoji-item" v-for="(item, index) in emojisArr" :key="index" @touchstart.prevent="content+=item">
+          {{item}}
+        </view>
+      </view>
+    </scroll-view>
+    <scroll-view class="panel-scroll" scroll-y="true" v-show="showMorePanel">
+      <view class="container">
+        <view
+            v-for="(row, rowIndex) in rows"
+            :key="rowIndex"
+            class="row">
+          <view
+              v-for="(item, colIndex) in row"
+              :key="colIndex"
+              class="item"
+              @click="handleClick(rowIndex, colIndex)">
+            <image
+                :src="item.imgUrl"
+                mode="aspectFill"
+                class="image"/>
+            <view class="text-container">
+              <text class="text">{{ item.text1 }}</text>
             </view>
           </view>
-					<image :src="this[item.userType]" v-if="item.userType === 'self'" class="avatar" mode="widthFix"></image>
-				</view>
-			</view>
-		</scroll-view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
 
-		<view class="tool">
-			<block v-if="type === 'text'">
-				<image src="../../static/voice.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='voice'"></image>
-				<input type="text" v-model="content" class="input" @confirm="send" />
-				<image src="../../static/thumb.png" style="margin-top: 5rpx;margin-left: -10rpx;" mode="widthFix" class="thumb" @click="chooseImage"></image>
-			</block>
-			<block v-else-if="type === 'voice'">
-				<image src="../../static/text.png" style="margin-top: 8rpx;margin-left: -20rpx;" mode="widthFix" class="left-icon" @click="type='text'"></image>
-				<text class="voice-crl" @touchstart="touchstart" @touchend="touchend">{{ recordStart ? '松开 发送' : '按住 说话' }}</text>
-			</block>
-		</view>
-
-		<view v-if="recordStart" class="audio-animation">
-			<view class="audio-wave">
-				<text class="audio-wave-text" v-for="item in 10" :style="{'animation-delay': `${item/10}s`}"></text>
-				<view class="text">松开 发送</view>
-			</view>
-		</view>
+  <view v-if="recordStart" class="audio-animation">
+    <view class="audio-wave">
+      <text class="audio-wave-text" v-for="item in 10" :style="{'animation-delay': `${item/10}s`}"></text>
+      <view class="text">松开 发送</view>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -59,12 +93,55 @@
 			return {
 				content: '',
 				list: [],
-				top: 0,
-				type: 'voice', // text 发送文本；voice 发送语音
+				type: 'voice',
 				recordStart: false,
         friend: '',
         friendId: '',
         self: '',
+        isFocus: false,
+        paddingBottom: 0,
+        keyboardHeight : 0,
+        showEmoji: false,
+        showMorePanel: false,
+        navList : [
+          {
+            id: 1,
+            text: '首页',
+            icon: 'https://img11.360buyimg.com/imagetools/jfs/t1/117646/2/11112/1297/5ef83e95E81d77f05/daf8e3b1c81e3c98.png'
+          },
+          {
+            id: 2,
+            text: '分类',
+            icon: 'https://img12.360buyimg.com/imagetools/jfs/t1/119490/8/9568/1798/5ef83e95E968c69a6/dd029326f7d5042e.png'
+          },
+          {
+            id: 3,
+            text: '购物车',
+            num: 2,
+            icon: 'https://img14.360buyimg.com/imagetools/jfs/t1/130725/4/3157/1704/5ef83e95Eb976644f/b36c6cfc1cc1a99d.png'
+          },
+          {
+            id: 4,
+            text: '我的',
+            icon: 'https://img12.360buyimg.com/imagetools/jfs/t1/147573/29/1603/1721/5ef83e94E1393a678/5ddf1695ec989373.png'
+          }
+        ],
+        emojisArr: ['😊', '😁', '😀', '😃', '😣', '😞', '😩', '😫', '😲', '😟', '😦', '😜', '😳', '😋', '😥', '😰',
+          '🤠', '😎', '😇', '😉', '😭', '😈', '😕', '😏', '😘', '😤', '😡', '😅', '😬', '😺', '😻', '😽',
+          '😼', '🙈', '🙉', '🙊', '🔥', '👍', '👎', '👌', '✌️', '🙏', '💪', '👻',''
+        ],
+        rows: [
+          [
+            { imgUrl: '../../static/thumb.png', text1: '视频' },
+            { imgUrl: '../../static/thumb.png', text1: '图片' },
+            { imgUrl: '../../static/thumb.png', text1: '直播' }
+          ],
+          [
+            { imgUrl: '../../static/thumb.png', text1: '文章' },
+            { imgUrl: '../../static/thumb.png', text1: '活动' },
+            { imgUrl: '../../static/thumb.png', text1: '课程' }
+          ]
+        ]
 			};
 		},
 		onLoad(options) {
@@ -75,8 +152,11 @@
 			this.friend = options.avatar
 			this.self = uni.getStorageSync("User").avatar
       this.list = uni.getStorageSync('chatList'+this.friendId) || [];
-			this.scrollToBottom()
+      this.showKeyboard();
 		},
+    onReady() {
+      this.scrollToBottom()
+    },
     created () {
       // 订阅事件
       EventBus.on('refreshChatList', this.refreshChatList);
@@ -91,6 +171,59 @@
       EventBus.emit('updateReadStatus', this.friendId);
     },
 		methods: {
+      handleClick(rowIndex, colIndex) {
+        uni.showToast({
+          title: `点击了第 ${rowIndex * 3 + colIndex + 1} 个项`,
+          icon: 'none'
+        })
+      },
+      scroll(e) {
+        console.log(e)
+      },
+      inputBlur() {
+        console.log('inputBlur');
+        this.paddingBottom = 0;
+        this.isFocus = false;
+        this.showEmoji = false;
+      },
+      changeEmoji() {
+        this.togglePanel(!this.showEmoji, false, 270);
+      },
+      MorePanel() {
+        this.togglePanel(false, !this.showMorePanel, 220);
+      },
+      togglePanel(showEmoji, showMorePanel, paddingBottom) {
+        if (showEmoji || showMorePanel) {
+          uni.hideKeyboard();
+          this.isFocus = true;
+          this.showEmoji = showEmoji;
+          this.showMorePanel = showMorePanel;
+          this.$nextTick(() => {
+            this.paddingBottom = paddingBottom;
+            this.scrollToBottom();
+          });
+        } else {
+          this.isFocus = false;
+          this.$nextTick(() => {
+            this.showEmoji = false;
+            this.showMorePanel = false;
+            this.paddingBottom = 0;
+            this.scrollToBottom();
+          });
+        }
+      },
+      showKeyboard() {
+        uni.onKeyboardHeightChange((res) => {
+          if (res.height > 0) {
+            this.paddingBottom = res.height + 50
+            this.keyboardHeight = res.height;
+            this.scrollToBottom();
+          } else {
+            this.keyboardHeight = 0;
+            this.scrollToBottom();
+          }
+        });
+      },
       refreshChatList(senderId) {
         console.log('refreshChatList', senderId);
         if (senderId === this.friendId) {
@@ -213,7 +346,9 @@
       },
 
 			scrollToBottom() {
-				this.top = this.list.length * 1000
+        uni.pageScrollTo({
+          scrollTop: 999999+Math.random(),
+        });
 			},
 
 			msgClick(data) {
@@ -341,282 +476,339 @@
 </script>
 
 <style>
-	page {
-		height: 100%;
-		width: 100%;
-		background: linear-gradient(180deg,#000000 5%,#45333B 53%,#000000 95%); 
-		background-attachment: fixed;
-	}
+page {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg,#000000 5%,#45333B 53%,#000000 95%);
+  background-attachment: fixed;
+}
 </style>
 <style lang="scss" scoped>
-	//背景------------------------------------------------
-	//根据数量来生成shadows
-	@function getShadows($n) {
-		//每一个shadow对应一个小星星
-		$shadows: unquote('#{random(100)}vw #{random(100)}vh #fff');
+//背景------------------------------------------------
+//根据数量来生成shadows
+@function getShadows($n) {
+  //每一个shadow对应一个小星星
+  $shadows: unquote('#{random(100)}vw #{random(100)}vh #fff');
 
-		@for $i from 2 through $n {
-			$shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
-		}
+  @for $i from 2 through $n {
+    $shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
+  }
 
-		//去掉逗号
-		@return unquote($shadows)
-	}
+  //去掉逗号
+  @return unquote($shadows)
+}
 
-	$duration: 400s; //小星星运动的动画时间
-	$count: 600; //每层星空的小星星数，为保证性能，这里建议设置不超过1000
+$duration: 400s; //小星星运动的动画时间
+$count: 600; //每层星空的小星星数，为保证性能，这里建议设置不超过1000
 
-	//通过for循环来生成5层星空
-	@for $i from 1 through 5 {
-		$duration: $duration / 2; //离屏幕越近，运动越快
-		$count: floor($count / $i); //离屏幕越近，星星数越少
+//通过for循环来生成5层星空
+@for $i from 1 through 5 {
+  $duration: $duration / 2; //离屏幕越近，运动越快
+  $count: floor($count / $i); //离屏幕越近，星星数越少
 
-		.layer#{$i} {
-			$size: #{$i}px; //离屏幕越近星星越大
-			position: fixed;
-			width: $size;
-			height: $size;
-			border-radius: 50%;
-			left: 0;
-			top: 0;
-			//通过多个shadow来达到生层本层星空星星
-			box-shadow: getShadows($count);
-			animation: moveUp $duration linear infinite;
+  .layer#{$i} {
+    $size: #{$i}px; //离屏幕越近星星越大
+    position: fixed;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    //通过多个shadow来达到生层本层星空星星
+    box-shadow: getShadows($count);
+    animation: moveUp $duration linear infinite;
 
-			//通过伪类在屏幕下方放置一个一样的星空层，防止循环播放的时候闪屏
-			&::after {
-				content: '';
-				position: fixed;
-				left: 0;
-				top: 100vh;
-				border-radius: inherit;
-				width: inherit;
-				height: inherit;
-				box-shadow: inherit;
-			}
-		}
-	}
+    //通过伪类在屏幕下方放置一个一样的星空层，防止循环播放的时候闪屏
+    &::after {
+      content: '';
+      position: fixed;
+      left: 0;
+      top: 100vh;
+      border-radius: inherit;
+      width: inherit;
+      height: inherit;
+      box-shadow: inherit;
+    }
+  }
+}
 
-	//星星向上运动动画
-	@keyframes moveUp {
-		to {
-			transform: translateY(-100vh);
-		}
-	}
+//星星向上运动动画
+@keyframes moveUp {
+  to {
+    transform: translateY(-100vh);
+  }
+}
 
-	$color: orange;
+$color: orange;
 
-	//流星拖尾
-	.meteor {
-		width: 3px;
-		height: 36px;
-		background: linear-gradient(0deg, $color 0, transparent 100%);
-		position: absolute;
-		top: 70px;
-		transform: rotate(45deg);
-		right: 70px;
-		opacity: 0;
-		animation: streak 2s linear infinite;
+//流星拖尾
+.meteor {
+  width: 3px;
+  height: 36px;
+  background: linear-gradient(0deg, $color 0, transparent 100%);
+  position: absolute;
+  top: 70px;
+  transform: rotate(45deg);
+  right: 70px;
+  opacity: 0;
+  animation: streak 2s linear infinite;
 
-		//伪类实现发光头部
-		&::after {
-			content: "";
-			position: absolute;
-			width: 6px;
-			height: 6px;
-			border-radius: 50%;
-			background: $color;
-			filter: blur(1.8px);
-			box-shadow: 0px -1px -1px 5px transparent;
-			bottom: -4px;
-			left: 50%;
-			transform: translate(-50%);
-		}
-	}
+  //伪类实现发光头部
+  &::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $color;
+    filter: blur(1.8px);
+    box-shadow: 0px -1px -1px 5px transparent;
+    bottom: -4px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+}
 
-	@keyframes streak {
-		0% {
-			transform: rotate(50deg) translateY(-100px) scale(0.5);
-			opacity: 0;
-		}
+@keyframes streak {
+  0% {
+    transform: rotate(50deg) translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
 
-		70% {
-			opacity: 1;
-			transform: rotate(50deg) translateY(120px) scale(1.1);
-		}
+  70% {
+    opacity: 1;
+    transform: rotate(50deg) translateY(120px) scale(1.1);
+  }
 
-		100% {
-			transform: rotate(50deg) translateY(220px) scale(0.5);
-			opacity: 0;
-		}
-	}
+  100% {
+    transform: rotate(50deg) translateY(220px) scale(0.5);
+    opacity: 0;
+  }
+}
 //----------------------end
-	.scroll-view {
-		/* #ifdef H5 */
-		height: calc(100vh - 44px);
-		/* #endif */
-		/* #ifndef H5 */
-		height: 100vh;
-		/* #endif */
-		box-sizing: border-box;
-	}
+.scroll-view {
+  padding: 30rpx 30rpx;
+  box-sizing: border-box;
+}
 
-	.message {
-		display: flex;
-		align-items: flex-start;
-		margin-bottom: 30rpx;
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
 
-		.avatar {
-			width: 80rpx;
-			height: 80rpx;
-			border-radius: 10rpx;
-			margin-right: 30rpx;
-		}
+  .avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 10rpx;
+    margin-right: 30rpx;
+  }
 
-		.content {
-			min-height: 80rpx;
-			max-width: 60vw;
-			box-sizing: border-box;
-			font-size: 28rpx;
-			line-height: 1.3;
-			padding: 20rpx;
-			border-radius: 10rpx;
-			background: #fff;
+  .content {
+    min-height: 80rpx;
+    max-width: 60vw;
+    box-sizing: border-box;
+    font-size: 28rpx;
+    line-height: 1.3;
+    padding: 20rpx;
+    border-radius: 10rpx;
+    background: #fff;
 
-			image {
-				width: 200rpx;
-			}
-		}
+    image {
+      width: 200rpx;
+    }
+  }
 
-		&.self {
-			justify-content: flex-end;
+  &.self {
+    justify-content: flex-end;
 
-			.avatar {
-				margin: 0 0 0 30rpx;
-			}
+    .avatar {
+      margin: 0 0 0 30rpx;
+    }
 
-			.content {
-				position: relative;
+    .content {
+      position: relative;
 
-				&::after {
-					position: absolute;
-					content: '';
-					width: 0;
-					height: 0;
-					border: 16rpx solid transparent;
-					border-left: 16rpx solid #fff;
-					right: -28rpx;
-					top: 24rpx;
-				}
-			}
-		}
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border: 16rpx solid transparent;
+        border-left: 16rpx solid #fff;
+        right: -28rpx;
+        top: 24rpx;
+      }
+    }
+  }
 
-		&.friend {
-			.content {
-				position: relative;
+  &.friend {
+    .content {
+      position: relative;
 
-				&::after {
-					position: absolute;
-					content: '';
-					width: 0;
-					height: 0;
-					border: 16rpx solid transparent;
-					border-right: 16rpx solid #fff;
-					left: -28rpx;
-					top: 24rpx;
-				}
-			}
-		}
-	}
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border: 16rpx solid transparent;
+        border-right: 16rpx solid #fff;
+        left: -28rpx;
+        top: 24rpx;
+      }
+    }
+  }
+}
 
-	.tool {
-		position: fixed;
-		width: 100%;
-		min-height: 120rpx;
-		left: 0;
-		bottom: 0;
-		background: #000000;
-		display: flex;
-		align-items: flex-start;
-		box-sizing: border-box;
-		padding: 20rpx 24rpx 20rpx 40rpx;
-		padding-bottom: calc(20rpx + constant(safe-area-inset-bottom)/2) !important;
-		padding-bottom: calc(20rpx + env(safe-area-inset-bottom)/2) !important;
-		.left-icon {
-			width: 56rpx;
-			height: 56rpx;
-			margin-right: 10rpx;
-		}
+.tool {
+  position: fixed;
+  width: 100%;
+  min-height: 120rpx;
+  left: 0;
+  background: #000000;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: 20rpx 24rpx 20rpx 40rpx;
+  .left-icon {
+    width: 56rpx;
+    height: 56rpx;
+    margin-right: 10rpx;
+  }
 
-		.input,
-		.voice-crl {
-			background: #eee;
-			border-radius: 10rpx;
-			height: 70rpx;
-			margin-right: 30rpx;
-			flex: 1;
-			padding: 0 20rpx;
-			box-sizing: border-box;
-			font-size: 28rpx;
-		}
+  .input,
+  .voice-crl {
+    background: #eee;
+    border-radius: 10rpx;
+    height: 70rpx;
+    flex: 1;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    font-size: 28rpx;
+  }
 
-		.thumb {
-			width: 64rpx;
-			height: 64rpx;
-		}
+  .thumb {
+    margin-top: 4rpx;
+    margin-left: 8rpx;
+    width: 64rpx;
+    height: 64rpx;
+  }
 
-		.voice-crl {
-			text-align: center;
-			line-height: 70rpx;
-			font-weight: bold;
-		}
-	}
+  .voice-crl {
+    text-align: center;
+    line-height: 70rpx;
+    font-weight: bold;
+  }
+}
 
-	.audio-animation {
-		position: fixed;
-		// width: 100vw;
-		// height: 100vh;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 202410;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		
-		.text {
-			text-align: center;
-			font-size: 28rpx;
-			color: #333;
-			margin-top: 60rpx;
-		}
+.audio-animation {
+  position: fixed;
+  // width: 100vw;
+  // height: 100vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 202410;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-		.audio-wave {
-			padding: 50rpx;
+  .text {
+    text-align: center;
+    font-size: 28rpx;
+    color: #333;
+    margin-top: 60rpx;
+  }
 
-			.audio-wave-text {
-				background-color: blue;
-				width: 7rpx;
-				height: 12rpx;
-				margin: 0 6rpx;
-				border-radius: 5rpx;
-				display: inline-block;
-				border: none;
-				animation: wave 0.25s ease-in-out;
-				animation-iteration-count: infinite;
-				animation-direction: alternate;
-			}
+  .audio-wave {
+    padding: 50rpx;
 
-			/*  声波动画  */
-			@keyframes wave {
-				from {
-					transform: scaleY(1);
-				}
+    .audio-wave-text {
+      background-color: blue;
+      width: 7rpx;
+      height: 12rpx;
+      margin: 0 6rpx;
+      border-radius: 5rpx;
+      display: inline-block;
+      border: none;
+      animation: wave 0.25s ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
 
-				to {
-					transform: scaleY(4);
-				}
-			}
-		}
-	}
+    /*  声波动画  */
+    @keyframes wave {
+      from {
+        transform: scaleY(1);
+      }
+
+      to {
+        transform: scaleY(4);
+      }
+    }
+  }
+}
+
+.emoji-scroll {
+  height: 540rpx;
+  background-color: #000;
+  position: fixed;
+  bottom: 0;
+  transition: all 0.5s ease;
+}
+
+.emoji-panel {
+  bottom: 0;
+  padding: 20upx;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emoji-item {
+  padding: 10upx;
+  font-size: 50upx;
+}
+
+.panel-scroll{
+  height: 440rpx;
+  bottom: 0;
+  position: fixed;
+  transition: all 0.5s ease;
+}
+.container {
+  background-color: black;
+  padding: 20rpx;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.item {
+  width: 30%;
+  border-radius: 10rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 50%;
+  height: 100rpx;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.text-container {
+  padding: 10rpx;
+  text-align: center;
+}
+
+.text {
+  display: block;
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 1.5;
+}
 </style>

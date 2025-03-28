@@ -1,0 +1,89 @@
+<template>
+	<div class="chat_box" >
+		<chat-list ref="chatList" @tapBlur="tapBlur" :rows="rows" :windowHeight="windowHeight" :chatInputBoxHeight="chatInputBoxHeight"
+			:keyboardHeightFlg="keyboardHeightFlg" :keyboardHeight="keyboardHeight"></chat-list>
+		<!-- <div class="chat_input_box" :style="{
+			bottom:keyboardHeightFlg ? (keyboardHeight)+'px' : '0'
+		}"> -->
+		<div class="chat_input_box">
+			<div class="chat_input">
+				<image @click="clickVoice" class="voice_img" :src="isVoice? '../../static/icon/jianpan.png' : '../../static/icon/yuyin.png'" mode=""></image>
+				<div class="conter_box">
+					<template v-if="isVoice">
+						<div class="voice_box" @touchstart="touchstartVoice" @touchmove.stop.prevent="touchmoveVoice" @touchend="touchendVoice"
+				 @touchcancel.stop="touchcancelVoice">
+							<text class="voice_text">{{voiceText}}</text>
+						</div>
+					</template>
+					<template v-else>
+						<textarea v-model="textareaVal" :hideDoneButton="true" @keyboard="keyboardInput" ref="textareaRef"
+							:autofocus="false" @linechange="texTlinechange" class="textarea_input" @focus="textareaFocus"
+							@blur="textareaBlur" type="text" :adjust-position="false" :style="{
+							paddingTop:lineCount == 1 ? '17rpx' : '0rpx',
+							paddingBottom:lineCount == 1 ? '17rpx' : '0rpx'
+						}" />
+					</template>
+				</div>
+				<image @click="clickEmoj('clickEmoj',0)" class="emoj_img" src="../../static/icon/biaoqing.png" mode="">
+				</image>
+				<div class="btn_box" v-if="!textareaVal.length === 0 && !isVoice" @click="clickMsg"><text class="btn_text">发送</text>
+				</div>
+				<image v-else @click="clickEmoj('fun',1)" class="add_img" src="../../static/icon/add.png" mode="">
+				</image>
+			</div>
+			<div :style="{
+			height:keyboardHeightFlg ? (keyboardHeight - deviceBottom)+'px' : '0px'
+		}">
+				<swiper :current="currentFun" class="fun_swiper" disable-touch>
+					<swiper-item>
+						<div class="swiper_item">
+							<emoji-box @setEmoj="setEmoj" :emojiList="emojiList"></emoji-box>
+						</div>
+					</swiper-item>
+					<swiper-item>
+						<div class="swiper_item">
+							<tool-box @toolItem="toolItem"></tool-box>
+						</div>
+					</swiper-item>
+				</swiper>
+			</div>
+		</div>
+		<!-- 语音状态显示 -->
+		<template v-if="voiceFlg">
+			<div class="voice_bd">
+				<div class="voice_ui">
+					<image class="voice_ui_img" src="../../static/temp/luyinqi.png" ></image>
+					<text class="voice_ui_text">{{voiceTis}}</text>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>
+
+<script>
+	
+	import toolBox from "./components/tool.vue"
+	import emojiBox from "./components/emoj.vue"
+	import chatList from "./components/chatList.vue"
+	import chats from "./mixins/chat.js"
+	export default {
+		components: {
+			toolBox,
+			emojiBox,
+			chatList
+		},
+		mixins: [chats],
+		data() {
+			return {
+
+			}
+		},
+
+		methods: {
+
+		}
+	}
+</script>
+
+<style src="./chat.css">
+</style>

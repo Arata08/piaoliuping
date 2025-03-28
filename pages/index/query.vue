@@ -1,15 +1,15 @@
 <template>
 	<view>
 		<view class="serch">
-			<TnSearchBox placeholder="搜索" border="false" clearable text-color="#ffffff" v-model="searchValue"
+			<TnSearchBox placeholder="查找" border="false" clearable text-color="#f5f5f5" v-model="searchValue"
 				@input="searchInputEvent" @search="searchBtnClickEvent" />
 		</view>
 
-		<view style="display: flex;flex-direction: row;margin: 10px 20px;font-size: 25px;" @click="showRound=true">
-			<image style="width: 25px;height: 25px;margin-right: 5px;margin-top: 7px;" src="/static/shaixuan.png">
+		<view style="display: flex;flex-direction: row;margin: 10px 20px;font-size: 15px;" @click="showRound=true">
+			<image style="width: 25px;height: 25px;" src="/static/shaixuan.png">
 			</image>
-			<text>{{filter}}&nbsp;&nbsp;{{order}}</text>
-			<view style="margin: 5px 0 auto 5px;"><nut-icon name="triangle-down"></nut-icon></view>
+			<text>{{order}}</text>
+			<view style=""><nut-icon name="triangle-down"></nut-icon></view>
 		</view>
 
 		<scroll-view scroll-y="true">
@@ -19,7 +19,7 @@
 						<view class="nickname">{{ item.nickName }}</view>
 						<view class="gender-age">
 							<nut-tag :type="(item.sex==='male' ? 'primary' : 'warning')" round>
-								<nut-icon :name="'/static/images/' + item.sex + '.png'" color="white" />
+								<nut-icon :name="'/static/images/' + item.sex + '.png'" color="white"/>
 								{{ item.age }}
 							</nut-tag>
 						</view>
@@ -27,20 +27,20 @@
 							style="height: 20px;width: 20px;margin-left: 5px"></image>
 					</view>
 
-					<view style="display: flex;flex-direction: row;margin-top: 10px">
+					<view style="display: flex;flex-direction: row;margin-top: 5px">
 						<nut-icon name="message" class="nut-icon-am-shake nut-icon-am-infinite"></nut-icon>
 						<text style="margin-left: 5px;color: #00d1ff">{{item.time}}</text>
 						<text style="margin-left: 20px;">{{item.city}}</text>
 					</view>
 
 
-					<view style="display: flex;flex-direction: ;margin-top: 10px">
+					<view style="display: flex;margin-top: 5px">
 						粉丝数：{{item.flow}}
 						<text style="margin-left: 20px;">注册天数：{{item.loginDays}}</text>
 					</view>
 
-					<button class="dazhaohu"><text style="font-size: 15px;">打招呼</text><text
-							style="font-size: 10px;margin-top: -15px">-5星币</text></button>
+					<button class="dazhaohu"><text style="font-size: 12px;">打招呼</text><text
+							style="font-size: 10px;margin-top: -12px">-5星币</text></button>
 				</view>
 			</view>
 		</scroll-view>
@@ -50,30 +50,26 @@
 				<view style="display: flex;flex-direction: column;">
 					<nut-cell-group title="筛选条件">
 						<nut-cell>
-							<nut-radio-group v-model="filter" direction="horizontal">
-								<nut-radio shape="button" label="1">选项1</nut-radio>
-								<nut-radio shape="button" label="2">选项2</nut-radio>
-								<nut-radio shape="button" label="3">选项3</nut-radio>
-								<nut-radio shape="button" label="4">选项4</nut-radio>
-								<nut-radio shape="button" label="5">选项5</nut-radio>
-								<nut-radio shape="button" label="6">选项6</nut-radio>
-								<nut-radio shape="button" label="7">选项7</nut-radio>
-								<nut-radio shape="button" label="8">选项8</nut-radio>
-							</nut-radio-group>
+              <nut-checkbox-group v-model="filter" shape="button">
+                <nut-checkbox label="1" shape="button">在线中</nut-checkbox>
+                <nut-checkbox label="2" shape="button">男生</nut-checkbox>
+                <nut-checkbox label="3" shape="button">女生</nut-checkbox>
+                <nut-checkbox label="4" shape="button">vip用户</nut-checkbox>
+                <nut-checkbox label="5" shape="button">注册超过3天</nut-checkbox>
+                <nut-checkbox label="6" shape="button">有粉丝</nut-checkbox>
+                <nut-checkbox label="7" shape="button">成年人</nut-checkbox>
+                <nut-checkbox label="8" shape="button">附件50km以内</nut-checkbox>
+              </nut-checkbox-group>
 						</nut-cell>
 					</nut-cell-group>
 					<view style="margin-top: -30px">
 						<nut-cell-group title="排序条件">
 							<nut-cell>
 								<nut-radio-group v-model="order" direction="horizontal">
-									<nut-radio shape="button" label="1">选项1</nut-radio>
-									<nut-radio shape="button" label="2">选项2</nut-radio>
-									<nut-radio shape="button" label="3">选项3</nut-radio>
-									<nut-radio shape="button" label="4">选项4</nut-radio>
-									<nut-radio shape="button" label="5">选项5</nut-radio>
-									<nut-radio shape="button" label="6">选项6</nut-radio>
-									<nut-radio shape="button" label="7">选项7</nut-radio>
-									<nut-radio shape="button" label="8">选项8</nut-radio>
+									<nut-radio shape="button" label="在线时间 由近->远">在线时间 由近->远</nut-radio>
+									<nut-radio shape="button" label="被关注数 由多->少">被关注数 由多->少</nut-radio>
+									<nut-radio shape="button" label="注册时间 由近->远">注册时间 由近->远</nut-radio>
+									<nut-radio shape="button" label="注册时间 由远->近">注册时间 由远->近</nut-radio>
 								</nut-radio-group>
 							</nut-cell>
 						</nut-cell-group>
@@ -92,7 +88,7 @@
 	import { ref } from 'vue'
 	const searchValue = ref('')
 	const radioVal = ref('')
-	const filter = ref('s')
+	const filter = ref([])
 	const order = ref('s')
 	const showRound = ref(false)
 	const list = ref([{

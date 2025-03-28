@@ -5,20 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27067413-540f-492f-8291-4fb0d7c19073" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/common/api/piaoliupingApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/add.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/biaoqing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/emoji.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/voice.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/login/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/meslist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/meslist.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/my.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/my.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/set.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/set.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/vip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/vip.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/query.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/query.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/message/message.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/message/message.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/send/send.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/send/send.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/female.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/female.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,24 +41,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Documents/GitHub/house-life/house-life",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm 2024.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documents/GitHub/cx-plp/piaoliuping/static/meslist&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2024.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documents\GitHub\cx-plp\piaoliuping\static\meslist" />
+      <recent name="D:\Documents\GitHub\cx-plp\piaoliuping\pages\message" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documents\GitHub\piaoliuping\pages\index" />
       <recent name="D:\Documents\GitHub\piaoliuping\pages" />
@@ -111,6 +113,17 @@
       <workItem from="1740289719901" duration="1930000" />
       <workItem from="1740450511048" duration="2957000" />
       <workItem from="1740726428673" duration="3307000" />
+      <workItem from="1742449738916" duration="6508000" />
+      <workItem from="1742518134296" duration="2480000" />
+      <workItem from="1742778780312" duration="3589000" />
+      <workItem from="1742800528953" duration="2426000" />
+      <workItem from="1742863493460" duration="21592000" />
+      <workItem from="1742949957013" duration="10002000" />
+      <workItem from="1742967751122" duration="16249000" />
+      <workItem from="1743038804651" duration="6742000" />
+      <workItem from="1743059597574" duration="5694000" />
+      <workItem from="1743128503196" duration="2042000" />
+      <workItem from="1743141114410" duration="6178000" />
     </task>
     <servers />
   </component>

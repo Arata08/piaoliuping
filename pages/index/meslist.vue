@@ -49,6 +49,7 @@
 				isModalVisible: false,
 				windowWidth: 0,
 				socket: null,
+        get: true,
 			};
 		},
     onLoad() {
@@ -72,8 +73,11 @@
 			} else {
 				this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
         //获取离线消息列表
-        this.getOfflineMessage();
-				this.getOffChatList();
+        if (this.get){
+          this.getOfflineMessage();
+          this.getOffChatList();
+          this.get = false;
+        }
 			}
 		},
 		methods: {
