@@ -8,7 +8,7 @@
     <view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index" @click="msgClick(item)">
       <image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
       <view class="content" v-if="item.type === 'image'">
-        <image :src="item.content" mode="widthFix"></image>
+        <image :src="item.content" mode="widthFix" @click="previewImage(item.content,index)"></image>
       </view>
       <view v-else>
         <view v-show="!item.read && item.userType === 'self'">
@@ -81,7 +81,9 @@
 </template>
 
 <script>
-	const recorderManager = wx.getRecorderManager()
+	import {forEach} from "@/common/utils/luch-request/luch-request/utils";
+
+  const recorderManager = wx.getRecorderManager()
   import webSocketManager from '@/common/websocketManager'
   import {
     uploadFile
@@ -132,14 +134,14 @@
         ],
         rows: [
           [
-            { imgUrl: '../../static/thumb.png', text1: '视频' },
-            { imgUrl: '../../static/thumb.png', text1: '图片' },
-            { imgUrl: '../../static/thumb.png', text1: '直播' }
+            { imgUrl: '../../static/meslist/image(1).png', text1: '举报' },
+            { imgUrl: '../../static/meslist/image(2).png', text1: '拉黑' },
+            { imgUrl: '../../static/meslist/image(3).png', text1: '关注' }
           ],
           [
-            { imgUrl: '../../static/thumb.png', text1: '文章' },
-            { imgUrl: '../../static/thumb.png', text1: '活动' },
-            { imgUrl: '../../static/thumb.png', text1: '课程' }
+            { imgUrl: '../../static/meslist/image(4).png', text1: '闪图' },
+            { imgUrl: '../../static/meslist/image(5).png', text1: '礼物' },
+            { imgUrl: '../../static/meslist/image(6).png', text1: '闪视频' }
           ]
         ]
 			};
@@ -171,11 +173,31 @@
       EventBus.emit('updateReadStatus', this.friendId);
     },
 		methods: {
+      previewImage(url,index){
+        // 预览图片
+				if(url==='https://free4.yunpng.top/2024/12/02/674d2d2380346.png'){
+					uni.previewImage({
+						urls: [url]
+					});
+				}else{
+        uni.navigateTo({
+						url: 'preImage?url=' + url
+					});
+					//2秒后关闭
+					setTimeout(() => {
+						// 把图片替换成固定图片
+						console.log(this.list[index]);
+						this.list[index].content = 'https://free4.yunpng.top/2024/12/02/674d2d2380346.png';
+					}, 2000);
+					uni.setStorageSync('chatList' + this.friendId, this.list);
+				}
+      },
       handleClick(rowIndex, colIndex) {
-        uni.showToast({
-          title: `点击了第 ${rowIndex * 3 + colIndex + 1} 个项`,
-          icon: 'none'
-        })
+        let n = rowIndex * 3 + colIndex + 1;
+        switch (n) {
+          case 4: this.chooseImage()
+            break;
+        }
       },
       scroll(e) {
         console.log(e)
@@ -190,7 +212,7 @@
         this.togglePanel(!this.showEmoji, false, 270);
       },
       MorePanel() {
-        this.togglePanel(false, !this.showMorePanel, 220);
+        this.togglePanel(false, !this.showMorePanel, 200);
       },
       togglePanel(showEmoji, showMorePanel, paddingBottom) {
         if (showEmoji || showMorePanel) {
@@ -270,6 +292,7 @@
 							type: 'image',
 							avatar: this.self
 						})
+            uni.setStorageSync('chatList'+this.friendId, this.list)
             //把图片上传至服务器
             uploadFile(res.tempFilePaths[0])
                 .then(response => {
@@ -664,7 +687,7 @@ $color: orange;
   width: 100%;
   min-height: 120rpx;
   left: 0;
-  background: #000000;
+  background: #45333b;
   display: flex;
   align-items: flex-start;
   box-sizing: border-box;
@@ -750,7 +773,7 @@ $color: orange;
 
 .emoji-scroll {
   height: 540rpx;
-  background-color: #000;
+  background-color: #45333b;
   position: fixed;
   bottom: 0;
   transition: all 0.5s ease;
@@ -769,13 +792,13 @@ $color: orange;
 }
 
 .panel-scroll{
-  height: 440rpx;
+  height: 385rpx;
   bottom: 0;
   position: fixed;
   transition: all 0.5s ease;
 }
 .container {
-  background-color: black;
+  background-color: #45333b;
   padding: 20rpx;
 }
 
@@ -796,7 +819,7 @@ $color: orange;
 
 .image {
   width: 50%;
-  height: 100rpx;
+  height: 110rpx;
   border-radius: 10rpx 10rpx 0 0;
 }
 

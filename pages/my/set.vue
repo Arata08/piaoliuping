@@ -88,7 +88,7 @@
 			});
 
 			const value = ref("");
-			const uploadUrl = ref(config.uploadUrl);
+			const uploadUrl = ref('');
 			const visible = ref(false);
 			const dateshow = ref(false);
 			const column = ref(3);
@@ -103,7 +103,7 @@
 			const visible3 = ref(false);
 
 			const setUpload = () => {
-				uploadUrl.value = config.uploadUr;
+				uploadUrl.value = config.uploadUrl;
 				headers.token = uni.getStorageSync('token');
 				setData();
 				visible3.value = User.newUser;
@@ -134,7 +134,13 @@
 
 			const onConfirm = (date : any) => {
 				localBirth.value = date.date.toLocaleDateString();
-				User.birthday = new Date(date.date)
+				//只保存年月日，保证为2000-02-01格式
+				let data = new Date(date.date);
+				const year = data.getFullYear();
+				const month = String(data.getMonth() + 1).padStart(2, '0');
+				const day = String(data.getDate()).padStart(2, '0');
+
+				User.birthday = `${year}-${month}-${day}`;
 				console.log(User.birthday);
 				dateshow.value = false;
 			};
@@ -159,8 +165,10 @@
 				console.log(User.avatar);
 			};
 
-			const handleUploadFailure = () => {
+			const handleUploadFailure = (data,option,fileItem) => {
 				toast.error("上传失败");
+				console.log('上传失败，错误信息:', data);
+				console.log('上传失败，错误信息:', uploadUrl.value);
 			};
 
 			const handleUploadDelete = (data : any) => {

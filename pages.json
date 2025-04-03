@@ -124,6 +124,20 @@
     	{
     		"navigationBarTitleText" : "性别认证"
     	}
+    },
+    {
+    	"path" : "pages/message/preImage",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "闪图查看"
+    	}
+    },
+    {
+    	"path" : "pages/my/follow",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "我的关注"
+    	}
     }
   ],
   "globalStyle": {

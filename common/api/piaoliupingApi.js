@@ -135,3 +135,20 @@ export function uploadFile(filePath) {
 		throw error;
 	}
 }
+
+//获取关注列表
+export function getFollowList() {
+	try {
+		return request({
+			url: 'user/getFollowList/' + uni.getStorageSync('User').id,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error){
+		console.error(error);
+		throw error;
+	}
+}

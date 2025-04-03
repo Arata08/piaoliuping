@@ -47,6 +47,12 @@
             "urlCheck" : false,
             "minified" : false
         },
+        // "plugins" : {
+        //     "tencentvideo" : {
+        //         "version" : "2.4.11",
+        //         "provider" : "wxa75efa648b60994b"
+        //     }
+        // },
         "usingComponents" : true
     },
     "mp-alipay" : {

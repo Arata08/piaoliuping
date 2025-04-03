@@ -5,8 +5,9 @@
 			<view class="user-info" :style="{width:windowWidth+'px'}">
 				<image :src="userInfo.avatar" class="avatar"></image>
 				<view class="info">
-					<text class="time-reg">注册时间：{{userInfo.createTime}}</text>
-					<text class="time-login">最近登录：{{userInfo.offlineTime}}</text>
+					<text>注册时间：{{userInfo.createTime}}</text>
+					<text style="color: #33CCFF;">最近登录：{{userInfo.offline}}</text>
+					<text>{{userInfo.address}}</text>
 				</view>
 			</view>
 			<view class="actions">

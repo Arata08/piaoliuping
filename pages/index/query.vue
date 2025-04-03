@@ -16,7 +16,7 @@
 			<view v-for="(item,index) in list" :key="index">
 				<view class="container">
 					<view style="display: flex;flex-direction: row">
-						<view class="nickname">{{ item.nickName }}</view>
+						<view>{{ item.nickName }}</view>
 						<view class="gender-age">
 							<nut-tag :type="(item.sex==='male' ? 'primary' : 'warning')" round>
 								<nut-icon :name="'/static/images/' + item.sex + '.png'" color="white"/>
@@ -29,7 +29,7 @@
 
 					<view style="display: flex;flex-direction: row;margin-top: 5px">
 						<nut-icon name="message" class="nut-icon-am-shake nut-icon-am-infinite"></nut-icon>
-						<text style="margin-left: 5px;color: #00d1ff">{{item.time}}</text>
+						<text style="margin-left: 5px;color: #00d1ff">{{item.offline}}</text>
 						<text style="margin-left: 20px;">{{item.city}}</text>
 					</view>
 
@@ -96,7 +96,7 @@
 		nickName: '张三',
 		age: 18,
 		sex: 'male',
-		time: "3秒前在线",
+		offline: "3秒前在线",
 		city: '北京',
 		flow: 100,
 		fan: 200,
@@ -107,7 +107,7 @@
 		nickName: '李四',
 		age: 20,
 		sex: 'female',
-		time: "3秒前在线",
+		offline: "3秒前在线",
 		city: '上海',
 		flow: 200,
 		fan: 100,

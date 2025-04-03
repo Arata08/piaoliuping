@@ -161,7 +161,7 @@
             this.msgList.unshift({
               id: 1,
               nickName: '漂流瓶',
-              avatar: 'https://free4.yunpng.top/2025/02/19/67b587e227050.jpg',
+              avatar: 'https://free4.yunpng.top/2024/12/02/674d2d2380346.png',
               lastMsg: '欢迎使用小程序！',
               saveTime: 'forever',
               read: 1,
@@ -240,10 +240,10 @@
               offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
             }
           }
-          //user.createTime：2025-02-25 10:51:13只保留年月日
-          let createTime = user.createTime.substring(0, 10);
           user.offline = offline;
-          user.createTime = createTime;
+          user.createTime = user1.createTime;
+					user.avatar = config.staticUrl + user1.avatar;
+					user.address = user1.city + ' ' + user1.area;
         });
 				this.selectedUser = user;
 				this.isModalVisible = true;

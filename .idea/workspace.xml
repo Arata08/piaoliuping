@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27067413-540f-492f-8291-4fb0d7c19073" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/static/meslist/add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/meslist/biaoqing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/meslist/emoji.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/meslist/voice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/meslist/image(6).png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/meslist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/meslist.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/query.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/query.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/message/message.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/message/message.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/send/send.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/send/send.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/female.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/female.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/meslist/query.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +123,8 @@
       <workItem from="1743059597574" duration="5694000" />
       <workItem from="1743128503196" duration="2042000" />
       <workItem from="1743141114410" duration="6178000" />
+      <workItem from="1743383247324" duration="8281000" />
+      <workItem from="1743404566961" duration="7116000" />
     </task>
     <servers />
   </component>
