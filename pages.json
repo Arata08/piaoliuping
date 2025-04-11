@@ -44,7 +44,7 @@
     {
       "path": "pages/mailbox/mailbox",
       "style": {
-        "navigationBarTitleText": "发件箱",
+        "navigationBarTitleText": "收件箱",
         "enablePullDownRefresh": false
       }
     },
@@ -95,7 +95,9 @@
     },
     {
       "path": "pages/my/sign",
+			//颜色
       "style": {
+				"navigationBarBackgroundColor": "#dcdcdc",
         "navigationBarTitleText": "签到"
       }
     },

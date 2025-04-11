@@ -137,6 +137,13 @@
 						url = '/pages/my/vip';
 						break;
 					case 'follow':
+					  if(this.User.flower === 0){
+							uni.showToast({
+									title: '您还没有关注任何人哦',
+									icon: 'none',
+							});
+							return;
+						}
 						url = '/pages/my/follow';
 						break;
 					case 'set':

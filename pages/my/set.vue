@@ -141,7 +141,8 @@
 				const day = String(data.getDate()).padStart(2, '0');
 
 				User.birthday = `${year}-${month}-${day}`;
-				console.log(User.birthday);
+				//计算年龄
+				User.age = new Date().getFullYear() - year;
 				dateshow.value = false;
 			};
 

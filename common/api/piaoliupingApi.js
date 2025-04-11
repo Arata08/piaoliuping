@@ -140,7 +140,7 @@ export function uploadFile(filePath) {
 export function getFollowList() {
 	try {
 		return request({
-			url: 'user/getFollowList/' + uni.getStorageSync('User').id,
+			url: 'fanBlack/getFollowList/' + uni.getStorageSync('User').id,
 			method: 'POST',
 			custom: {
 				showError: false,
@@ -148,6 +148,59 @@ export function getFollowList() {
 			},
 		});
 	} catch (error){
+		console.error(error);
+		throw error;
+	}
+}
+
+//获取本人信息
+export function getSelfInfo() {
+	try {
+		return request({
+			url: 'user/getMine/' + uni.getStorageSync('User').id,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error)
+	{
+		console.error(error);
+		throw error;
+	}
+}
+
+export function sign(data) {
+	try {
+		return request({
+			url: 'sign/sign',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error)
+	{
+		console.error(error);
+		throw error;
+	}
+}
+
+export function getSignedDate() {
+	try {
+		return request({
+			url: 'sign/getSignedDate',
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error)
+	{
 		console.error(error);
 		throw error;
 	}

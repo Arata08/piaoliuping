@@ -45,41 +45,30 @@
 			</view>
 		</scroll-view>
 
-		<nut-popup position="bottom" round v-model:visible="showRound" closeable>
-			<view style="text-align: center;margin-top: 20px;margin-bottom: 40px;">
-				<view style="display: flex;flex-direction: column;">
-					<nut-cell-group title="筛选条件">
-						<nut-cell>
-              <nut-checkbox-group v-model="filter" shape="button">
-                <nut-checkbox label="1" shape="button">在线中</nut-checkbox>
-                <nut-checkbox label="2" shape="button">男生</nut-checkbox>
-                <nut-checkbox label="3" shape="button">女生</nut-checkbox>
-                <nut-checkbox label="4" shape="button">vip用户</nut-checkbox>
-                <nut-checkbox label="5" shape="button">注册超过3天</nut-checkbox>
-                <nut-checkbox label="6" shape="button">有粉丝</nut-checkbox>
-                <nut-checkbox label="7" shape="button">成年人</nut-checkbox>
-                <nut-checkbox label="8" shape="button">附件50km以内</nut-checkbox>
-              </nut-checkbox-group>
-						</nut-cell>
-					</nut-cell-group>
-					<view style="margin-top: -30px">
-						<nut-cell-group title="排序条件">
-							<nut-cell>
-								<nut-radio-group v-model="order" direction="horizontal">
-									<nut-radio shape="button" label="在线时间 由近->远">在线时间 由近->远</nut-radio>
-									<nut-radio shape="button" label="被关注数 由多->少">被关注数 由多->少</nut-radio>
-									<nut-radio shape="button" label="注册时间 由近->远">注册时间 由近->远</nut-radio>
-									<nut-radio shape="button" label="注册时间 由远->近">注册时间 由远->近</nut-radio>
-								</nut-radio-group>
-							</nut-cell>
-						</nut-cell-group>
-					</view>
-				</view>
+    <nut-popup position="bottom" round v-model:visible="showRound" closeable>
+      <view style="text-align: center;margin-top: 20px;margin-bottom: 40px;">
+        <view style="display: flex;flex-direction: column;margin-top: -20px">
+          <nut-cell-group title="筛选条件">
+            <nut-checkbox-group v-model="filter" shape="button">
+              <nut-checkbox v-for="(item, index) in filterOptions" :key="index" :label="item.value" shape="button">
+                {{ item.label }}
+              </nut-checkbox>
+            </nut-checkbox-group>
+          </nut-cell-group>
+          <view style="margin-top: -30px">
+            <nut-cell-group title="排序条件">
+              <nut-radio-group v-model="order" direction="horizontal">
+                <nut-radio v-for="(item, index) in sortOptions" :key="index" :shape="item.shape" :label="item.value">
+                  {{ item.label }}
+                </nut-radio>
+              </nut-radio-group>
+            </nut-cell-group>
+          </view>
+        </view>
 
-				<nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)"
-					@click="submit">大号按钮</nut-button>
-			</view>
-		</nut-popup>
+        <nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)" @click="submit">查找</nut-button>
+      </view>
+    </nut-popup>
 	</view>
 </template>
 
@@ -87,9 +76,8 @@
 	import TnSearchBox from '@/uni_modules/tuniaoui-vue3/components/search-box/src/search-box.vue'
 	import { ref } from 'vue'
 	const searchValue = ref('')
-	const radioVal = ref('')
 	const filter = ref([])
-	const order = ref('s')
+	const order = ref('排序')
 	const showRound = ref(false)
 	const list = ref([{
 		id: 1,
@@ -114,6 +102,22 @@
 		loginDays: 20,
 		vip: false,
 	}])
+  const filterOptions = [
+    { label: '在线中', value: '1' },
+    { label: '男生', value: '2' },
+    { label: '女生', value: '3' },
+    { label: 'vip用户', value: '4' },
+    { label: '注册超过3天', value: '5' },
+    { label: '有粉丝', value: '6' },
+    { label: '成年人', value: '7' },
+    { label: '附件50km以内', value: '8' }
+  ]
+  const sortOptions = [
+    { label: '在线时间 由近->远', value: '在线时间 由近->远', shape: 'button' },
+    { label: '被关注数 由多->少', value: '被关注数 由多->少', shape: 'button' },
+    { label: '注册时间 由近->远', value: '注册时间 由近->远', shape: 'button' },
+    { label: '注册时间 由远->近', value: '注册时间 由远->近', shape: 'button' }
+  ]
 	const searchInputEvent = (value : string) => {
 		// eslint-disable-next-line no-console
 		console.log('searchInputEvent', value)
@@ -137,13 +141,10 @@
 	}
 </script>
 <style>
-	page {
-		background-color: #0d142e;
-		color: aliceblue;
-	}
-
 	:root,
 	page {
+    background-color: #0d142e;
+    color: aliceblue;
 		--nut-tag-height: 16px;
 		--nut-cell-group-title-font-size: 20px;
 		--nut-cell-group-title-color: #000000;

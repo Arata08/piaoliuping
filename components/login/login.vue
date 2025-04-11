@@ -84,12 +84,6 @@
 						} else if (!User.avatar.startsWith('http')) {
 							User.avatar = config.baseUrl + User.avatar
 						}
-						//根据生日计算年龄
-						const birthday = new Date(User.birthday);
-						const today = new Date();
-						const age = today.getFullYear() - birthday.getFullYear();
-						//存入User
-						User.age = age;
 						uni.setStorageSync('token', response.data.token);
 						uni.setStorageSync('User', User);
 						notify.success("登录成功!");

@@ -224,29 +224,30 @@
               duration: 2000,
             });
             return;
-          }
-          let user1 = data.data;
-          let offline;
-          if (user1.offlineTime===0){
-            offline = "在线"
           }else{
-            //根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
-            let offlineTime = new Date().getTime() - user1.offlineTime;
-            if (offlineTime < 60 * 1000) {
-              offline = "刚刚在线";
-            } else if (offlineTime < 60 * 60 * 1000) {
-              offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
-            } else if (offlineTime < 24 * 60 * 60 * 1000) {
-              offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
-            }
-          }
-          user.offline = offline;
-          user.createTime = user1.createTime;
-					user.avatar = config.staticUrl + user1.avatar;
-					user.address = user1.city + ' ' + user1.area;
+						let user1 = data.data;
+						let offline;
+						if (user1.offlineTime===0){
+							offline = "在线"
+						}else{
+							//根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
+							let offlineTime = new Date().getTime() - user1.offlineTime;
+							if (offlineTime < 60 * 1000) {
+								offline = "刚刚在线";
+							} else if (offlineTime < 60 * 60 * 1000) {
+								offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
+							} else if (offlineTime < 24 * 60 * 60 * 1000) {
+								offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
+							}
+						}
+						user.offline = offline;
+						user.createTime = user1.createTime;
+						user.avatar = config.staticUrl + user1.avatar;
+						user.address = user1.city + ' ' + user1.area;
+						this.selectedUser = user;
+						this.isModalVisible = true;						
+					}
         });
-				this.selectedUser = user;
-				this.isModalVisible = true;
 			},
 			closeModal() {
 				this.isModalVisible = false;

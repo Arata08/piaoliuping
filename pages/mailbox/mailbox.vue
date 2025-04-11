@@ -95,11 +95,13 @@
 				this.showRound = true
 				this.id = id
 			},
-			load(title) {
-				console.log('Title:', title.paneKey);
+			load(t) {
+				console.log('Title:', t);
 				const length = this.list.length;
-				console.log(length)
-				if (title.paneKey === 1 && length < 1) {
+				uni.setNavigationBarTitle({
+					title: t.title
+				})
+				if (t.paneKey === 1 && length < 1) {
 
 				}
 				// 添加你的逻辑

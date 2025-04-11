@@ -1,5 +1,5 @@
 <template>
-	<view style="margin-top: 30px;background-color: black;">
+	<view style="margin-top: 30px;">
 		<nut-steps :current="checkinDays+1">
 			<nut-step title="+10">
 				1
@@ -38,6 +38,9 @@
 	import {
 		useToast
 	} from '@/uni_modules/nutui-uni/components/composables'
+	import { 
+		sign,
+		getSignedDate } from "@/common/api/piaoliupingApi";
 	let baseUrl = config.baseUrl;
 	export default {
 		components: {
@@ -66,12 +69,12 @@
 				integral: 3, // 本次签到获取的积分
 				isIntegral: true, // 是否显示签到积分模块
 				is_day_signin: false,
-				user: []
+				userId: 27
 			}
 		},
 		onLoad() {
-			// 	this.checkToken();
-			// 	this.historysign();
+			this.userId = uni.getStorageSync('User').id;
+			this.historysign();
 			// 	if (wx.createRewardedVideoAd) {
 			// 		rewardedVideoAd = wx.createRewardedVideoAd({
 			// 			adUnitId: 'adunit-306e4c568861fb24'
@@ -86,53 +89,67 @@
 		},
 		methods: {
 			historysign() {
-				this.data = []
-				uni.request({
-						url: baseUrl + '/api/houseApi/getSignedDate/' + this.user.userId,
-						method: 'GET',
-					})
-					.then((response) => {
-						// 请求成功时执行
-						const datesArray = response[1].data;
-						datesArray.forEach(el => {
-							// 需要换成时间戳
-							this.data.push(new Date(el).getTime())
-						});
-						this.checkinDays = this.calculateRecentContinuousCheckinDays(datesArray);
-						this.setIntegralBasedOnCheckinDays();
-					})
-					.catch((error) => {
-						return this.$mytip.toast('暂无签到信息')
-						// 请求失败时执行
-						console.error('Error:', error);
+				getSignedDate().then(res => {
+					console.log(res);
+					res.forEach(date => {
+						// 需要换成时间戳
+						this.data.push(new Date(date).getTime())
 					});
+					this.checkinDays = this.calculateRecentContinuousCheckinDays(res);
+					this.setIntegralBasedOnCheckinDays();
+				});
+
+				// this.data = []
+				// uni.request({
+				// 		url: baseUrl + '/api/houseApi/getSignedDate/' + this.userId,
+				// 		method: 'GET',
+				// 	})
+				// 	.then((response) => {
+				// 		// 请求成功时执行
+				// 		const datesArray = response[1].data;
+				// 		datesArray.forEach(el => {
+				// 			// 需要换成时间戳
+				// 			this.data.push(new Date(el).getTime())
+				// 		});
+				// 		this.checkinDays = this.calculateRecentContinuousCheckinDays(datesArray);
+				// 		this.setIntegralBasedOnCheckinDays();
+				// 	})
+				// 	.catch((error) => {
+				// 		return this.$mytip.toast('暂无签到信息')
+				// 		// 请求失败时执行
+				// 		console.error('Error:', error);
+				// 	});
 			},
 			async signDate(v) {
+				let data = {
+					description: "签到赠送",
+					number: this.integral
+				}
+				sign(data);
 				this.checkinDays = this.checkinDays + 1;
 				this.is_day_signin = true
 			},
 			setIntegralBasedOnCheckinDays() {
 				switch (this.checkinDays) {
 					//现在是连续签到了2天，
-					case 2:
+					case 1:
 						//第三天能获得多少天会员：2
-						this.integral = 2;
+						this.integral = 12;
+						break;
+					case 2:
+						this.integral = 15;
+						break;
+					case 3:
+						this.integral = 20;
+						break;
+					case 5:
+						this.integral = 15;
 						break;
 					case 6:
-						this.integral = 3;
-						break;
-					case 14:
-						this.integral = 5;
-						break;
-					case 24:
-					case 26:
-						this.integral = 2;
-						break;
-					case 29:
-						this.integral = 7;
+						this.integral = 20;
 						break;
 					default:
-						this.integral = 1;
+						this.integral = 10;
 				}
 			},
 			calculateRecentContinuousCheckinDays(dateStrings, currentDate = new Date()) {
@@ -181,21 +198,7 @@
 				}
 
 				return continuousDays;
-			},
-			checkToken() {
-				// 判断是否有token
-				let lifeData = uni.getStorageSync('lifeData');
-				let token = lifeData.vuex_token
-				console.log(token)
-				if (!token) {
-					// 没有token 则跳转到登录
-					return uni.reLaunch({
-						url: '../login/login'
-					})
-				} else {
-					this.user = uni.getStorageSync('lifeData').vuex_user.user;
-				}
-			},
+			}
 		}
 	}
 </script>
@@ -203,9 +206,9 @@
 <style>
 	:root,
 	page{
-		background-color: #000000;
+		background: linear-gradient(180deg, #dcdcdc 5%, #696969 50.06%, #dcdcdc 95%);
 		--nut-steps-base-line-color: #ffffff;
 		--nut-steps-base-title-color: #55aa00;
-		--nut-steps-wait-icon-bg-color: #000000;
+		--nut-steps-wait-icon-bg-color: #55aaff;
 	}
 </style>

@@ -8,6 +8,7 @@
 					<text>注册时间：{{userInfo.createTime}}</text>
 					<text style="color: #33CCFF;">最近登录：{{userInfo.offline}}</text>
 					<text>{{userInfo.address}}</text>
+					<text v-if="userInfo.birthday">生日：{{userInfo.birthday}}</text>
 				</view>
 			</view>
 			<view class="actions">
@@ -19,9 +20,6 @@
 </template>
 
 <script>
-import {
-  getUserInfo
-} from "../../common/api/piaoliupingApi";
 	export default {
 		props: {
 			userInfo: {
@@ -47,11 +45,6 @@ import {
       console.log('show');
     },
 		methods: {
-      getUser(){
-        getUserInfo(this.userInfo.id).then(res => {
-          console.log(res.data);
-        })
-      },
 			blockUser() {
 				console.log('拉黑用户:', this.userInfo.id);
 				// 实现拉黑逻辑

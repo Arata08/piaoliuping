@@ -1,5 +1,5 @@
 {
-    "name" : "星球社交-漂流瓶微信小程序版",
+    "name" : "漂流瓶",
     "appid" : "__UNI__E79A481",
     "description" : "",
     "versionName" : "1.0.0",
@@ -47,13 +47,19 @@
             "urlCheck" : false,
             "minified" : false
         },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "初始化时获取用户的位置信息用于计算用户距离"
+            }
+        },
+				"requiredPrivateInfos": ["getLocation"],
+        "lazyCodeLoading" : "requiredComponents"
         // "plugins" : {
         //     "tencentvideo" : {
         //         "version" : "2.4.11",
         //         "provider" : "wxa75efa648b60994b"
         //     }
         // },
-        "usingComponents" : true
     },
     "mp-alipay" : {
         "usingComponents" : true

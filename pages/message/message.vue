@@ -180,16 +180,13 @@
 						urls: [url]
 					});
 				}else{
-        uni.navigateTo({
-						url: 'preImage?url=' + url
-					});
-					//2秒后关闭
-					setTimeout(() => {
-						// 把图片替换成固定图片
 						console.log(this.list[index]);
 						this.list[index].content = 'https://free4.yunpng.top/2024/12/02/674d2d2380346.png';
-					}, 2000);
+					//2秒后关闭
 					uni.setStorageSync('chatList' + this.friendId, this.list);
+					uni.navigateTo({
+							url: 'preImage?url=' + url
+					});
 				}
       },
       handleClick(rowIndex, colIndex) {
@@ -204,12 +201,10 @@
       },
       inputBlur() {
         console.log('inputBlur');
-        this.paddingBottom = 0;
         this.isFocus = false;
-        this.showEmoji = false;
       },
       changeEmoji() {
-        this.togglePanel(!this.showEmoji, false, 270);
+        this.togglePanel( !this.showEmoji, false, 270);
       },
       MorePanel() {
         this.togglePanel(false, !this.showMorePanel, 200);
@@ -233,6 +228,7 @@
             this.scrollToBottom();
           });
         }
+				console.log('togglePanel', showEmoji, showMorePanel, paddingBottom);
       },
       showKeyboard() {
         uni.onKeyboardHeightChange((res) => {

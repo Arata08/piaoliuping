@@ -28,6 +28,7 @@
 
 <script>
 	import login from '../../components/login/login.vue'
+	import {baseUrl} from "@/common/config";
 	export default {
 		data() {
 			return {
@@ -42,10 +43,32 @@
 			}
 		},
 		onLoad() {
-      //检查登录
       if (!uni.getStorageSync('token')) {
         this.showRound = true
-      }
+      }else{
+				uni.getLocation({
+					type: 'wgs84',
+					success: function (res) {
+						console.log('当前位置的经度：' + res.longitude);
+						console.log('当前位置的纬度：' + res.latitude);
+						uni.request({
+							url: baseUrl + '/user/setUserLocation',
+								method: 'POST',
+								data: {
+									latitude: res.latitude,
+									longitude: res.longitude,
+									userId: uni.getStorageSync('User').id
+								},
+								header: {
+									'token': uni.getStorageSync('token')
+								}
+						})
+					},
+					fail: function (err) {
+						console.log(err)
+					}
+				});
+			}
 			uni.getWindowInfo({
 				success: function (res) {
 					uni.setStorageSync('windowInfo', res)
