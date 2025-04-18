@@ -19,6 +19,7 @@ declare module 'vue' {
     NutConfigProvider: typeof import('nutui-uniapp/components/configprovider/configprovider.vue')['default']
     NutDatePicker: typeof import('nutui-uniapp/components/datepicker/datepicker.vue')['default']
     NutDialog: typeof import('nutui-uniapp/components/dialog/dialog.vue')['default']
+    NutEmpty: typeof import('nutui-uniapp/components/empty/empty.vue')['default']
     NutForm: typeof import('nutui-uniapp/components/form/form.vue')['default']
     NutFormItem: typeof import('nutui-uniapp/components/formitem/formitem.vue')['default']
     NutIcon: typeof import('nutui-uniapp/components/icon/icon.vue')['default']

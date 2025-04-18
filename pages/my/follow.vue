@@ -2,8 +2,9 @@
 	<view>
 		<nut-tabs background="#00s0" v-model="state.tab2value" :auto-height="true" type="smile" swipeable @click="load">
 			<nut-tab-pane title="关注" pane-key="0">
+				<nut-empty ifdescription="无数据" v-if="isList1Empty"></nut-empty>
 				<scroll-view scroll-y="true">
-					<view v-for="(item,index) in list" :key="index">
+					<view v-for="(item,index) in list1" :key="index">
 						<view class="container">
 							<view style="display: flex;flex-direction: row">
 								<view class="nickname">{{ item.nickName }}</view>
@@ -24,14 +25,16 @@
 							</view>
 
 
-							<view style="display: flex;margin-top: 5px">
+							<view style="display: flex;margin-top: 5px;font-size: 23rpx;">
 								粉丝数：{{item.fan}}
 								<text style="margin-left: 20px;">注册天数：{{item.loginDays}}</text>
 							</view>
 							<view class="dazhaohu">
 								<nut-avatar size="large">
-									<image :src="staticUrl + item.avatar" @click="showModal(item)"/>
+									<image :src="staticUrl + item.avatar" @click="showModal(item)" mode="aspectFill" />
 								</nut-avatar>
+								<button class="but" @click="conect(item,index)"><text
+										style="font-size: 27rpx;color: #ebebeb;">私聊</text></button>
 							</view>
 
 						</view>
@@ -39,8 +42,9 @@
 				</scroll-view>
 			</nut-tab-pane>
 			<nut-tab-pane title="拉黑" pane-key="1">
+				<nut-empty ifdescription="无数据" v-if="isList2Empty"></nut-empty>
 				<scroll-view scroll-y="true">
-					<view v-for="(item,index) in list" :key="index">
+					<view v-for="(item,index) in list2" :key="index">
 						<view class="container">
 							<view style="display: flex;flex-direction: row">
 								<view class="nickname">{{ item.nickName }}</view>
@@ -66,10 +70,7 @@
 								<text style="margin-left: 20px;">注册天数：{{item.loginDays}}</text>
 							</view>
 							<view class="dazhaohu">
-								<nut-avatar size="large">
-									<image :src="staticUrl + item.avatar" />
-								</nut-avatar>
-								<button class="but"><text style="font-size: 27rpx;color: #ebebeb;">私聊</text></button>
+								<button class="but" @click="cancleBlank(item.id,index)"><text style="font-size: 27rpx;color: #ebebeb;">取消拉黑</text></button>
 							</view>
 
 						</view>
@@ -77,18 +78,21 @@
 				</scroll-view>
 			</nut-tab-pane>
 		</nut-tabs>
-		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal"
-			:windowWidth="windowWidth" />
+		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal" :windowWidth="windowWidth" />
 	</view>
 </template>
 
 <script setup lang="ts">
 	import UserInfoModal from '@/components/user-detail/user-detail'
-	import { Ref, reactive, ref } from 'vue'
+  import {Ref, reactive, ref, computed} from 'vue'
 	import { staticUrl } from "@/common/config.js"; // 全局配置文件
-	import { getFollowList } from "@/common/api/piaoliupingApi";
+	import {
+		getFollowList,
+		getBlackList,
+		unBlack
+	} from "@/common/api/piaoliupingApi";
 	import method from '../../uni_modules/tuniaoui-vue3/libs/async-validator/validator/method';
-	let list = ref([{
+	let list1 = ref([{
 		id: 1,
 		nickName: '张三',
 		age: 18,
@@ -111,7 +115,8 @@
 		vip: false,
 		createTime: "2022-01-01 00:00:00",
 	}])
-	let windowWidth = ref(uni.getSystemInfoSync().windowWidth * 0.8);
+	let list2 = ref([]);
+	let windowWidth = ref(uni.getStorageSync("SystemInfoSync").windowWidth * 0.8);
 	const state = reactive({
 		tab2value: '0',
 	});
@@ -119,30 +124,53 @@
 	let isModalVisible = ref(false);
 	//获取关注列表
 	getFollowList().then(res => {
-		list.value = res.data
-		console.log(list.value)
+		list1.value = res.data
+	})
+	//获取拉黑列表
+	getBlackList().then(res => {
+		list2.value = res.data
 	})
 	const load = (t) => {
-		console.log('Title:', t);
-		const length = list.length;
 		uni.setNavigationBarTitle({
-		title: t.title
+			title: t.title
 		})
-		if (t.paneKey === 1 && length < 1) {
-		
-		}
-		// 添加你的逻辑
 	}
-  const showModal = (user: Ref<any>) => {
-    let user1 = Object.assign({}, user); // 创建 user 对象的浅拷贝
-    user1.avatar = staticUrl + user1.avatar; // 修改副本的 avatar 属性
+	const showModal = (user : Ref<any>) => {
+		let user1 = Object.assign({}, user); // 创建 user 对象的浅拷贝
+		user1.avatar = staticUrl + user1.avatar; // 修改副本的 avatar 属性
 		console.log(user1)
-    selectedUser.value = user1;
-    isModalVisible.value = true;
-  }
-	const closeModal = () => {
-		isModalVisible.value = false;	
+		selectedUser.value = user1;
+		isModalVisible.value = true;
 	}
+	const closeModal = () => {
+		isModalVisible.value = false;
+	}
+	const conect = (item, index) => {
+		if (!item.avatar.startsWith('http')) {
+			uni.navigateTo({
+				url: `/pages/message/message?nickName=${item.nickName}&avatar=${staticUrl + item.avatar}&friendId=${item.id}`
+			});
+		} else {
+			uni.navigateTo({
+				url: `/pages/message/message?nickName=${item.nickName}&avatar=${item.avatar}&friendId=${item.id}`
+			})
+		}
+	}
+	const cancleBlank = (id: number,index) => {
+		console.log('id')
+		unBlack(id).then(res => {
+			uni.showToast({
+				title: res.data,
+				icon: 'success',
+				duration: 2000,
+			})
+			if (res.code === 200) {
+				list2.value.splice(index, 1);
+			}
+		})
+	}
+  const isList1Empty = computed(() => list1.value.length === 0);
+  const isList2Empty = computed(() => list2.value.length === 0);
 </script>
 
 <style>

@@ -3,6 +3,8 @@
 		<div class="layer2"></div>
 		<div class="layer3"></div>
 		<div class="meteor"></div>
+	<view :style="{ marginTop: statusBarHeight+10 + 'px' }">
+	</view>
 		<view class="userdata">
 			<nut-avatar size="large" class="headimage">
 				<img :src="User.avatar" @click="goToPage('set')" />
@@ -78,7 +80,9 @@
 	</view>
 
 </template>
-
+<script setup>
+	const statusBarHeight = uni.getStorageSync("SystemInfoSync").statusBarHeight
+</script>
 <script>
 	export default {
 		data() {

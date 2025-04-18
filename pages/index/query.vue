@@ -1,15 +1,18 @@
 <template>
+	<view :style="{ marginTop: statusBarHeight + 'px' }">
+		<TnNavbar height="45px" back-text=" " bg-color="#000" text-color="#fff"> 看一看 </TnNavbar>
+	</view>
+  
 	<view>
 		<view class="serch">
-			<TnSearchBox placeholder="查找" border="false" clearable text-color="#f5f5f5" v-model="searchValue"
+			<TnSearchBox placeholder="查找" border="true" text-color="#ffffff" v-model="searchValue"
 				@input="searchInputEvent" @search="searchBtnClickEvent" />
 		</view>
 
 		<view style="display: flex;flex-direction: row;margin: 10px 20px;font-size: 15px;" @click="showRound=true">
-			<image style="width: 25px;height: 25px;" src="/static/shaixuan.png">
-			</image>
+			<image style="width: 17px;height: 17px;margin-top: 2px;margin-right: 3px;" src="/static/shaixuan.png"></image>
 			<text>{{order}}</text>
-			<view style=""><nut-icon name="triangle-down"></nut-icon></view>
+			<nut-icon name="triangle-down"></nut-icon>
 		</view>
 
 		<scroll-view scroll-y="true">
@@ -19,12 +22,11 @@
 						<view>{{ item.nickName }}</view>
 						<view class="gender-age">
 							<nut-tag :type="(item.sex==='male' ? 'primary' : 'warning')" round>
-								<nut-icon :name="'/static/images/' + item.sex + '.png'" color="white"/>
+								<nut-icon :name="'/static/images/' + item.sex + '.png'" color="white" />
 								{{ item.age }}
 							</nut-tag>
 						</view>
-						<image v-if="item.vip" src="/static/my/vipa.png"
-							style="height: 20px;width: 20px;margin-left: 5px"></image>
+						<image v-if="item.vip" src="/static/my/vipa.png" style="height: 20px;width: 20px;margin-left: 5px"></image>
 					</view>
 
 					<view style="display: flex;flex-direction: row;margin-top: 5px">
@@ -36,45 +38,53 @@
 
 					<view style="display: flex;margin-top: 5px">
 						粉丝数：{{item.flow}}
-						<text style="margin-left: 20px;">注册天数：{{item.loginDays}}</text>
+						<text style="margin-left: 20px;">注册天数：{{item.registerDay}}</text>
 					</view>
 
-					<button class="dazhaohu"><text style="font-size: 12px;">打招呼</text><text
-							style="font-size: 10px;margin-top: -12px">-5星币</text></button>
+					<button class="dazhaohu"><text style="font-size: 12px;color: aliceblue;">打招呼</text>
+					<text style="font-size: 10px;margin-top: -12px;color: aliceblue;">-5星币</text></button>
 				</view>
 			</view>
 		</scroll-view>
 
-    <nut-popup position="bottom" round v-model:visible="showRound" closeable>
-      <view style="text-align: center;margin-top: 20px;margin-bottom: 40px;">
-        <view style="display: flex;flex-direction: column;margin-top: -20px">
-          <nut-cell-group title="筛选条件">
-            <nut-checkbox-group v-model="filter" shape="button">
-              <nut-checkbox v-for="(item, index) in filterOptions" :key="index" :label="item.value" shape="button">
-                {{ item.label }}
-              </nut-checkbox>
-            </nut-checkbox-group>
-          </nut-cell-group>
-          <view style="margin-top: -30px">
-            <nut-cell-group title="排序条件">
-              <nut-radio-group v-model="order" direction="horizontal">
-                <nut-radio v-for="(item, index) in sortOptions" :key="index" :shape="item.shape" :label="item.value">
-                  {{ item.label }}
-                </nut-radio>
-              </nut-radio-group>
-            </nut-cell-group>
-          </view>
-        </view>
+		<nut-popup position="bottom" round v-model:visible="showRound" closeable>
+			<view style="text-align: center;margin-top: 20px;margin-bottom: 40px;">
+				<view style="display: flex;flex-direction: column;margin-top: -20px">
+					<nut-cell-group title="筛选条件">
+						<nut-checkbox-group v-model="filter" shape="button">
+							<text>&nbsp;&nbsp;</text>
+							<nut-checkbox v-for="(item, index) in filterOptions" :key="index" :label="item.value" shape="button">
+								{{ item.label }}
+							</nut-checkbox>
+						</nut-checkbox-group>
+					</nut-cell-group>
+					<view style="margin-top: -20px;">
+						<nut-cell-group title="排序条件">
+							<nut-radio-group v-model="order" direction="horizontal">
+								<text>&nbsp;&nbsp;</text>
+								<nut-radio v-for="(item, index) in sortOptions" :key="index" :label="item.value" shape="button">
+									{{ item.label }}
+								</nut-radio>
+							</nut-radio-group>
+						</nut-cell-group>
+					</view>
+				</view>
 
-        <nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)" @click="submit">查找</nut-button>
-      </view>
-    </nut-popup>
+				<nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)"
+					@click="submit">查找</nut-button>
+			</view>
+		</nut-popup>
 	</view>
 </template>
 
 <script setup lang="ts">
+	import TnNavbar from '@/uni_modules/tuniaoui-vue3/components/navbar/src/navbar.vue'
 	import TnSearchBox from '@/uni_modules/tuniaoui-vue3/components/search-box/src/search-box.vue'
 	import { ref } from 'vue'
+	import {
+		getFilterUserList
+	} from "@/common/api/piaoliupingApi";
+	const statusBarHeight = uni.getStorageSync("SystemInfoSync").statusBarHeight
 	const searchValue = ref('')
 	const filter = ref([])
 	const order = ref('排序')
@@ -88,7 +98,7 @@
 		city: '北京',
 		flow: 100,
 		fan: 200,
-		loginDays: 30,
+		registerDay: 30,
 		vip: true,
 	}, {
 		id: 2,
@@ -99,25 +109,25 @@
 		city: '上海',
 		flow: 200,
 		fan: 100,
-		loginDays: 20,
+		registerDay: 20,
 		vip: false,
 	}])
-  const filterOptions = [
-    { label: '在线中', value: '1' },
-    { label: '男生', value: '2' },
-    { label: '女生', value: '3' },
-    { label: 'vip用户', value: '4' },
-    { label: '注册超过3天', value: '5' },
-    { label: '有粉丝', value: '6' },
-    { label: '成年人', value: '7' },
-    { label: '附件50km以内', value: '8' }
-  ]
-  const sortOptions = [
-    { label: '在线时间 由近->远', value: '在线时间 由近->远', shape: 'button' },
-    { label: '被关注数 由多->少', value: '被关注数 由多->少', shape: 'button' },
-    { label: '注册时间 由近->远', value: '注册时间 由近->远', shape: 'button' },
-    { label: '注册时间 由远->近', value: '注册时间 由远->近', shape: 'button' }
-  ]
+	const filterOptions = [
+		{ label: '在线中', value: '1' },
+		{ label: '男生', value: '2' },
+		{ label: '女生', value: '3' },
+		{ label: 'vip用户', value: '4' },
+		{ label: '注册超过3天', value: '5' },
+		{ label: '有粉丝', value: '6' },
+		{ label: '成年人', value: '7' },
+		{ label: '附件50km以内', value: '8' }
+	]
+	const sortOptions = [
+		{ label: '在线时间 由近->远', value: '在线时间 由近->远', },
+		{ label: '被关注数 由多->少', value: '被关注数 由多->少', },
+		{ label: '注册时间 由近->远', value: '注册时间 由近->远', },
+		{ label: '注册时间 由远->近', value: '注册时间 由远->近', }
+	]
 	const searchInputEvent = (value : string) => {
 		// eslint-disable-next-line no-console
 		console.log('searchInputEvent', value)
@@ -134,6 +144,14 @@
 	}
 	function submit() {
 		showRound.value = false
+		console.log(filter.value, order.value)
+		let data = {
+			filter: filter.value,
+			order: order.value,
+		}
+		getFilterUserList(data).then(res => {
+			list.value = res.data
+		});
 		uni.showToast({
 			title: '提交成功',
 			icon: 'none'
@@ -143,11 +161,13 @@
 <style>
 	:root,
 	page {
-    background-color: #0d142e;
-    color: aliceblue;
+		background-color: #000;
+		color: aliceblue;
 		--nut-tag-height: 16px;
 		--nut-cell-group-title-font-size: 20px;
 		--nut-cell-group-title-color: #000000;
+		--nut-checkbox-button-font-size: 15px;
+		--nut-radio-button-font-size: 15px;
 	}
 </style>
 <style scoped>
@@ -172,7 +192,7 @@
 		display: flex;
 		flex-direction: column;
 		margin: 10px 20px;
-		background-color: #151c39;
+		background-color: #121b40;
 		border-radius: 15px;
 		border: rgba(158, 190, 255, 0) 1px solid;
 	}

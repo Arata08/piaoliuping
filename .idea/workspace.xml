@@ -7,19 +7,11 @@
     <list default="true" id="27067413-540f-492f-8291-4fb0d7c19073" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/api/piaoliupingApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/api/piaoliupingApi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/login/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/user-detail/user-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/user-detail/user-detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/meslist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/meslist.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/my.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/my.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/query.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/query.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/message/message.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/message/message.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/my/follow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/follow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/set.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/set.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/sign.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/sign.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/my/identity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/identity.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +122,7 @@
       <workItem from="1743383247324" duration="8281000" />
       <workItem from="1743404566961" duration="7116000" />
       <workItem from="1744357041299" duration="4089000" />
+      <workItem from="1744697396084" duration="4488000" />
     </task>
     <servers />
   </component>

@@ -101,7 +101,7 @@ export function delOfflineMessage() {
 		throw error;
 	}
 }
-export function delOffChatList(){
+export function delOffChatList() {
 	try {
 		return request({
 			url: 'chat/delChatMsg/' + uni.getStorageSync('User').id,
@@ -140,14 +140,14 @@ export function uploadFile(filePath) {
 export function getFollowList() {
 	try {
 		return request({
-			url: 'fanBlack/getFollowList/' + uni.getStorageSync('User').id,
+			url: 'fanBlack/getFollowList',
 			method: 'POST',
 			custom: {
 				showError: false,
 				showLoading: true,
 			},
 		});
-	} catch (error){
+	} catch (error) {
 		console.error(error);
 		throw error;
 	}
@@ -164,8 +164,7 @@ export function getSelfInfo() {
 				showLoading: true,
 			},
 		});
-	} catch (error)
-	{
+	} catch (error) {
 		console.error(error);
 		throw error;
 	}
@@ -182,8 +181,7 @@ export function sign(data) {
 				showLoading: true,
 			},
 		});
-	} catch (error)
-	{
+	} catch (error) {
 		console.error(error);
 		throw error;
 	}
@@ -199,8 +197,140 @@ export function getSignedDate() {
 				showLoading: true,
 			},
 		});
-	} catch (error)
-	{
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+//关注
+export function follow(data) {
+	try {
+		return request({
+			url: 'fanBlack/follow',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//拉黑
+export function black(data) {
+	try {
+		return request({
+			url: 'fanBlack/black/' + data,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//拉黑列表
+export function getBlackList() {
+	try {
+		return request({
+			url: 'fanBlack/getBlackList',
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//检查自己是否被拉黑
+export function checkBlack(data) {
+	try {
+		return request({
+			url: 'fanBlack/isBlack/' + data,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//取消拉黑
+export function unBlack(data) {
+	try {
+		return request({
+			url: 'fanBlack/unBlack/' + data,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//扣除余额
+export function payBalance(data) {
+	try {
+		return request({
+			url: 'pay/payBalance',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+export function getFilterUserList(data) {
+	try {
+		return request({
+			url: 'user/getUserList',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+//举报
+export function accusation(data) {
+	try {
+		return request({
+			url: 'user/accusation',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
 		console.error(error);
 		throw error;
 	}

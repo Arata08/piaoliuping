@@ -43,6 +43,7 @@
 			}
 		},
 		onLoad() {
+			uni.setStorageSync("SystemInfoSync",uni.getSystemInfoSync())
       if (!uni.getStorageSync('token')) {
         this.showRound = true
       }else{

@@ -1,4 +1,6 @@
 <template>
+	<view :style="{ marginTop: statusBarHeight+40 + 'px' }">
+	</view>
 	<view class="container">
 		<!--由远到近5个层次星空-->
 		<div class="layer1"></div>
@@ -10,7 +12,7 @@
 		<view class="list-item" v-for="(item,index) in msgList" :key="index" @click="connect(item,index)">
 			<view class="avatar" @click.stop="showModal(item)">
 				<view class="round" v-if="item.read"></view>
-				<image :src="item.avatar" mode="widthFix"></image>
+				<image :src="item.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="content">
 				<view class="title">
@@ -20,11 +22,9 @@
 				<view class="txt">{{ item.lastMsg }}</view>
 			</view>
 		</view>
-		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal"
-			:windowWidth="windowWidth" />
+		<UserInfoModal :userInfo="selectedUser" :visible="isModalVisible" @close="closeModal" :windowWidth="windowWidth" />
 	</view>
 </template>
-
 <script>
 	import UserInfoModal from '@/components/user-detail/user-detail'
 	import webSocketManager from '@/common/websocketManager'
@@ -50,10 +50,11 @@
 				windowWidth: 0,
 				socket: null,
         get: true,
+				statusBarHeight: uni.getStorageSync("SystemInfoSync").statusBarHeight || 0
 			};
 		},
     onLoad() {
-        this.msgList = uni.getStorageSync("msgList") || [];
+				this.msgList = uni.getStorageSync("msgList") || [];
         webSocketManager.connectWebSocket();
         EventBus.on('updateMsgList', this.updateMsgList); // 在组件创建时监听消息更新事件
         EventBus.on('updateReadStatus', this.updateReadStatus); // 监听 read 状态更新事件
@@ -65,13 +66,16 @@
         EventBus.off('updateReadStatus', this.updateReadStatus); // 移除 read 状态更新事件监听
     },
 		onShow() {
+			console.log("msgonShow")
+			let msgList = uni.getStorageSync("msgList")
+			console.log(msgList)
 			if (!uni.getStorageSync('User')) {
 				//返回主页
 				uni.switchTab({
 					url: '/pages/index/index',
 				});
 			} else {
-				this.windowWidth = uni.getSystemInfoSync().windowWidth * 0.8;
+				this.windowWidth = uni.getStorageSync("SystemInfoSync").windowWidth * 0.8;
         //获取离线消息列表
         if (this.get){
           this.getOfflineMessage();
@@ -198,7 +202,7 @@
       },
 			updateReadStatus(friendId) {
         console.log('updateReadStatus', friendId);
-            let msgList = this.msgList;
+            let msgList = uni.getStorageSync('msgList');
             for (let i = 0; i < msgList.length; i++) {
                 if (msgList[i].id === friendId) {
                     msgList[i].read = 0;
@@ -216,34 +220,20 @@
 				});
 			},
 			showModal(user) {
-        getUserInfo(user.id).then(data => {
-          if (data.code !== 200) {
+        getUserInfo(user.id).then(res => {
+          if (res.code !== 200) {
             uni.showToast({
-              title: data.msg,
+              title: res.msg,
               icon: 'none',
               duration: 2000,
             });
             return;
           }else{
-						let user1 = data.data;
-						let offline;
-						if (user1.offlineTime===0){
-							offline = "在线"
-						}else{
-							//根据时间戳user.offlineTime（单位为毫秒）计算多久前在线offline
-							let offlineTime = new Date().getTime() - user1.offlineTime;
-							if (offlineTime < 60 * 1000) {
-								offline = "刚刚在线";
-							} else if (offlineTime < 60 * 60 * 1000) {
-								offline = Math.floor(offlineTime / (60 * 1000)) + "分钟前在线";
-							} else if (offlineTime < 24 * 60 * 60 * 1000) {
-								offline = Math.floor(offlineTime / (60 * 60 * 1000))+ "小时前在线";
-							}
-						}
-						user.offline = offline;
+						let user1 = res.data;
 						user.createTime = user1.createTime;
 						user.avatar = config.staticUrl + user1.avatar;
 						user.address = user1.city + ' ' + user1.area;
+						user.nickName = user1.nickName;
 						this.selectedUser = user;
 						this.isModalVisible = true;						
 					}
@@ -290,6 +280,9 @@
 
 
 <style>
+	.nabar{
+		margin-top: uni.getStorageSync("SystemInfoSync").statusBarHeight;
+	}
 	page {
 		height: 100%;
 		width: 100%;

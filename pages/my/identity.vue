@@ -4,7 +4,7 @@
 			您的手机号：<input class="input1" type="text" v-model="phone" disabled="true" />
 			<input class="content" type="text" placeholder="请输入您的身份证号" v-model="idCard" />
 		</view>
-		<view class="save" v-if="!idCard">
+		<view class="save" v-if="!havaCard">
 			<view class="btn" style="background:red" @click="save">保存</view>
 		</view>
 		<nut-dialog no-cancel-btn title="温馨提示" :content="content" v-model:visible="visible" />
@@ -22,6 +22,7 @@
 		editUser
 	} from "@/common/api/piaoliupingApi"; // 全局配置文件
 
+	const havaCard = ref(false)
 	const idCard = ref('')
 	const visible = ref(false);
 	const content = ref('');
@@ -29,7 +30,8 @@
 
 	let User = uni.getStorageSync('User')
 	const setUpload = () => {
-		if (User.idCard) {
+		setData();
+		if (havaCard.value) {
 			content.value = '只能认证一次哦！'
 			visible.value = true;
 			setTimeout(() => {
@@ -41,7 +43,6 @@
 			content.value = '谨慎填写，只能认证一次哦！'
 			visible.value = true;
 		}
-		setData();
 	};
 
 	const save = () => {
@@ -60,6 +61,7 @@
 			if (res.code === 200) {
 				content.value = '身份认证成功,您的性别为：' + (User.sex === 'male' ? '男!' : '女!');
 				visible.value = true;
+				uni.setStorageSync('User', User)
 				setTimeout(() => {
 					uni.navigateBack({
 						delta: 1
@@ -74,6 +76,7 @@
 
 	const setData = () => {
 		idCard.value = User.idCard;
+		havaCard.value = User.idCard ? true : false;
 		phone.value = User.phoneNumber;
 	}
 

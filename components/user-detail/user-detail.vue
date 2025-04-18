@@ -3,7 +3,7 @@
 	<view class="modal" v-if="visible" @click="closeModal">
 		<view class="modal-content" @click.stop>
 			<view class="user-info" :style="{width:windowWidth+'px'}">
-				<image :src="userInfo.avatar" class="avatar"></image>
+				<image :src="userInfo.avatar" class="avatar" mode="aspectFill"></image>
 				<view class="info">
 					<text>注册时间：{{userInfo.createTime}}</text>
 					<text style="color: #33CCFF;">最近登录：{{userInfo.offline}}</text>
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+	import {
+		black
+	} from "@/common/api/piaoliupingApi";
 	export default {
 		props: {
 			userInfo: {
@@ -40,19 +43,25 @@
 			return {}
 		},
 		onLoad() {},
-    onShow(){
-      this.getUser();
-      console.log('show');
-    },
+		onShow() {
+			this.getUser();
+			console.log('show');
+		},
 		methods: {
 			blockUser() {
-				console.log('拉黑用户:', this.userInfo.id);
-				// 实现拉黑逻辑
+				black(this.userInfo.id).then(res => {
+					uni.showToast({
+						title: res.data,
+						icon: 'none',
+						duration: 2000,
+					});
+				});
 				this.$emit('close');
 			},
 			reportUser() {
-				console.log('举报用户:', this.userInfo.id);
-				// 实现举报逻辑
+				uni.navigateTo({
+						url: '/pages/message/accusation?userId=' + this.userInfo.id + '&nickName=' + this.userInfo.nickName,
+				});
 				this.$emit('close');
 			},
 			closeModal() {
@@ -62,7 +71,6 @@
 	}
 </script>
 <style scoped>
-
 	.modal {
 		position: fixed;
 		top: 0;
@@ -75,7 +83,7 @@
 	}
 
 	.modal-content {
-		background: #e4e4e4e6;
+		background: #dbdbdbe6;
 		padding: 20px;
 		border-radius: 10px;
 		text-align: center;
@@ -99,6 +107,7 @@
 	.avatar {
 		width: 70px;
 		height: 70px;
+		margin-top: 5%;
 		border-radius: 50%;
 	}
 

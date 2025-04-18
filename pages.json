@@ -25,7 +25,7 @@
     {
       "path": "pages/index/my",
       "style": {
-        "navigationBarTitleText": "我的",
+				"navigationStyle": "custom",
         "enablePullDownRefresh": false
       }
     },
@@ -51,14 +51,13 @@
     {
       "path": "pages/index/meslist",
       "style": {
-        "navigationBarTitleText": "消息列表",
+				"navigationStyle": "custom",
         "enablePullDownRefresh": false
       }
     },
     {
       "path": "pages/message/message",
       "style": {
-        "navigationBarTitleText": "消息",
         "enablePullDownRefresh": false
       }
     },
@@ -116,7 +115,7 @@
     {
       "path": "pages/index/query",
       "style": {
-        "navigationBarTitleText": "看一看",
+				"navigationStyle": "custom",
         "enablePullDownRefresh": false
       }
     },
@@ -140,17 +139,23 @@
     	{
     		"navigationBarTitleText" : "我的关注"
     	}
+    },
+    {
+    	"path" : "pages/message/accusation",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "举报"
+    	}
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "漂流瓶",
-    "backgroundColor": "#000000"
+    "navigationBarTitleText": "漂流瓶"
   },
   "tabBar": {
     "color": "#ffffff",
     "selectedColor": "#2979ff",
-    "backgroundColor": "#000000",
+    "backgroundColor": "#000",
     "list": [
       {
         "pagePath": "pages/index/index",
