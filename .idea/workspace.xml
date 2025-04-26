@@ -8,10 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/api/piaoliupingApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/api/piaoliupingApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/meslist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/meslist.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/message/message.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/message/message.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/follow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/follow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/my/identity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/my/identity.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/my.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/my.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/query.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/query.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mailbox/inbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mailbox/inbox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mailbox/mailbox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/message/accusation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/message/accusation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/send/send.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/send/send.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Documents/GitHub/cx-plp/piaoliuping/static/meslist&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documents/GitHub/portal-security-ui&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -123,6 +128,12 @@
       <workItem from="1743404566961" duration="7116000" />
       <workItem from="1744357041299" duration="4089000" />
       <workItem from="1744697396084" duration="4488000" />
+      <workItem from="1745225413002" duration="15000" />
+      <workItem from="1745377431526" duration="56000" />
+      <workItem from="1745572699867" duration="379000" />
+      <workItem from="1745574982475" duration="3244000" />
+      <workItem from="1745643820784" duration="924000" />
+      <workItem from="1745669735648" duration="474000" />
     </task>
     <servers />
   </component>

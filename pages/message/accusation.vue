@@ -50,7 +50,27 @@
 					content: this.content,
 					chat: chatList
 				}
-				accusation(data).then(res => {})
+				accusation(data).then(res => {
+					if (res.code === 200) {
+						uni.showToast({
+							title: '举报成功',
+							icon: 'success',
+							duration: 1500,
+						})
+						//1.5s后返回上一页
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1,
+							})
+						}, 1500)
+					}else{
+						uni.showToast({
+							title: res.msg,
+							icon: 'error',
+							duration: 2000,
+						})
+					}
+				})
 			}
 		}
 	}

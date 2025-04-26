@@ -3,11 +3,10 @@
 		<div class="layer2"></div>
 		<div class="layer3"></div>
 		<div class="meteor"></div>
-	<view :style="{ marginTop: statusBarHeight+10 + 'px' }">
-	</view>
+		<view :style="{ marginTop: statusBarHeight+10 + 'px' }"></view>
 		<view class="userdata">
 			<nut-avatar size="large" class="headimage">
-				<img :src="User.avatar" @click="goToPage('set')" />
+				<img :src="staticUrl+User.avatar" @click="goToPage('set')" />
 			</nut-avatar>
 			<view class="userinfo">
 				<view class="nicknametags">
@@ -20,7 +19,7 @@
 				<view class="userid"> ID {{User.id}} </view>
 				<view class="progress">
 					<view class="leveltext"> Lv{{User.level}} </view>
-					<nut-progress :percentage="User.experience" :show-text="false" />
+					<nut-progress :percentage="User.experience" :show-text="true" stroke-width="15" stroke-color="linear-gradient(90deg, rgba(180,236,81,1) 0%,rgba(66,147,33,1) 100%)" status="active"/>
 				</view>
 			</view>
 		</view>
@@ -84,6 +83,10 @@
 	const statusBarHeight = uni.getStorageSync("SystemInfoSync").statusBarHeight
 </script>
 <script>
+	import {staticUrl} from "@/common/config.js"; // 全局配置文件
+	import {
+		getSelfInfo
+	} from "@/common/api/piaoliupingApi";
 	export default {
 		data() {
 			return {
@@ -110,7 +113,11 @@
 			setData() {
 				let user = uni.getStorageSync('User');
 				if (user) {
-					Object.assign(this.User, user); // 使用 Object.assign 更新属性而不是直接赋值
+					getSelfInfo().then(res => {
+						this.User = res.data
+						uni.setStorageSync('User', res.data)
+					Object.assign(this.User, res.data); // 使用 Object.assign 更新属性而不是直接赋值
+					})
 				}else{
 					//返回主页
 					uni.switchTab({
@@ -336,7 +343,7 @@
 	}
 
 	.leveltext {
-		margin-right: 15rpx;
+		margin-right: 30rpx;
 		font-size: $fontSizeSmall;
 		color: #FFFF66;
 	}

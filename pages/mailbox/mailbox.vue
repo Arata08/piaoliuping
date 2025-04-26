@@ -1,7 +1,8 @@
 <template>
 	<nut-tabs background="#00s0" v-model="state.tab2value" :auto-height="true" type="smile" swipeable @click="load">
 		<nut-tab-pane title="收件箱" pane-key="0">
-			<view class="container" v-for="(item, index) in list" :key="index">
+			<nut-empty ifdescription="无数据" v-if="isList1Empty"></nut-empty>
+			<view class="container" v-for="(item, index) in list1" :key="index">
 				<view class="item">
 					<view class="avatar">
 						<nut-avatar size="large">
@@ -16,7 +17,7 @@
 								{{ item.Age }}岁
 							</nut-tag>
 							<image :src="'/static/mailbox/LV' + item.Level +'.png'"
-								style="height: 23px;width: 47px;margin-left: 2px;">
+								style="height: 20px;width: 43px;margin-left: 2px;">
 							</image>
 						</view>
 						<view class="text datetime">{{ item.Datetime }}</view>
@@ -25,12 +26,26 @@
 						@click="show(item.UserId)"></nut-icon>
 				</view>
 				<view class="text content">
-					{{ item.Content }}
-					<image v-if="item.ContentImage!=null" style="height: 250px;margin-top: 10px;" mode="aspectFit" :src="item.ContentImage"></image>
+					{{ item.content }}
+					<image v-if="item.ContentImage" style="height: 250px;margin-top: 5px;" mode="aspectFit" :src="item.imagePath"></image>
 				</view>
 			</view>
 		</nut-tab-pane>
-		<nut-tab-pane title="发件箱" pane-key="1"> Tab 2 </nut-tab-pane>
+		<nut-tab-pane title="发件箱" pane-key="1">
+			<nut-empty ifdescription="无数据" v-if="isList2Empty"></nut-empty>
+			<view v-for="(item, index) in list2" :key="index">
+				<view class="container">
+					<view class="text content">
+						<text style="color: #fff;">{{ item.content }}</text>
+						<image v-if="item.imagePath" style="height: 250px;margin-top: 5px;" mode="aspectFit" :src="item.imagePath"></image>
+					</view>
+					<view style="display: flex; justify-content: flex-end;font-size: 20rpx;">
+						<text style="color: #eeeeee;">{{item.creatTime}}</text>
+					</view>
+				</view>
+				<view style="height: 15rpx;"></view>
+			</view>
+		</nut-tab-pane>
 	</nut-tabs>
 	<nut-popup position="bottom" round v-model:visible="showRound" closeable>
 		<view style="text-align: center;margin-top: 60px;margin-bottom: 40px;">
@@ -42,37 +57,45 @@
 </template>
 
 <script>
+	import { staticUrl } from "@/common/config.js"; // 全局配置文件
+	import { mapState } from 'vuex';
 	import {
 		reactive
 	} from 'vue';
+	import {
+		getMyLetter
+	} from "@/common/api/piaoliupingApi";
 	export default {
 		setup() {
 			const state = reactive({
 				tab2value: '0',
 			});
-
 			return {
 				state
 			};
 		},
 		data() {
 			return {
+				User:{},
+				isList1Empty: false,
+				isList2Empty: false,
 				female: "/static/images/female.png",
 				male: "/static/images/male.png",
 				scrollHeight: "100px",
 				showRound: false,
-				list: [{
-					UserId: 1,
+				list1: [{
+					id:1,
+					userId: 1,
 					Avatar: 'https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png',
 					Nickname: '明月几时有',
-					Content: '蜀道难难于上青天',
-					ContentImage: '../../static/test.png',
+					content: '蜀道难难于上青天',
+					imagePath: '../../static/test.png',
 					Gender: 'male',
 					Age: 32,
 					Level: 4,
 					Datetime: '12月5日',
 				}],
-				list2: [{}],
+				list2: [],
 				id: 0
 			}
 		},
@@ -83,6 +106,17 @@
 					s.scrollHeight = res.windowHeight + "px";
 				},
 			});
+			this.isList1Empty = this.list1.length<1;
+			this.isList2Empty = this.list2.length<1;
+			getMyLetter().then(res => {
+					this.list2 = res.data
+					this.list2.forEach(item => {
+						if (item.imagePath) {
+							item.imagePath = staticUrl + item.imagePath
+						}
+					})
+					this.isList2Empty = this.list2.length<1;
+				})
 		},
 		methods: {
 			toBox(name) {
@@ -96,20 +130,18 @@
 				this.id = id
 			},
 			load(t) {
-				console.log('Title:', t);
-				const length = this.list.length;
 				uni.setNavigationBarTitle({
 					title: t.title
 				})
-				if (t.paneKey === 1 && length < 1) {
-
-				}
-				// 添加你的逻辑
 			},
 			jubao() {
 				console.log("举报" + this.id)
 				this.showRound = false
-			},
+				uni.navigateTo({
+						url: '/pages/message/accusation?userId=' + this.userInfo.id + '&nickName=' + this.userInfo.nickName,
+				});
+				this.$emit('close');
+			}
 		}
 	}
 </script>
@@ -137,7 +169,7 @@
 	.container {
 		background-color: #000;
 		padding: 10px;
-		box-shadow: 0px 0px 11px #ccc;
+		box-shadow: 0px 0px 5px #ccc;
 		border-radius: 31px;
 		border-width: 0px;
 		border-style: solid;

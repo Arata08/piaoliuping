@@ -29,6 +29,7 @@ declare module 'vue' {
     NutProgress: typeof import('nutui-uniapp/components/progress/progress.vue')['default']
     NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
     NutRadioGroup: typeof import('nutui-uniapp/components/radiogroup/radiogroup.vue')['default']
+    NutRange: typeof import('nutui-uniapp/components/range/range.vue')['default']
     NutStep: typeof import('nutui-uniapp/components/step/step.vue')['default']
     NutSteps: typeof import('nutui-uniapp/components/steps/steps.vue')['default']
     NutSwitch: typeof import('nutui-uniapp/components/switch/switch.vue')['default']

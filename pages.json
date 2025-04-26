@@ -49,6 +49,13 @@
       }
     },
     {
+      "path": "pages/mailbox/inbox",
+      "style": {
+        "navigationBarTitleText": "收件详情",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/index/meslist",
       "style": {
 				"navigationStyle": "custom",

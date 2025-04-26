@@ -16,6 +16,7 @@
 		</view>
 
 		<scroll-view scroll-y="true">
+			<nut-empty ifdescription="无数据" v-if="isListEmpty"></nut-empty>
 			<view v-for="(item,index) in list" :key="index">
 				<view class="container">
 					<view style="display: flex;flex-direction: row">
@@ -37,7 +38,7 @@
 
 
 					<view style="display: flex;margin-top: 5px">
-						粉丝数：{{item.flow}}
+						粉丝数：{{item.flower}}
 						<text style="margin-left: 20px;">注册天数：{{item.registerDay}}</text>
 					</view>
 
@@ -78,9 +79,11 @@
 </template>
 
 <script setup lang="ts">
+	import {baseUrl} from "@/common/config";
+	import { onLoad } from '@dcloudio/uni-app'
 	import TnNavbar from '@/uni_modules/tuniaoui-vue3/components/navbar/src/navbar.vue'
 	import TnSearchBox from '@/uni_modules/tuniaoui-vue3/components/search-box/src/search-box.vue'
-	import { ref } from 'vue'
+	import { computed, ref } from 'vue'
 	import {
 		getFilterUserList
 	} from "@/common/api/piaoliupingApi";
@@ -96,7 +99,7 @@
 		sex: 'male',
 		offline: "3秒前在线",
 		city: '北京',
-		flow: 100,
+		flower: 100,
 		fan: 200,
 		registerDay: 30,
 		vip: true,
@@ -107,7 +110,7 @@
 		sex: 'female',
 		offline: "3秒前在线",
 		city: '上海',
-		flow: 200,
+		flower: 200,
 		fan: 100,
 		registerDay: 20,
 		vip: false,
@@ -127,7 +130,35 @@
 		{ label: '被关注数 由多->少', value: '被关注数 由多->少', },
 		{ label: '注册时间 由近->远', value: '注册时间 由近->远', },
 		{ label: '注册时间 由远->近', value: '注册时间 由远->近', }
-	]
+	];
+	onLoad(() => {
+	  console.log('页面加载')
+		getFilterUserList().then(res => {
+			list.value = res.data
+		});
+		uni.getLocation({
+			type: 'wgs84',
+			success: function (res) {
+				console.log('当前位置的经度：' + res.longitude);
+				console.log('当前位置的纬度：' + res.latitude);
+				uni.request({
+					url: baseUrl + '/user/setUserLocation',
+						method: 'POST',
+						data: {
+							latitude: res.latitude,
+							longitude: res.longitude,
+							userId: uni.getStorageSync('User').id
+						},
+						header: {
+							'token': uni.getStorageSync('token')
+						}
+				})
+			},
+			fail: function (err) {
+				console.log(err)
+			}
+		});
+	})
 	const searchInputEvent = (value : string) => {
 		// eslint-disable-next-line no-console
 		console.log('searchInputEvent', value)
@@ -157,6 +188,7 @@
 			icon: 'none'
 		})
 	}
+	const isListEmpty = computed(() => list.value.length === 0);
 </script>
 <style>
 	:root,

@@ -234,6 +234,7 @@
 						user.avatar = config.staticUrl + user1.avatar;
 						user.address = user1.city + ' ' + user1.area;
 						user.nickName = user1.nickName;
+						user.offline = user1.offline;
 						this.selectedUser = user;
 						this.isModalVisible = true;						
 					}

@@ -303,8 +303,42 @@ export function payBalance(data) {
 }
 export function getFilterUserList(data) {
 	try {
+		if(data){
+			return request({
+				url: 'user/getUserList',
+				method: 'POST',
+				data,
+				custom: {
+					showError: false,
+					showLoading: true,
+				},
+			});
+		}else{
+			let data = {
+				filter: null,
+				order: null,
+			}
+			return request({
+				url: 'user/getUserList',
+				method: 'POST',
+				data,
+				custom: {
+					showError: false,
+					showLoading: true,
+				},
+			});
+		}
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+//举报
+export function accusation(data) {
+	try {
 		return request({
-			url: 'user/getUserList',
+			url: 'user/accusation',
 			method: 'POST',
 			data,
 			custom: {
@@ -318,11 +352,42 @@ export function getFilterUserList(data) {
 	}
 }
 
-//举报
-export function accusation(data) {
+export function addLetter(data) {
 	try {
 		return request({
-			url: 'user/accusation',
+			url: 'letter/add',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+export function getMyLetter() {
+	try {
+		return request({
+			url: 'letter/getMyLetter',
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+export function getLetter(data) {
+	try {
+		return request({
+			url: 'letter/getLetter',
 			method: 'POST',
 			data,
 			custom: {
