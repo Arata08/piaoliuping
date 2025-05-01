@@ -6,7 +6,7 @@
 		<view :style="{ marginTop: statusBarHeight+10 + 'px' }"></view>
 		<view class="userdata">
 			<nut-avatar size="large" class="headimage">
-				<img :src="staticUrl+User.avatar" @click="goToPage('set')" />
+				<img :src="staticUrl+User.avatar" @click="goToPage('set')" mode="aspectFill"/>
 			</nut-avatar>
 			<view class="userinfo">
 				<view class="nicknametags">
@@ -29,11 +29,13 @@
 					<view class="number">{{User.balance}}</view>
 					<view class="name"> 星币 </view>
 				</view>
-				<view class="statitem" @click="goToPage('charm')">
+				<!-- <view class="statitem" @click="goToPage('charm')"> -->
+				<view class="statitem">
 					<view class="number" style="color: darkorchid;"> {{User.meili}} </view>
 					<view class="name"> 魅力值 </view>
 				</view>
-				<view class="statitem" @click="goToPage('vip')" style="color: gold">
+				<!-- <view class="statitem" @click="goToPage('vip')" style="color: gold"> -->
+				<view class="statitem" style="color: gold">
 					<view class="number"> {{User.vip}} </view>
 					<view class="name"> 剩余会员 </view>
 				</view>
@@ -45,11 +47,11 @@
 		</view>
 		<view class="btns">
 			<nut-cell-group>
-				<nut-cell title="看广告领奖励" desc="+10猫币" is-link>
+<!-- 				<nut-cell title="看广告领奖励" desc="+10猫币" is-link>
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/奖励.png"></image>
 					</template>
-				</nut-cell>
+				</nut-cell> -->
 				<nut-cell title="每日签到" is-link @click="goToPage('sign')">
 					<template #icon>
 						<image class="nut-icon" src="../../static/my/已签到.png"></image>

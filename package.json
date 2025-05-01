@@ -7,12 +7,6 @@
     "keywords": [
         "社交,漂流瓶,微信"
     ],
-    "dcloudext": {
-        "category": [
-            "uni-app前端模板",
-            "uni-app前端项目模板"
-        ]
-    },
     "dependencies": {
         "mitt": "^3.0.1",
         "nutui-uniapp": "^1.8.3"

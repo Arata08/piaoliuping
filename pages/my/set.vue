@@ -5,7 +5,7 @@
 			<view class="content">
 				<view style="margin: 30px auto;">
 					<nut-avatar size="100">
-						<image :src="User.avatar" />
+						<image :src="User.avatar" mode="aspectFill"/>
 					</nut-avatar>
 					<nut-uploader @delete="handleUploadDelete" @success="handleUploadSuccess" is-preview="false"
 						@failure="handleUploadFailure" :url="uploadUrl" :headers="headers" maximum="1"></nut-uploader>
@@ -217,6 +217,7 @@
             if (User.avatar.startsWith('/')) {
               User.avatar = config.staticUrl + User.avatar;
             }
+						console.log(User)
             uni.setStorageSync('User', User);
             if (u) {
               setTimeout(() => {
@@ -254,7 +255,6 @@
         }
         localBirth.value = new Date(User.birthday).toLocaleDateString();
         value.value = User.sex === 'male' ? 1 : 2;
-        console.log(User);
       }
 
 			setUpload();

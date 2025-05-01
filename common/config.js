@@ -1,12 +1,12 @@
 // 全局配置文件
-// let baseUrl = 'https://ht.lilihouse.cn';
-// let staticUrl = 'https://ht.lilihouse.cn';
-// let baseUrl = 'https://book.lilihouse.cn';
-// let staticUrl = 'https://book.lilihouse.cn';
-export let baseUrl = 'http://localhost:8091';
-export let staticUrl = 'http://localhost:8091';
-export let uploadUrl = 'http://127.0.0.1:8091/common/upload';
-export let webSocket = 'ws://localhost:8091/ws/statusAndChat';
+export let baseUrl = 'http://plpback.lilihouse.cn';
+export let staticUrl = 'http://plpback.lilihouse.cn/';
+export let uploadUrl = 'http://plpback.lilihouse.cn//common/upload';
+export let webSocket = 'wss://plpback.lilihouse.cn/ws/statusAndChat';
+// export let baseUrl = 'http://localhost:8091';
+// export let staticUrl = 'http://localhost:8091';
+// export let uploadUrl = 'http://127.0.0.1:8091/common/upload';
+// export let webSocket = 'ws://localhost:8091/ws/statusAndChat';
 export let apiPath = '/';
 // 版本号 用于更新
 let version = 0;

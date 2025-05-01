@@ -42,8 +42,10 @@
 						<text style="margin-left: 20px;">注册天数：{{item.registerDay}}</text>
 					</view>
 
-					<button class="dazhaohu"><text style="font-size: 12px;color: aliceblue;">打招呼</text>
-					<text style="font-size: 10px;margin-top: -12px;color: aliceblue;">-5星币</text></button>
+					<button class="dazhaohu" @click="conect(item)">
+						<text style="font-size: 12px;color: aliceblue;">打招呼</text>
+						<text style="font-size: 10px;margin-top: -12px;color: aliceblue;">-5星币</text>
+					</button>
 				</view>
 			</view>
 		</scroll-view>
@@ -186,6 +188,11 @@
 		uni.showToast({
 			title: '提交成功',
 			icon: 'none'
+		})
+	}
+	const conect = (item: { nickName: String; avatar: String; id: number; }) => {
+		uni.navigateTo({
+			url: `/pages/message/message?nickName=${item.nickName}&avatar=${item.avatar}&friendId=${item.id}`
 		})
 	}
 	const isListEmpty = computed(() => list.value.length === 0);

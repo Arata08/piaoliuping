@@ -1,6 +1,7 @@
 <template>
 	<view class="index-box">
-		<nut-dialog title="温馨提示" content="高级筛选仅vip可选" v-model:visible="visible1" @ok="onOk" ok-text="立即开通" cancel-text="稍后再去"/>
+		<nut-dialog title="温馨提示" content="高级筛选仅vip可选" v-model:visible="visible1" @ok="onOk" ok-text="立即开通"
+			cancel-text="稍后再去" />
 		<view :style="{ marginTop: statusBarHeight+10 + 'px' }" class="nav" @click="showBasic = true">
 			<nut-icon custom-color="#ffffff" name="horizontal-n"></nut-icon>
 			<text style="color: #fff;margin-left: 5rpx; font-size: 32rpx;">筛选</text>
@@ -41,6 +42,9 @@
 		<view class="index">
 			<view>缘分天注定,七分靠打拼</view>
 			<view>在这里遇到同频的TA</view>
+			<view style="height: 150px;width: 150px;margin-top: 360rpx;">
+				<image v-show="isLoding" src="/static/query4.gif" style="height: 150px;width: 150px;"></image>
+			</view>
 		</view>
 		<view class="btns">
 			<nut-animate type="jump" :loop="true">
@@ -68,20 +72,61 @@
 					</nut-checkbox-group>
 				</nut-cell-group>
 			</view>
-			<nut-button size="large" custom-color="linear-gradient(to right, #a1a1a1, #585858)" @click="submit2()">取消选择(圈子不限)</nut-button>
-			<nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)" @click="submit1()">确定</nut-button>
+			<nut-button size="large" custom-color="linear-gradient(to right, #a1a1a1, #585858)"
+				@click="submit2()">取消选择(圈子不限)</nut-button>
+			<nut-button size="large" custom-color="linear-gradient(to right, #8FE6EE, #00D1FF)"
+				@click="submit1()">确定</nut-button>
 		</view>
 	</nut-popup>
-	<nut-popup position="left" :custom-style="{ width: '30%', height: '80%', marginTop: '100rpx' }" v-model:visible="showRight" round closeable>
+	<nut-popup position="left" :custom-style="{ width: '30%', height: '80%', marginTop: '100rpx' }"
+		v-model:visible="showRight" round closeable>
 		<nut-range range v-model="ageRound" :vertical="true" min='18' max='70'></nut-range>
 	</nut-popup>
+	<wd-popup v-model="showPopup" custom-style="border-radius:32rpx;background-color:rgba(24, 24, 24, 0)"
+		:close-on-click-modal="false" closable>
+		<view class="popCon" :style="{width: screenWidth-60+'px'}">
+			<view class="imageC">
+				<image style="height: 200rpx;width: 200rpx;"
+					:src="staticUrl+letter.avatar"
+					mode="aspectFill" />
+			</view>
+			<view :style="{width: screenWidth-60+'px'}"
+				style="height: 600rpx;background-color:#fff;margin-top: -100rpx;border-radius: 30rpx;">
+				<view style="height: 110rpx;"></view>
+				<view style="display: flex;justify-content: center;align-items: center;display: flex;flex-direction: column;">
+					<text>{{letter.nickName}}</text>
+					<view class="ageCon">
+						<view style="margin-top: 1px;">
+							<nut-tag type="primary" round>
+								<nut-icon :name="'/static/images/male.png'" color="white" />
+								{{letter.age}}
+							</nut-tag>
+						</view>
+						<image :src="'/static/mailbox/LV' + letter.level +'.png'" style="height: 14px;width: 30px;margin-left: 5px;margin-top: 2px;"
+							mode="heightFix"></image>
+						<text style="color: #fa7881;" v-if="letter.isAut">已认证</text>
+					</view>
+				</view>
+				<view class="border-style">
+					<view class="content">{{letter.content}}</view>
+				</view>
+				<view style="display: flex;margin-top: 30rpx;justify-content: space-between;padding: 0 20px 0 20px;">
+					<nut-button plain type="primary" @click="back()">没兴趣</nut-button>
+					<nut-button custom-color="#23bcd5" @click="toInbox()">查看详情</nut-button>
+				</view>
+			</view>s
+		</view>
+	</wd-popup>
 </template>
 
 <script lang="ts">
 	import {
+		staticUrl
+	} from "@/common/config";
+	import {
 		getLetter
 	} from "@/common/api/piaoliupingApi";
-	import { reactive, toRefs,ref, computed } from 'vue';
+	import { reactive, toRefs, ref, computed } from 'vue';
 	import login from '../../components/login/login.vue'
 	export default {
 		components: {
@@ -89,8 +134,9 @@
 		},
 		props: {},
 		setup() {
+			const showPopup = ref(false)
 			const showRight = ref(false);
-			const ageRound = ref([18,50]);
+			const ageRound = ref([18, 50]);
 			const filter = ref([])
 			const visible1 = ref(false);
 			const formData2 = reactive({
@@ -125,8 +171,8 @@
 			const onOk = () => {
 				//前往充值
 				uni.navigateTo({
-						url: '/pages/my/vip'
-					})
+					url: '/pages/my/vip'
+				})
 			};
 			const state = reactive({
 				showBasic: false
@@ -141,11 +187,12 @@
 			function showRightPop() {
 				this.showRight = true
 			}
-      const ageRangeDesc = computed(() => {
-        return `${ageRound.value[0]}到${ageRound.value[1]}`;
-      });
+			const ageRangeDesc = computed(() => {
+				return `${ageRound.value[0]}到${ageRound.value[1]}`;
+			});
 			return {
-        ageRangeDesc,
+				showPopup,
+				ageRangeDesc,
 				showRightPop,
 				ageRound,
 				showRight,
@@ -161,6 +208,8 @@
 		},
 		data() {
 			return {
+				staticUrl: staticUrl,
+				letter: [],
 				statusBarHeight: 40,
 				VideoContext: {},
 				tabbarValue: 1,
@@ -170,10 +219,13 @@
 				inbox: "/static/images/inbox.png",
 				outbox: "/static/images/outbox.png",
 				showRound: false,
-				showRound1:false
+				showRound1: false,
+				isLoding: false,
+				screenWidth: 0,
 			}
 		},
 		onLoad() {
+			this.screenWidth = uni.getStorageSync("SystemInfoSync").screenWidth
 			this.statusBarHeight = uni.getStorageSync("SystemInfoSync").statusBarHeight
 			uni.setStorageSync("SystemInfoSync", uni.getSystemInfoSync())
 			if (!uni.getStorageSync('token')) {
@@ -209,16 +261,28 @@
 				console.log(this.formData2)
 			},
 			onSearch() {
+				this.isLoding = true;
 				if (this.formData2.isCity) {
 					this.formData2.city = uni.getStorageSync("User").city
 				}
-				getLetter(this.formData2).then(res => {
-					console.log(res)
-				})
-				//跳转到inbox
-				uni.navigateTo({
-						url: '/pages/mailbox/inbox'
+				//延迟一秒
+				setTimeout(() => {
+					getLetter(this.formData2).then(res => {
+						this.letter = res.data;
+						if(res.data.imagePath){
+							this.letter.content = this.letter.content + '[图片]'
+						}
+						uni.setStorageSync("letter",res.data)
+						this.isLoding = false;
+						this.showPopup = true;
 					})
+				}, 1000);
+			},
+			toInbox() {
+				const url = "/pages/mailbox/inbox";
+				uni.navigateTo({
+					url
+				})
 			},
 			toBox() {
 				const url = "/pages/mailbox/mailbox";
@@ -231,6 +295,9 @@
 				uni.navigateTo({
 					url
 				})
+			},
+			back(){
+				this.showPopup = false;
 			}
 		},
 	}
@@ -239,7 +306,46 @@
 <style lang="scss">
 	:root,
 	page {
+		--nut-tag-height: 15px;
 		--nut-dark-background: #0000ff;
+	}
+
+	.popCon {
+		height: 800rpx;
+		flex-direction: column;
+	}
+
+	.imageC {
+		width: 100%;
+		height: 200rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.ageCon {
+		display: flex;
+	}
+
+	.letterContent {}
+
+	@keyframes borderAnimation2 {
+		to {
+			background-position: 100%;
+		}
+	}
+
+	.border-style {
+		width: 550rpx;
+		height: 250rpx;
+		padding: 20rpx;
+		border: 3px solid transparent;
+		margin-top: 10rpx;
+		margin-left: 40rpx;
+		background:
+			linear-gradient(white, white) padding-box,
+			repeating-linear-gradient(-45deg, #82d2d3 0, #82d2d3 25%, white 0, white 50%) 0 / .6em .6em;
+		animation: borderAnimation2 12s linear infinite;
 	}
 
 	.nav {
@@ -290,7 +396,7 @@
 		height: 70vh;
 		width: 100%;
 		overflow: hidden;
-		margin-top: -400rpx;
+		margin-top: -120rpx;
 		color: #c497f3;
 	}
 

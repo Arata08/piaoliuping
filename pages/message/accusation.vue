@@ -1,10 +1,11 @@
 <template>
 	<view>
 		<nut-config-provider theme="dark">
+			<nut-cell v-if="isL" title="举报信件内容" :desc="letterCon"></nut-cell>
 			<view style="border: 1px solid #00001a;border-radius: 15px;margin: 30px 15px 15px 15px;">
-				<nut-textarea v-model="content" limit-show max-length="255" />
+				<nut-textarea placeholder="请输入举报理由" v-model="content" limit-show max-length="255" />
 			</view>
-			<view style="margin: 15px;display: flex;">
+			<view style="margin: 15px;display: flex;" v-if="!isL">
 				<view style="margin-top: -1px;margin-right: 5px;">
 					<nut-icon name="eye"></nut-icon>
 				</view>
@@ -26,16 +27,31 @@
 			return {
 				id: 0,//被举报者id
 				content: '',
+				//是否举报的为信件
+				isL: false,
+				letterCon: ''
 			}
 		},
 		onLoad(options) {
 			uni.setNavigationBarTitle({
 				title: '举报：' + options.nickName
 			});
+			if(options.isL){
+				this.isL = true;
+				this.letterCon = uni.getStorageSync('letter').content;
+			}
 			this.id = options.userId;
 		},
 		methods: {
 			submit() {
+				if (this.content === '') {
+					uni.showToast({
+						title: '理由不能为空',
+						icon: 'error',
+						duration: 2000,
+					})
+					return;
+				}
 				//筛选出是userType: "self"的content的内容加入list中
 				let chatList = uni.getStorageSync('chatList'+this.id).filter(item => item.userType === 'friend');
 				//将list筛选只保留content字段和type字段

@@ -63,6 +63,7 @@
 					if (code) {
 						handleRegister(code);
 					} else {
+						console.log(e.detail);
 						notify.warning("登陆失败");
 					}
 				}

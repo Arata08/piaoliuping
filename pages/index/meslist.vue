@@ -12,7 +12,7 @@
 		<view class="list-item" v-for="(item,index) in msgList" :key="index" @click="connect(item,index)">
 			<view class="avatar" @click.stop="showModal(item)">
 				<view class="round" v-if="item.read"></view>
-				<image :src="item.avatar" mode="aspectFill"></image>
+				<image :src="staticUrl+item.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="content">
 				<view class="title">
@@ -28,7 +28,7 @@
 <script>
 	import UserInfoModal from '@/components/user-detail/user-detail'
 	import webSocketManager from '@/common/websocketManager'
-	import config from "@/common/config";
+	import {staticUrl} from "@/common/config";
 	import {
 		getOfflineMessageList,
 		getUserInfo,
@@ -44,6 +44,7 @@
 		},
 		data() {
 			return {
+				staticUrl: staticUrl,
 				msgList: [],
 				selectedUser: {},
 				isModalVisible: false,
@@ -165,7 +166,7 @@
             this.msgList.unshift({
               id: 1,
               nickName: '漂流瓶',
-              avatar: 'https://free4.yunpng.top/2024/12/02/674d2d2380346.png',
+              avatar: '/image/2025/04/11/RwMXORLhaZ.jpg',
               lastMsg: '欢迎使用小程序！',
               saveTime: 'forever',
               read: 1,
@@ -267,7 +268,7 @@
           this.msgList.unshift({
             id: id,
             nickName: user.nickName,
-            avatar: config.staticUrl + user.avatar,
+            avatar: user.avatar,
             lastMsg: lastMsg,
             saveTime: saveTime,
             read: 1

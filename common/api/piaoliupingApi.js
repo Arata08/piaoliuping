@@ -400,3 +400,134 @@ export function getLetter(data) {
 		throw error;
 	}
 }
+//评论
+export function addComment(data) {
+	try {
+		return request({
+			url: 'letterComment/add',
+			method: 'POST',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//评论总数
+export function getCommentCount(LetterId) {
+	try {
+		return request({
+			url: 'letterComment/getCount/' + LetterId,
+			method: 'GET',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//评论列表
+export function getCommentList(LetterId) {
+	try {
+		return request({
+			url: 'letterComment/getCommentByLetterId/' + LetterId,
+			method: 'GET',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//根据id获取信件
+export function getLetterById(id) {
+	try {
+		return request({
+			url: 'letter/getLetterById/' + id,
+			method: 'GET',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//收件箱
+export function getInLetter() {
+	try {
+		return request({
+			url: 'letter/getInLetter',
+			method: 'GET',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+//从收件箱删除信件
+export function deleteInLetter(data) {
+	try {
+		return request({
+			url: 'letter/deleteInLetter/' + data,
+			method: 'DELETE',
+			data,
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//根据id修改评论为已删除
+export function updateCommentState(id) {
+	try {
+		return request({
+			url: 'letterComment/updateCommentState/' + id,
+			method: 'POST',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+//根据id删除评论
+export function deleteComment(letterId) {
+	try {
+		return request({
+			url: 'letterComment/deleteComment/' + letterId,
+			method: 'DELETE',
+			custom: {
+				showError: false,
+				showLoading: true,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}

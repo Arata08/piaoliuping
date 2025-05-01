@@ -6,7 +6,7 @@
 	<div class="meteor"></div>
 	<view id="msglist">
 		<view class="message" :class="[item.userType]" v-for="(item,index) in list" :key="index" @click="msgClick(item)">
-			<image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="widthFix"></image>
+			<image :src="this[item.userType]" v-if="item.userType === 'friend'" class="avatar" mode="aspectFill"></image>
 			<view class="content" v-if="item.type === 'image'">
 				<image :src="item.content" mode="widthFix" @click="previewImage(item.content,index)"></image>
 			</view>
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+	import {staticUrl} from "@/common/config.js"; // 全局配置文件
 	import {
 		forEach
 	} from "@/common/utils/luch-request/luch-request/utils";
@@ -113,28 +114,6 @@
 				keyboardHeight: 0,
 				showEmoji: false,
 				showMorePanel: false,
-				navList: [{
-						id: 1,
-						text: '首页',
-						icon: 'https://img11.360buyimg.com/imagetools/jfs/t1/117646/2/11112/1297/5ef83e95E81d77f05/daf8e3b1c81e3c98.png'
-					},
-					{
-						id: 2,
-						text: '分类',
-						icon: 'https://img12.360buyimg.com/imagetools/jfs/t1/119490/8/9568/1798/5ef83e95E968c69a6/dd029326f7d5042e.png'
-					},
-					{
-						id: 3,
-						text: '购物车',
-						num: 2,
-						icon: 'https://img14.360buyimg.com/imagetools/jfs/t1/130725/4/3157/1704/5ef83e95Eb976644f/b36c6cfc1cc1a99d.png'
-					},
-					{
-						id: 4,
-						text: '我的',
-						icon: 'https://img12.360buyimg.com/imagetools/jfs/t1/147573/29/1603/1721/5ef83e94E1393a678/5ddf1695ec989373.png'
-					}
-				],
 				emojisArr: ['😊', '😁', '😀', '😃', '😣', '😞', '😩', '😫', '😲', '😟', '😦', '😜', '😳', '😋', '😥', '😰',
 					'🤠', '😎', '😇', '😉', '😭', '😈', '😕', '😏', '😘', '😤', '😡', '😅', '😬', '😺', '😻', '😽',
 					'😼', '🙈', '🙉', '🙊', '🔥', '👍', '👎', '👌', '✌️', '🙏', '💪', '👻', ''
@@ -157,14 +136,14 @@
 							imgUrl: '../../static/meslist/image(4).png',
 							text1: '闪图'
 						},
-						{
+/* 						{
 							imgUrl: '../../static/meslist/image(5).png',
 							text1: '礼物'
 						},
 						{
 							imgUrl: '../../static/meslist/image(6).png',
 							text1: '闪视频'
-						}
+						} */
 					]
 				]
 			};
@@ -175,9 +154,9 @@
 			})
 			this.nickName = options.nickName
 			this.friendId = options.friendId
-			this.friend = options.avatar
+			this.friend = staticUrl+options.avatar//头像
 			this.User = uni.getStorageSync("User")
-			this.self = this.User.avatar
+			this.self = staticUrl+this.User.avatar
 			this.list = uni.getStorageSync('chatList' + this.friendId) || [];
 			//判断消息中是否有对方消息
 			if (this.list.length > 0) {
@@ -187,12 +166,12 @@
 						break
 					}
 				}
-				if (!this.havaBack) {
-					uni.showModal({
-						title: '提示',
-						content: '对方未回复前，每次发消息需要4个微币',
-					});
-				}
+			}
+			if (!this.havaBack) {
+				uni.showModal({
+					title: '提示',
+					content: '对方未回复前，每次发消息需要4个微币',
+				});
 			}
 			checkBlack(this.friendId).then(res => {
 				this.checkBlack = res
@@ -326,10 +305,10 @@
 				this.isFocus = false;
 			},
 			changeEmoji() {
-				this.togglePanel(!this.showEmoji, false, 270);
+				this.togglePanel(!this.showEmoji, false, 240);
 			},
 			MorePanel() {
-				this.togglePanel(false, !this.showMorePanel, 200);
+				this.togglePanel(false, !this.showMorePanel, 225);
 			},
 			togglePanel(showEmoji, showMorePanel, paddingBottom) {
 				if (showEmoji || showMorePanel) {
@@ -391,7 +370,7 @@
 				if (!this.havaBack && this.User.balance > 4) {
 					this.deductingBalance("对方未回复，发送消息");
 				}
-				let msgList = uni.getStorageSync('msgList')
+				let msgList = uni.getStorageSync('msgList') || []
 				if (this.list.length == 0) {
 					msgList.push({
 						id: this.friendId,
@@ -399,7 +378,7 @@
 						nickName: this.nickName,
 						lastMsg: this.content,
 						saveTime: this.getSaveTime(new Date()),
-						read: 1
+						read: 0
 					})
 				} else {
 					for (let i = 0; i < msgList.length; i++) {
@@ -407,6 +386,15 @@
 							msgList[i].lastMsg = this.content
 							msgList[i].saveTime = this.getSaveTime(new Date())
 							msgList[i].read = 1
+						}else{
+							msgList.push({
+								id: this.friendId,
+								avatar: this.friend,
+								nickName: this.nickName,
+								lastMsg: this.content,
+								saveTime: this.getSaveTime(new Date()),
+								read: 0
+							})
 						}
 					}
 				}
@@ -428,15 +416,6 @@
 				uni.setStorageSync('chatList' + this.friendId, this.list)
 				this.content = ''
 				this.scrollToBottom()
-				// 模拟对方回复
-				setTimeout(() => {
-					this.list.push({
-						content: '好的',
-						userType: 'friend',
-						avatar: this.friend
-					})
-					this.scrollToBottom()
-				}, 1500)
 			},
 			getSaveTime(data) {
 				let date = new Date(data);
@@ -482,15 +461,6 @@
 								console.error('上传失败:', error);
 							});
 						this.scrollToBottom()
-						// 模拟对方回复
-						setTimeout(() => {
-							this.list.push({
-								content: '风景好漂亮啊~',
-								userType: 'friend',
-								avatar: this.friend
-							})
-							this.scrollToBottom()
-						}, 1500)
 					}
 				})
 			},
@@ -945,7 +915,7 @@
 	}
 
 	.emoji-scroll {
-		height: 540rpx;
+		height: 240px;
 		background-color: #45333b;
 		position: fixed;
 		bottom: 0;
@@ -965,13 +935,15 @@
 	}
 
 	.panel-scroll {
-		height: 385rpx;
+		box-shadow: 0px 0px 0px 20px #45333b;
+		height: 220px;
 		bottom: 0;
 		position: fixed;
 		transition: all 0.5s ease;
 	}
 
 	.container {
+		box-shadow: 0px 0px 0px 20px #45333b;
 		background-color: #45333b;
 		padding: 20rpx;
 	}

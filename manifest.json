@@ -42,25 +42,26 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx6151d7439f571fd2",
+        "appid" : "wx0b926f38b5b31eee",
         "setting" : {
             "urlCheck" : false,
-            "minified" : false
+            "minified" : true,
+            "postcss" : false
         },
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "初始化时获取用户的位置信息用于计算用户距离"
             }
         },
-				"requiredPrivateInfos": ["getLocation"],
+        "requiredPrivateInfos" : [ "getLocation" ],
         "lazyCodeLoading" : "requiredComponents"
-        // "plugins" : {
-        //     "tencentvideo" : {
-        //         "version" : "2.4.11",
-        //         "provider" : "wxa75efa648b60994b"
-        //     }
-        // },
     },
+    // "plugins" : {
+    //     "tencentvideo" : {
+    //         "version" : "2.4.11",
+    //         "provider" : "wxa75efa648b60994b"
+    //     }
+    // },
     "mp-alipay" : {
         "usingComponents" : true
     },

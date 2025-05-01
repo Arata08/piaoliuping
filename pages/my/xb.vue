@@ -6,7 +6,7 @@
 			<text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{balance}}</text>
 		</view>
 		<view style="margin-left: 50%;margin-top: 3px;">
-			<nut-button custom-color="linear-gradient(to right, #aaffff, #15fcff)" type="primary">充值</nut-button>
+			<nut-button custom-color="linear-gradient(to right, #aaffff, #15fcff)" type="primary" @click="gotoSign()">获得星币</nut-button>
 		</view>
 	</view>
 	<view class="list-item" v-for="(item,index) in maobi" :key="index">
@@ -37,6 +37,13 @@
 				}, ]
 			}
 		},
+		methods: {
+			gotoSign() {
+				uni.navigateTo({
+					url: '/pages/my/sign'
+				})
+			}
+		}
 	}
 </script>
 
