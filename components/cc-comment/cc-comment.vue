@@ -143,6 +143,10 @@ const props = defineProps({
     type: String,
     default: "all",
   },
+	letterId:{
+		type: Number,
+		default: 0
+	}
 });
 const emit = defineEmits([
   "update:tableTotal",
@@ -283,8 +287,8 @@ function sendClick({ item1, index1, item2, index2 } = replyTemp) {
     mask: true,
   });
 	params.create_time = null;
-	params.letter_id = dataList.value[0].letter_id;
-	console.log(dataList.value[0])
+	console.log(dataList.value)
+	params.letter_id = props.letterId;
 	addComment(params).then(res =>{
 		params.id = res.data
 		uni.showToast({

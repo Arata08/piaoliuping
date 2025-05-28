@@ -41,7 +41,7 @@
 		</view>
 	</view>
 	<CComment ref="ccRef" v-model:myInfo="myInfo" v-model:userInfo="userInfo" v-model:tableData="tableData"
-		v-model:tableTotal="tableTotal" :deleteMode="deleteMode" @likeFun="likeFun" @replyFun="replyFun"
+		v-model:tableTotal="tableTotal" :deleteMode="deleteMode" :letterId="letter.id" @likeFun="likeFun" @replyFun="replyFun"
 		@deleteFun="deleteFun"></CComment>
 	<view class="btn" @tap="openComment">发表新评论</view>
 	<view style="height: 60rpx"></view>
@@ -172,10 +172,6 @@
 const processLetterData = (letterData, user) => {
   letter.value = { ...letterData };
 	console.log(letter.value)
-  letter.value.level = user.level;
-  letter.value.age = user.age;
-  letter.value.avatar = user.avatar;
-  letter.value.nickName = user.nickName;
 
   if (letter.value.imagePath) {
     letter.value.imagePath = staticUrl + letter.value.imagePath;

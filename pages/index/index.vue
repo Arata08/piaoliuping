@@ -134,6 +134,7 @@
 		},
 		props: {},
 		setup() {
+			const showRound1 = ref(false)
 			const showPopup = ref(false)
 			const showRight = ref(false);
 			const ageRound = ref([18, 50]);
@@ -179,10 +180,12 @@
 			});
 			function submit1() {
 				formData2.subject = filter.value
+				showRound1.value = false
 			}
 			function submit2() {
 				filter.value = []
 				formData2.subject = []
+				showRound1.value = false
 			}
 			function showRightPop() {
 				this.showRight = true
@@ -191,6 +194,7 @@
 				return `${ageRound.value[0]}到${ageRound.value[1]}`;
 			});
 			return {
+				showRound1,
 				showPopup,
 				ageRangeDesc,
 				showRightPop,
@@ -219,7 +223,6 @@
 				inbox: "/static/images/inbox.png",
 				outbox: "/static/images/outbox.png",
 				showRound: false,
-				showRound1: false,
 				isLoding: false,
 				screenWidth: 0,
 			}
@@ -275,6 +278,9 @@
 						uni.setStorageSync("letter",res.data)
 						this.isLoding = false;
 						this.showPopup = true;
+					})
+					.catch(err => {
+						this.isLoding = false;
 					})
 				}, 1000);
 			},
